@@ -10,6 +10,10 @@ class AppTextStyles {
     fontSize: 36,
   );
 
+  static TextStyle montserratH1Bold = montserratH1Regular.copyWith(
+    fontWeight: FontWeight.w800,
+  );
+
   static TextStyle montserratH2Regular = const TextStyle(
     fontFamily: montserrat,
     color: AppColors.darkBlue,
