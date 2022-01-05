@@ -1,6 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
-import 'package:appflug/shared_utils/size_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:lottie/lottie.dart';
@@ -79,21 +78,24 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
           child: Transform.scale(
             scale: _scale,
             child: Container(
-              height: 55.scaled,
+              height: 55,
               width: widget.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15.scaled),
+                borderRadius: BorderRadius.circular(15),
                 color: widget.isEnabled
                     ? widget.backgroundColor
                     : widget.backgroundColor.withOpacity(0.5),
                 border: widget.borderColor != null
-                    ? Border.all(color: widget.borderColor!, width: 3.scaled)
+                    ? Border.all(
+                        color: widget.borderColor!,
+                        width: 3,
+                      )
                     : null,
               ),
               child: Center(
                 child: widget.isLoading
                     ? Padding(
-                        padding: EdgeInsets.only(bottom: 4.scaled),
+                        padding: EdgeInsets.only(bottom: 4),
                         child: Lottie.asset(
                           'assets/lottie/loading_dots_secondary.json',
                           animate: true,
@@ -104,13 +106,13 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(
-                            width: 20.scaled,
+                            width: 20,
                           ),
                           if (widget.leadingIconPath != null)
                             SvgPicture.asset(
                               widget.leadingIconPath!,
-                              height: widget.iconSize.scaled,
-                              width: widget.iconSize.scaled,
+                              height: widget.iconSize,
+                              width: widget.iconSize,
                               color: isTapped
                                   ? (widget.iconColor ?? AppColors.blue)
                                       .withOpacity(0.5)
@@ -119,8 +121,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
                             ),
                           Expanded(
                             child: Padding(
-                              padding:
-                                  EdgeInsets.symmetric(horizontal: 10.scaled),
+                              padding: EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 widget.title,
                                 maxLines: 1,
@@ -139,10 +140,10 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
                           ),
                           if (widget.leadingIconPath != null)
                             SizedBox(
-                              width: widget.iconSize.scaled,
+                              width: widget.iconSize,
                             ),
                           SizedBox(
-                            width: 20.scaled,
+                            width: 20,
                           ),
                         ],
                       ),

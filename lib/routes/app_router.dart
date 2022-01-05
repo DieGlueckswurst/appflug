@@ -1,13 +1,13 @@
 import 'package:appflug/routes/views.dart';
-import 'package:appflug/ui/home/home_view.dart';
+import 'package:appflug/ui/start/start_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case Views.home:
+      case Views.start:
         return MaterialPageRoute(
-          builder: (context) => const HomeView(),
+          builder: (context) => const StartView(),
         );
 
       default:

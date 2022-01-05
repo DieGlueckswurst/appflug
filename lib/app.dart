@@ -1,6 +1,6 @@
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/shared_utils/colors_service.dart';
-import 'package:appflug/ui/home/home_view.dart';
+import 'package:appflug/ui/start/start_view.dart';
 import 'package:flutter/material.dart';
 
 import 'constants/app_colors.dart';
@@ -18,7 +18,7 @@ class App extends StatelessWidget {
           AppColors.blue,
         ),
       ),
-      home: const HomeView(),
+      home: const StartView(),
     );
   }
 }

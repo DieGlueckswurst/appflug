@@ -46,6 +46,6 @@ bool hasBottmNotch(BuildContext context) {
   return MediaQuery.of(context).viewPadding.bottom > 0;
 }
 
-extension ScalingExtension on num {
-  double get scaled => scaleWidth(toDouble());
-}
+// extension ScalingExtension on num {
+//   double get scaled => scaleWidth(toDouble());
+// }
