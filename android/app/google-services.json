@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "555930958224",
+    "project_id": "appflug",
+    "storage_bucket": "appflug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:555930958224:android:a4a9559bf2603c5ec15b15",
+        "android_client_info": {
+          "package_name": "com.example.appflug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "555930958224-n3nh7p6ttf3po7kirujl1m216gk78u33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4eOzlIeOJVXD9n9MYXrZ0PhMZ6-4DfvQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "555930958224-n3nh7p6ttf3po7kirujl1m216gk78u33.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "555930958224-r609vnb78lo9upafvnd3a4tpnrkn5af2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.appflug"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
