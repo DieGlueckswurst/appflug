@@ -1,5 +1,5 @@
 import 'package:appflug/routes/views.dart';
-import 'package:appflug/ui/start/start_view.dart';
+import 'package:appflug/ui/views/start/start_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {

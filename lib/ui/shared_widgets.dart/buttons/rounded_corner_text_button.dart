@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,7 +47,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 120),
       lowerBound: 0.0,
       upperBound: 0.05,
     )..addListener(() {
@@ -81,7 +82,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
               height: 55,
               width: widget.width,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: borderRadius,
                 color: widget.isEnabled
                     ? widget.backgroundColor
                     : widget.backgroundColor.withOpacity(0.5),
@@ -130,8 +131,8 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
                                 textAlign: TextAlign.center,
                                 style:
                                     AppTextStyles.montserratH6SemiBold.copyWith(
-                                  color: isTapped
-                                      ? widget.textColor.withOpacity(0.5)
+                                  color: isTapped || !widget.isEnabled
+                                      ? widget.textColor.withOpacity(0.2)
                                       : widget.textColor,
                                   height: 1,
                                 ),

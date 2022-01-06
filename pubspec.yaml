@@ -23,6 +23,7 @@ dependencies:
   firebase_storage: ^10.2.4
   cloud_firestore: ^3.1.5
   shared_preferences: ^2.0.11
+  url_launcher: ^6.0.9
 
 
 dev_dependencies:
@@ -43,6 +44,7 @@ flutter:
   assets:
     - assets/
     - assets/lottie/
+    - assets/icons/
 
   fonts:
     - family: Montserrat
