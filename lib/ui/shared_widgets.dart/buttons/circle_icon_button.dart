@@ -12,6 +12,7 @@ class CircleIconButton extends StatelessWidget {
   final Color backgroundColor;
   final Color svgColor;
   final bool isMulticolor;
+  final alignment;
 
   const CircleIconButton({
     required this.onTapped,
@@ -22,6 +23,7 @@ class CircleIconButton extends StatelessWidget {
     this.backgroundColor = AppColors.blue,
     this.svgColor = AppColors.yellow,
     this.isMulticolor = false,
+    this.alignment = Alignment.center,
   });
   @override
   Widget build(BuildContext context) {
@@ -39,7 +41,8 @@ class CircleIconButton extends StatelessWidget {
               shape: BoxShape.circle,
               color: backgroundColor,
             ),
-            child: Center(
+            child: Align(
+              alignment: alignment,
               child: SvgPicture.asset(
                 svgPath,
                 height: svgSize,

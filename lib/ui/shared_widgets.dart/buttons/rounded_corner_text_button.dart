@@ -132,7 +132,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
                                 style:
                                     AppTextStyles.montserratH6SemiBold.copyWith(
                                   color: isTapped || !widget.isEnabled
-                                      ? widget.textColor.withOpacity(0.2)
+                                      ? widget.textColor.withOpacity(0.5)
                                       : widget.textColor,
                                   height: 1,
                                 ),

@@ -1,6 +1,7 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
+import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/views/start/widgets/terms_of_service_view.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -20,6 +21,7 @@ class _HStartViewState extends State<StartView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: ConstrainedBox(
           constraints: BoxConstraints(
@@ -73,7 +75,12 @@ class _HStartViewState extends State<StartView> {
                   ),
                   RoundedCornersTextButton(
                     title: 'Ich studiere',
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Views.email,
+                      );
+                    },
                     isEnabled: _termsOfServiceIsChecked,
                   ),
                   SizedBox(

@@ -24,6 +24,10 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
 
+  static TextStyle montserratH2Bold = montserratH2Regular.copyWith(
+    fontWeight: FontWeight.w700,
+  );
+
   static TextStyle montserratH4Regular = const TextStyle(
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
