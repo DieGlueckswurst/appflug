@@ -1,0 +1,4 @@
+enum StatusOption {
+  stud,
+  empl,
+}

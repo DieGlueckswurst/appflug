@@ -1,6 +1,8 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
+import 'package:appflug/data/backend/authentication.dart';
+import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_border.dart';
@@ -20,6 +22,7 @@ class SignUpView extends StatefulWidget {
 
 class _SignUpViewState extends State<SignUpView> {
   String _password = '';
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,11 +69,6 @@ class _SignUpViewState extends State<SignUpView> {
                         height: 30,
                       ),
                       TextFieldWithRoundedBorder(
-                        onChanged: (password) {
-                          setState(() {
-                            _password = password;
-                          });
-                        },
                         initValue: widget.email,
                         onTap: () {
                           Navigator.pop(context);
@@ -132,7 +130,27 @@ class _SignUpViewState extends State<SignUpView> {
                       RoundedCornersTextButton(
                         isEnabled: _paswordIsValid,
                         title: 'Weiter',
-                        onTap: () {},
+                        isLoading: _isLoading,
+                        onTap: () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          bool wasSuccessfull =
+                              await AuthenticationService.signUp(
+                            email: widget.email,
+                            password: _password,
+                          );
+                          if (wasSuccessfull) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Views.home,
+                              (route) => false,
+                            );
+                          }
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        },
                       ),
                     ],
                   ),

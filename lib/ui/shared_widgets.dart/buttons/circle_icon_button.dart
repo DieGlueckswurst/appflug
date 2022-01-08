@@ -12,7 +12,7 @@ class CircleIconButton extends StatelessWidget {
   final Color backgroundColor;
   final Color svgColor;
   final bool isMulticolor;
-  final alignment;
+  final Alignment alignment;
 
   const CircleIconButton({
     required this.onTapped,

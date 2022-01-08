@@ -1,6 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/other.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/routes/views.dart';
@@ -9,15 +8,18 @@ import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_border.dart';
 import 'package:flutter/material.dart';
-import 'package:get/utils.dart';
 
-class EmailView extends StatefulWidget {
+class LoginView extends StatefulWidget {
+  final String email;
+
+  const LoginView({required this.email});
+
   @override
-  State<EmailView> createState() => _EmailViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _EmailViewState extends State<EmailView> {
-  String _email = '';
+class _LoginViewState extends State<LoginView> {
+  String _password = '';
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class _EmailViewState extends State<EmailView> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Email',
+                        'Login',
                         style: AppTextStyles.montserratH2Bold.copyWith(
                           color: AppColors.blue,
                         ),
@@ -64,31 +66,27 @@ class _EmailViewState extends State<EmailView> {
                       SizedBox(
                         height: 30,
                       ),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: TextFieldWithRoundedBorder(
-                              onChanged: (email) {
-                                setState(() {
-                                  _email = email.trim() + studEmailEnding;
-                                });
-                              },
-                              hintText: 'vorname.nachname',
-                              focusOnInit: true,
-                              textInputType: TextInputType.emailAddress,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            studEmailEnding,
-                            style: AppTextStyles.montserratH7Regular,
-                          )
-                        ],
+                      TextFieldWithRoundedBorder(
+                        initValue: widget.email,
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 10,
+                      ),
+                      TextFieldWithRoundedBorder(
+                        onChanged: (password) {
+                          setState(() {
+                            _password = password;
+                          });
+                        },
+                        hintText: 'Passwort eingeben',
+                        focusOnInit: true,
+                        textInputType: TextInputType.visiblePassword,
+                      ),
+                      SizedBox(
+                        height: 30,
                       ),
                       RoundedCornersTextButton(
                         title: 'Weiter',
@@ -97,29 +95,40 @@ class _EmailViewState extends State<EmailView> {
                           setState(() {
                             _isLoading = true;
                           });
-                          GetUtils.isEmail(
-                            _email,
-                          )
-                              ? Navigator.pushNamed(
-                                  context,
-                                  await AuthenticationService
-                                          .checkIfEmailIsAlreadyInUse(
-                                    email: _email,
-                                  )
-                                      ? Views.login
-                                      : Views.signUp,
-                                  arguments: _email,
-                                )
-                              : AlertService.showSnackBar(
-                                  title: 'Ungültige Email-Adresse',
-                                  description:
-                                      'Bitte gib eine gültige Email-Adresse ein.',
-                                  isSuccess: false,
-                                );
-
+                          bool wasSuccessfull =
+                              await AuthenticationService.signIn(
+                            email: widget.email,
+                            password: _password,
+                          );
+                          if (wasSuccessfull) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Views.home,
+                              (route) => false,
+                            );
+                          }
                           setState(() {
                             _isLoading = false;
                           });
+                        },
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      RoundedCornersTextButton(
+                        title: 'Passwort vergessen',
+                        backgroundColor: AppColors.white,
+                        textColor: AppColors.blue,
+                        onTap: () async {
+                          await AuthenticationService.sendPasswordResetEmail(
+                            email: widget.email,
+                          );
+                          AlertService.showSnackBar(
+                            title: 'Passwort zurückgesetzt',
+                            description:
+                                'Wir haben dir eine Mail geschickt, mit der du ein neues Passwort vergeben kannst.',
+                            isSuccess: true,
+                          );
                         },
                       ),
                     ],

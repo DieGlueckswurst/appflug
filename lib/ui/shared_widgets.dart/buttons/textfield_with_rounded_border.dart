@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class TextFieldWithRoundedBorder extends StatefulWidget {
   final String? hintText;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final bool focusOnInit;
   final TextInputType textInputType;
   final bool readOnly;
@@ -15,7 +15,7 @@ class TextFieldWithRoundedBorder extends StatefulWidget {
 
   const TextFieldWithRoundedBorder({
     Key? key,
-    required this.onChanged,
+    this.onChanged,
     this.hintText,
     this.focusOnInit = false,
     this.textInputType = TextInputType.text,
