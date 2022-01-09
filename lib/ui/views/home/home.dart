@@ -12,24 +12,22 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: sidePadding,
-          ),
-          child: RoundedCornersTextButton(
-            title: 'Logout',
-            onTap: () async {
-              bool wasSuccessfull = await AuthenticationService.signOut();
-              if (wasSuccessfull) {
-                Navigator.pushReplacementNamed(
-                  context,
-                  Views.start,
-                );
-              }
-            },
-          ),
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: sidePadding,
+        ),
+        child: RoundedCornersTextButton(
+          title: 'Logout',
+          onTap: () async {
+            bool wasSuccessfull = await AuthenticationService.signOut();
+            if (wasSuccessfull) {
+              Navigator.pushReplacementNamed(
+                context,
+                Views.start,
+              );
+            }
+          },
         ),
       ),
     );

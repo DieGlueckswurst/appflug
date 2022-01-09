@@ -1,10 +1,12 @@
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
+import 'package:appflug/data/provider/bottom_nav_bar_provider.dart';
 import 'package:appflug/routes/app_router.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/colors_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import 'constants/app_colors.dart';
 
@@ -13,20 +15,27 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'AppFlug',
-      navigatorKey: Get.key,
-      theme: ThemeData(
-        fontFamily: AppTextStyles.montserrat,
-        primarySwatch: ColorService.createMaterialColor(
-          AppColors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => BottomNavBarProvider(),
         ),
-        backgroundColor: AppColors.white,
-        scaffoldBackgroundColor: AppColors.white,
+      ],
+      child: MaterialApp(
+        title: 'AppFlug',
+        navigatorKey: Get.key,
+        theme: ThemeData(
+          fontFamily: AppTextStyles.montserrat,
+          primarySwatch: ColorService.createMaterialColor(
+            AppColors.blue,
+          ),
+          backgroundColor: AppColors.white,
+          scaffoldBackgroundColor: AppColors.white,
+        ),
+        initialRoute:
+            AuthenticationService.isLoggedIn() ? Views.home : Views.start,
+        onGenerateRoute: AppRouter.generateRoute,
       ),
-      initialRoute:
-          AuthenticationService.isLoggedIn() ? Views.home : Views.start,
-      onGenerateRoute: AppRouter.generateRoute,
     );
   }
 }
