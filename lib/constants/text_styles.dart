@@ -16,7 +16,7 @@ class AppTextStyles {
 
   static TextStyle montserratH2Regular = const TextStyle(
     fontFamily: montserrat,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
     fontSize: 27,
   );
 
@@ -28,11 +28,21 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
   );
 
+  static TextStyle montserratH3Regular = const TextStyle(
+    fontFamily: montserrat,
+    color: AppColors.black,
+    fontSize: 19,
+  );
+
+  static TextStyle montserratH3Bold = montserratH3Regular.copyWith(
+    fontWeight: FontWeight.w700,
+  );
+
   static TextStyle montserratH4Regular = const TextStyle(
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
     fontSize: 17,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
   );
 
   static TextStyle montserratH4SemiBold = montserratH4Regular.copyWith(
@@ -43,28 +53,28 @@ class AppTextStyles {
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
     fontSize: 15,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
   );
 
   static TextStyle montserratH5Medium = const TextStyle(
     fontWeight: FontWeight.w500,
     fontFamily: montserrat,
     fontSize: 15,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
   );
 
   static TextStyle montserratH5SemiBold = const TextStyle(
     fontWeight: FontWeight.w600,
     fontFamily: montserrat,
     fontSize: 15,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
   );
 
   static TextStyle montserratH6Regular = const TextStyle(
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
     fontSize: 13,
-    color: AppColors.darkBlue,
+    color: AppColors.black,
   );
 
   static TextStyle montserratH6SemiBold = montserratH6Regular.copyWith(
@@ -72,7 +82,7 @@ class AppTextStyles {
   );
 
   static TextStyle montserratH7Regular = const TextStyle(
-    color: AppColors.darkBlue,
+    color: AppColors.black,
     fontWeight: FontWeight.w400,
     fontFamily: montserrat,
     fontSize: 11,

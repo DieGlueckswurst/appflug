@@ -16,19 +16,15 @@ class _NavWrapperState extends State<NavWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-          future: null,
-          builder: (context, snapshot) {
-            return IndexedStack(
-              children: [
-                HomeView(),
-                UniversityView(),
-                FaqView(),
-                ProfileView(),
-              ],
-              index: _getSelectedViewIndex(context),
-            );
-          }),
+      body: IndexedStack(
+        children: [
+          HomeView(),
+          UniversityView(),
+          FaqView(),
+          ProfileView(),
+        ],
+        index: _getSelectedViewIndex(context),
+      ),
       bottomNavigationBar: BottomNavBar(),
     );
   }

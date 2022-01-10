@@ -1,7 +1,7 @@
 enum SubmissionStatusOption {
   incompleteProfile,
   incompleteDocuments,
-  readyForSubmission,
+  readyForApplication,
   documentsSubmitted,
   waitingForUniversity,
   acceptedToUniversity,
