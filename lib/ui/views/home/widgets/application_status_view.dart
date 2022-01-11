@@ -4,6 +4,7 @@ import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/user.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:flutter/material.dart';
 
@@ -63,6 +64,13 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
         ApplicationStatusIndicator(
           applicationStatusOption: student.applicationStatus,
         ),
+        SizedBox(
+          height: 30,
+        ),
+        CustomListTile(
+            title:
+                'Matrikelnummer angeben asdf das ist ein sehr langer text jabidabibu',
+            onTap: () {}),
       ],
     );
   }
