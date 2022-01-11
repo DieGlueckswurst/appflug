@@ -3,6 +3,7 @@ import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/enums/status_option.dart';
+import 'package:appflug/ui/views/home/utils/application_status_service.dart';
 
 extension UserBackendService on BackendService {
   Future<void> createUserInDatabase({
@@ -32,7 +33,10 @@ extension UserBackendService on BackendService {
     return Student(
       email: docData?[keys.email],
       matriculationNumber: docData?[keys.matriculationNumber],
-      applicationStatus: docData?[keys.applicationStatus],
+      applicationStatus:
+          ApplicationStatusService.getApplicationStatusOptionFromString(
+        docData?[keys.applicationStatus],
+      ),
       course: docData?[keys.course],
       birthplace: docData?[keys.birthplace],
     );

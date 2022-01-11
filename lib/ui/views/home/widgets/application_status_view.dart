@@ -4,7 +4,10 @@ import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/user.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:flutter/material.dart';
+
+import 'application_progress_indicator.dart';
 
 class ApplicationStatusView extends StatefulWidget {
   @override
@@ -41,9 +44,26 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
     required BuildContext context,
     required Student student,
   }) {
-    return Text(
-      student.applicationStatus ?? 'Penis',
-      style: AppTextStyles.montserratH1Bold,
+    return Column(
+      children: [
+        SizedBox(
+          height: 30,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child: ApplicationProgressIndicator(
+            currentApplicationStatus: student.applicationStatus,
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        ApplicationStatusIndicator(
+          applicationStatusOption: student.applicationStatus,
+        ),
+      ],
     );
   }
 }

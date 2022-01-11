@@ -1,14 +1,16 @@
+import 'package:appflug/enums/application_status_option.dart';
+
 class Student {
   String? email;
-  String? matriculationNumber;
+  int? matriculationNumber;
   String? course;
   String? birthplace;
-  String? applicationStatus;
+  ApplicationStatusOption applicationStatus;
 
   Student({
+    required this.applicationStatus,
     this.email,
     this.matriculationNumber,
-    this.applicationStatus,
     this.course,
     this.birthplace,
   });
