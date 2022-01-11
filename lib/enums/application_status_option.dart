@@ -1,4 +1,4 @@
-enum SubmissionStatusOption {
+enum ApplicationStatusOption {
   incompleteProfile,
   incompleteDocuments,
   readyForApplication,

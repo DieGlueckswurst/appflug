@@ -9,6 +9,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthenticationService {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
+  User? get currentUser => FirebaseAuth.instance.currentUser;
+
   static bool isLoggedIn() {
     return _firebaseAuth.currentUser != null;
   }
@@ -47,6 +49,7 @@ class AuthenticationService {
       await BackendService().createUserInDatabase(
         uid: _firebaseAuth.currentUser!.uid,
         statusOption: StatusOption.stud,
+        email: email,
       );
 
       return true;

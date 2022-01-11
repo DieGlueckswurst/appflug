@@ -9,6 +9,10 @@ class BackendKeys {
   String get password => 'password';
   String get uid => 'uid';
   String get status => 'status';
+  String get applicationStatus => 'application_status';
+  String get birthplace => 'birthplace';
+  String get course => 'course';
+  String get matriculationNumber => 'matriculationNumber';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {
