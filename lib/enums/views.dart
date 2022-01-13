@@ -1,6 +1,6 @@
-enum View {
+enum NavBarView {
   home,
   university,
   faq,
-  profile,
+  settings,
 }

@@ -18,7 +18,6 @@ class _HomeViewState extends State<HomeView> {
           horizontal: sidePadding,
         ),
         child: ListView(
-          shrinkWrap: true,
           children: [
             ApplicationDeadlineView(),
             SizedBox(

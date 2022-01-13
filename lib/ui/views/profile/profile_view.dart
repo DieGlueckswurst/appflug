@@ -1,42 +1,70 @@
+import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 
-class ProfileView extends StatefulWidget {
+class SettingsView extends StatefulWidget {
   @override
-  _ProfileViewState createState() => _ProfileViewState();
+  _SettingsViewState createState() => _SettingsViewState();
 }
 
-class _ProfileViewState extends State<ProfileView> {
+class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: sidePadding,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Profil',
-              style: AppTextStyles.montserratH1Bold,
-            ),
-            RoundedCornersTextButton(
-              title: 'Logout',
-              onTap: () async {
-                bool wasSuccessfull = await AuthenticationService.signOut();
-                if (wasSuccessfull) {
-                  Navigator.pushReplacementNamed(
-                    context,
-                    Views.start,
-                  );
-                }
-              },
-            ),
-          ],
-        ));
+    return SafeArea(
+      child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: sidePadding,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: sidePadding,
+              ),
+              Text(
+                'Einstellungen',
+                style: AppTextStyles.montserratH2Bold.copyWith(
+                  color: AppColors.blue,
+                ),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Column(
+                children: [
+                  CustomListTile(title: 'Mein Profil', onTap: () {}),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomListTile(title: ' Dokumente', onTap: () {}),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomListTile(title: 'Konto', onTap: () {}),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+              ),
+              RoundedCornersTextButton(
+                title: 'Logout',
+                onTap: () async {
+                  bool wasSuccessfull = await AuthenticationService.signOut();
+                  if (wasSuccessfull) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      Views.start,
+                    );
+                  }
+                },
+              ),
+            ],
+          )),
+    );
   }
 }

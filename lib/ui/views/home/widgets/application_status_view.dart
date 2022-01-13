@@ -5,6 +5,7 @@ import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -68,11 +69,14 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
         SizedBox(
           height: 30,
         ),
-        _buildViewDependingOnApplicationsStatus(_student),
+        ApplicationStatusIndicator(),
         SizedBox(
           height: 30,
         ),
-        IncompleteProfileView(),
+        _buildViewDependingOnApplicationsStatus(_student),
+        SizedBox(
+          height: sidePadding,
+        ),
       ],
     );
   }

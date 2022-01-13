@@ -21,7 +21,7 @@ class _NavWrapperState extends State<NavWrapper> {
           HomeView(),
           UniversityView(),
           FaqView(),
-          ProfileView(),
+          SettingsView(),
         ],
         index: _getSelectedViewIndex(context),
       ),

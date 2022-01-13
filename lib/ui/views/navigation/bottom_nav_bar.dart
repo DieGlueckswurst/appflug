@@ -26,16 +26,16 @@ class BottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
               BottomNavBarItem(
-                view: View.home,
+                view: NavBarView.home,
               ),
               BottomNavBarItem(
-                view: View.university,
+                view: NavBarView.university,
               ),
               BottomNavBarItem(
-                view: View.faq,
+                view: NavBarView.faq,
               ),
               BottomNavBarItem(
-                view: View.profile,
+                view: NavBarView.settings,
               ),
             ],
           ),

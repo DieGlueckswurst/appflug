@@ -2,9 +2,9 @@ import 'package:appflug/enums/views.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBarProvider extends ChangeNotifier {
-  View selectedView = View.home;
+  NavBarView selectedView = NavBarView.home;
 
-  setSelectedView(View view) {
+  setSelectedView(NavBarView view) {
     selectedView = view;
     notifyListeners();
   }

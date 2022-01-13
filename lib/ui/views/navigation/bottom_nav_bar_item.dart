@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class BottomNavBarItem extends StatefulWidget {
-  final View view;
+  final NavBarView view;
 
   const BottomNavBarItem({Key? key, required this.view}) : super(key: key);
 
@@ -57,27 +57,27 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
   String _getIconPath() {
     String basePath = 'assets/icons/';
     switch (widget.view) {
-      case View.home:
+      case NavBarView.home:
         return '${basePath}home.svg';
-      case View.university:
+      case NavBarView.university:
         return '${basePath}university.svg';
-      case View.faq:
+      case NavBarView.faq:
         return '${basePath}faq.svg';
-      case View.profile:
-        return '${basePath}profile.svg';
+      case NavBarView.settings:
+        return '${basePath}settings.svg';
     }
   }
 
   String _getTitle() {
     switch (widget.view) {
-      case View.home:
+      case NavBarView.home:
         return 'Home';
-      case View.university:
+      case NavBarView.university:
         return 'Suche';
-      case View.faq:
+      case NavBarView.faq:
         return 'FAQ';
-      case View.profile:
-        return 'Profil';
+      case NavBarView.settings:
+        return 'Einstellungen';
     }
   }
 }

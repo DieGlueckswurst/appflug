@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BottomNavBarService {
-  static Map<View, int> viewsMapWithIndex = {
-    View.home: 0,
-    View.university: 1,
-    View.faq: 2,
-    View.profile: 3,
+  static Map<NavBarView, int> viewsMapWithIndex = {
+    NavBarView.home: 0,
+    NavBarView.university: 1,
+    NavBarView.faq: 2,
+    NavBarView.settings: 3,
   };
 
-  static View getSelectedView(BuildContext context) {
+  static NavBarView getSelectedView(BuildContext context) {
     return Provider.of<BottomNavBarProvider>(context).selectedView;
   }
 
@@ -22,7 +22,7 @@ class BottomNavBarService {
 
   static void setSelectedView({
     required BuildContext context,
-    required View viewToSelect,
+    required NavBarView viewToSelect,
   }) {
     Provider.of<BottomNavBarProvider>(
       context,
