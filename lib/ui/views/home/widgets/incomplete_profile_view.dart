@@ -30,13 +30,20 @@ class _IncompleteProfileViewState extends State<IncompleteProfileView> {
             height: 20,
           ),
         ],
-        CustomListTile(
-          title: 'Geburtsort hinzufügen',
-          onTap: () {},
-        ),
-        SizedBox(
-          height: 20,
-        ),
+        if (_student.birthplace == null) ...[
+          CustomListTile(
+            title: 'Geburtsort hinzufügen',
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                Views.birthplace,
+              );
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
         CustomListTile(
           title: 'Studiengang hinzufügen',
           onTap: () {},

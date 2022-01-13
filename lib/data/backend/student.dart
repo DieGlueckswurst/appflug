@@ -67,4 +67,28 @@ extension StudentBackendService on BackendService {
       return false;
     }
   }
+
+  Future<bool> setBirthplace(String birthplace) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService().currentUser!.uid)
+          .set(
+        {
+          keys.birthplace: birthplace,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Geburtsort speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
 }

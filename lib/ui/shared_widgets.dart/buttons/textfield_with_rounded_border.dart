@@ -52,6 +52,7 @@ class _TextFieldWithRoundedBorderState
       initialValue: widget.initValue,
       onTap: widget.onTap,
       readOnly: widget.readOnly,
+      textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: borderRadius,
