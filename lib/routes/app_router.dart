@@ -1,6 +1,7 @@
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/email/email_view.dart';
 import 'package:appflug/ui/views/login/login_view.dart';
+import 'package:appflug/ui/views/matriculation_number/matriculation_number_view.dart';
 import 'package:appflug/ui/views/navigation/nav_wrapper.dart';
 import 'package:appflug/ui/views/sign_up/sign_up_view.dart';
 import 'package:appflug/ui/views/start/start_view.dart';
@@ -36,6 +37,21 @@ class AppRouter {
         );
 
       case Views.home:
+        return MaterialPageRoute(
+          builder: (context) => NavWrapper(),
+        );
+
+      case Views.matriculationNumber:
+        return MaterialPageRoute(
+          builder: (context) => MatriculationNumberView(),
+        );
+
+      case Views.birthplace:
+        return MaterialPageRoute(
+          builder: (context) => NavWrapper(),
+        );
+
+      case Views.course:
         return MaterialPageRoute(
           builder: (context) => NavWrapper(),
         );

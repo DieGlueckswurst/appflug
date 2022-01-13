@@ -1,14 +1,13 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
-import 'package:appflug/data/backend/base.dart';
-import 'package:appflug/data/backend/user.dart';
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
+import 'package:appflug/data/student_service.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:flutter/material.dart';
 
 import 'application_progress_indicator.dart';
+import 'incomplete_profile_view.dart';
 
 class ApplicationStatusView extends StatefulWidget {
   @override
@@ -19,7 +18,9 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: BackendService().getStudentData(),
+        future: StudentService.getStudentData(
+          context: context,
+        ),
         builder: (context, AsyncSnapshot<Student> studentSnapshot) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,8 +35,13 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
                 ),
               ),
               studentSnapshot.hasData
-                  ? _buildBody(context: context, student: studentSnapshot.data!)
-                  : CircularProgressIndicator(),
+                  ? _buildBody(
+                      context: context,
+                      student: studentSnapshot.data!,
+                    )
+                  : Center(
+                      child: CircularProgressIndicator(),
+                    ),
             ],
           );
         });
@@ -67,10 +73,7 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
         SizedBox(
           height: 30,
         ),
-        CustomListTile(
-            title:
-                'Matrikelnummer angeben asdf das ist ein sehr langer text jabidabibu',
-            onTap: () {}),
+        IncompleteProfileView(),
       ],
     );
   }

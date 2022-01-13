@@ -8,4 +8,19 @@ class StudentProvider extends ChangeNotifier {
     currentStudent = student;
     notifyListeners();
   }
+
+  setMatriculationNumber(int matriculationNumber) {
+    currentStudent?.matriculationNumber = matriculationNumber;
+    notifyListeners();
+  }
+
+  setBirthplace(String birthplace) {
+    currentStudent?.birthplace = birthplace;
+    notifyListeners();
+  }
+
+  setCourse(String course) {
+    currentStudent?.course = course;
+    notifyListeners();
+  }
 }

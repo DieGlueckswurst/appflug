@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:appflug/data/backend/base.dart';
-import 'package:appflug/data/backend/user.dart';
+import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -3,9 +3,11 @@ import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/enums/status_option.dart';
+import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/views/home/utils/application_status_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-extension UserBackendService on BackendService {
+extension StudentBackendService on BackendService {
   Future<void> createUserInDatabase({
     required String uid,
     required StatusOption statusOption,
@@ -40,5 +42,29 @@ extension UserBackendService on BackendService {
       course: docData?[keys.course],
       birthplace: docData?[keys.birthplace],
     );
+  }
+
+  Future<bool> setMatriculationNumber(int matriculationNumber) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService().currentUser!.uid)
+          .set(
+        {
+          keys.matriculationNumber: matriculationNumber,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Matrikelnummer speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
   }
 }
