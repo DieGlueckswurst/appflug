@@ -8,14 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ApplicationStatusIndicator extends StatelessWidget {
-  final ApplicationStatusOption applicationStatusOption;
-  final double? progress;
-
-  const ApplicationStatusIndicator({
-    required this.applicationStatusOption,
-    this.progress,
-  });
-
   @override
   Widget build(BuildContext context) {
     Student _student = Provider.of<StudentProvider>(context).currentStudent!;
@@ -32,11 +24,14 @@ class ApplicationStatusIndicator extends StatelessWidget {
               color: AppColors.blue,
             ),
             borderRadius: BorderRadius.circular(30),
-            gradient: _getGradient(_student),
+            gradient: _student.applicationStatus ==
+                    ApplicationStatusOption.incompleteProfile
+                ? _getGradient(_student)
+                : null,
           ),
           child: Text(
             ApplicationStatusService.getApplicationStatusTitleFromOption(
-              applicationStatusOption,
+              _student.applicationStatus,
             ),
             style: AppTextStyles.montserratH5SemiBold.copyWith(
               height: 1,
@@ -53,14 +48,14 @@ class ApplicationStatusIndicator extends StatelessWidget {
         ApplicationStatusOption.incompleteProfile) {
       double progress = 0.0;
       if (student.matriculationNumber != null) {
-        progress += 0.3;
+        progress += 1 / 3;
       }
       if (student.birthplace != null) {
-        progress += 0.3;
+        progress += 1 / 3;
       }
 
       if (student.course != null) {
-        progress += 0.3;
+        progress += 1 / 3;
       }
 
       return LinearGradient(

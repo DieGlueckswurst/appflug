@@ -1,5 +1,6 @@
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
+import 'package:appflug/ui/views/course/course.dart';
 import 'package:appflug/ui/views/email/email_view.dart';
 import 'package:appflug/ui/views/login/login_view.dart';
 import 'package:appflug/ui/views/matriculation_number/matriculation_number_view.dart';
@@ -54,7 +55,7 @@ class AppRouter {
 
       case Views.course:
         return MaterialPageRoute(
-          builder: (context) => NavWrapper(),
+          builder: (context) => CourseView(),
         );
 
       default:

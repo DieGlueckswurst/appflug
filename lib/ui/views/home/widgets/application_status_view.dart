@@ -2,9 +2,11 @@ import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/data/student_service.dart';
-import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
+import 'package:appflug/enums/application_status_option.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'application_progress_indicator.dart';
 import 'incomplete_profile_view.dart';
@@ -37,7 +39,6 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
               studentSnapshot.hasData
                   ? _buildBody(
                       context: context,
-                      student: studentSnapshot.data!,
                     )
                   : Center(
                       child: CircularProgressIndicator(),
@@ -49,8 +50,8 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
 
   Widget _buildBody({
     required BuildContext context,
-    required Student student,
   }) {
+    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
     return Column(
       children: [
         SizedBox(
@@ -61,20 +62,33 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
             horizontal: 10,
           ),
           child: ApplicationProgressIndicator(
-            currentApplicationStatus: student.applicationStatus,
+            currentApplicationStatus: _student.applicationStatus,
           ),
         ),
         SizedBox(
           height: 30,
         ),
-        ApplicationStatusIndicator(
-          applicationStatusOption: student.applicationStatus,
-        ),
+        _buildViewDependingOnApplicationsStatus(_student),
         SizedBox(
           height: 30,
         ),
         IncompleteProfileView(),
       ],
     );
+  }
+
+  Widget _buildViewDependingOnApplicationsStatus(Student student) {
+    switch (student.applicationStatus) {
+      case ApplicationStatusOption.incompleteProfile:
+        return IncompleteProfileView();
+      case ApplicationStatusOption.incompleteDocuments:
+        return Container();
+      case ApplicationStatusOption.readyForApplication:
+        return Container();
+      case ApplicationStatusOption.documentsSubmitted:
+        return Container();
+      case ApplicationStatusOption.waitingForUniversity:
+        return Container();
+    }
   }
 }

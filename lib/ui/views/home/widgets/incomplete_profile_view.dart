@@ -44,10 +44,16 @@ class _IncompleteProfileViewState extends State<IncompleteProfileView> {
             height: 20,
           ),
         ],
-        CustomListTile(
-          title: 'Studiengang hinzufügen',
-          onTap: () {},
-        ),
+        if (_student.course == null)
+          CustomListTile(
+            title: 'Studiengang hinzufügen',
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                Views.course,
+              );
+            },
+          ),
       ],
     );
   }

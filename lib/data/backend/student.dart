@@ -44,6 +44,30 @@ extension StudentBackendService on BackendService {
     );
   }
 
+  Future<bool> setApplicationStatus(ApplicationStatusOption status) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService().currentUser!.uid)
+          .set(
+        {
+          keys.applicationStatus: status.name,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Status speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
   Future<bool> setMatriculationNumber(int matriculationNumber) async {
     try {
       await firestoreInstance
@@ -85,6 +109,30 @@ extension StudentBackendService on BackendService {
     } on FirebaseException catch (e) {
       AlertService.showSnackBar(
         title: 'Geburtsort speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  Future<bool> setCourse(String course) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService().currentUser!.uid)
+          .set(
+        {
+          keys.course: course,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Studiengang speichern fehlgeschlagen',
         description: e.message ?? '',
         isSuccess: false,
       );

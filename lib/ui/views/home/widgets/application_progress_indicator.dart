@@ -17,18 +17,13 @@ class ApplicationProgressIndicator extends StatefulWidget {
 class _ApplicationProgressIndicatorState
     extends State<ApplicationProgressIndicator> {
   late int currentApplicationOptionIndex;
-  @override
-  void initState() {
-    super.initState();
 
+  @override
+  Widget build(BuildContext context) {
     currentApplicationOptionIndex =
         ApplicationStatusOption.values.toList().indexWhere(
               (option) => option == widget.currentApplicationStatus,
             );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
