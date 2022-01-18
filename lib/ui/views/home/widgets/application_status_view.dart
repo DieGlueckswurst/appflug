@@ -6,6 +6,7 @@ import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
+import 'package:appflug/ui/views/home/widgets/incomplete_documents_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -86,7 +87,7 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
       case ApplicationStatusOption.incompleteProfile:
         return IncompleteProfileView();
       case ApplicationStatusOption.incompleteDocuments:
-        return Container();
+        return IncompleteDocumentsView();
       case ApplicationStatusOption.readyForApplication:
         return Container();
       case ApplicationStatusOption.documentsSubmitted:

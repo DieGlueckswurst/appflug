@@ -2,6 +2,6 @@ enum DocumentType {
   languageTest,
   letterOfMotivation,
   transcriptOfRecords,
-  visa,
+  preferenceList,
   passport,
 }

@@ -68,7 +68,7 @@ extension StudentBackendService on BackendService {
         .get();
     for (var doc in documentQuerySnapshot.docs) {
       Map<String, dynamic> data = doc.data();
-      student.documents?.add(
+      student.documents.add(
         Document(
           id: data[keys.id],
           type: DocumentService.getDocumentTypeFromString(

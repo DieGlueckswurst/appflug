@@ -7,4 +7,9 @@ class Views {
   static const String matriculationNumber = 'matriculationNumber';
   static const String birthplace = 'birthplace';
   static const String course = 'course';
+  static const String languageTest = 'languageTest';
+  static const String letterOfMotivation = 'letterOfMotivation';
+  static const String transcriptOfRecords = 'transcriptOfRecords';
+  static const String preferenceList = 'preferenceList';
+  static const String passport = 'passport';
 }

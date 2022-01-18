@@ -8,15 +8,15 @@ class Student {
   String? course;
   String? birthplace;
   ApplicationStatusOption applicationStatus;
-  List<Document?>? documents;
+  List<Document> documents;
 
   Student({
     required this.applicationStatus,
+    required this.documents,
     this.uid,
     this.email,
     this.matriculationNumber,
     this.course,
     this.birthplace,
-    this.documents,
   });
 }

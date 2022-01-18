@@ -17,7 +17,7 @@ class BackendKeys {
   String get languageTest => 'languageTest';
   String get letterOfMotivation => 'letterOfMotivation';
   String get transcriptOfRecords => 'transcriptOfRecords';
-  String get visa => 'visa';
+  String get preferenceList => 'preferenceList';
   String get passport => 'passport';
   String get documentType => 'documentType';
   String get id => 'id';

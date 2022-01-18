@@ -36,7 +36,7 @@ class CustomListTile extends StatelessWidget {
             Flexible(
               child: Text(
                 title,
-                style: AppTextStyles.montserratH6Regular,
+                style: AppTextStyles.montserratH6SemiBold,
               ),
             ),
             SizedBox(
