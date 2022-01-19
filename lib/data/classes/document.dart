@@ -2,6 +2,7 @@ import 'package:appflug/enums/document_type.dart';
 
 class Document {
   String? id;
+  String? name;
   DocumentType type;
   String? storageLocation;
   String? downloadUrl;
@@ -11,5 +12,6 @@ class Document {
     this.id,
     this.storageLocation,
     this.downloadUrl,
+    this.name,
   });
 }

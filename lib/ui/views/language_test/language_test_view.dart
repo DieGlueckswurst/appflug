@@ -1,19 +1,32 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
+import 'package:appflug/data/classes/document.dart';
+import 'package:appflug/enums/document_type.dart';
+import 'package:appflug/shared_utils/alert_service.dart';
+import 'package:appflug/shared_utils/document_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
+import 'package:appflug/ui/shared_widgets.dart/file_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class LanguageTestView extends StatefulWidget {
+  final Document document;
+
+  const LanguageTestView({
+    Key? key,
+    required this.document,
+  }) : super(key: key);
   @override
   _LanguageTestViewState createState() => _LanguageTestViewState();
 }
 
 class _LanguageTestViewState extends State<LanguageTestView> {
   bool _isLoading = false;
+  PlatformFile? _pickedFile;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,39 +77,12 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                         SizedBox(
                           height: 50,
                         ),
-                        Center(
-                          child: Container(
-                            height: 200,
-                            width: 180,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: AppColors.blue,
-                                width: 3,
-                              ),
-                              borderRadius: BorderRadius.circular(
-                                10,
-                              ),
-                            ),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/upload.svg',
-                                    height: 30,
-                                    color: AppColors.blue,
-                                  ),
-                                  SizedBox(
-                                    height: 20,
-                                  ),
-                                  Text(
-                                    'Datei wählen',
-                                    style: AppTextStyles.montserratH6SemiBold,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                        FilePickerView(
+                          onFilePicked: (PlatformFile pickedFile) {
+                            setState(() {
+                              _pickedFile = pickedFile;
+                            });
+                          },
                         ),
                         SizedBox(
                           height: 30,
@@ -131,11 +117,27 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                         RoundedCornersTextButton(
                           title: 'Hochladen',
                           isLoading: _isLoading,
+                          isEnabled: _pickedFile != null,
                           onTap: () async {
                             setState(() {
                               _isLoading = true;
                             });
+                            bool wasSuccessfull = await savePdf(
+                              context,
+                            );
 
+                            AlertService.showSnackBar(
+                              title: wasSuccessfull
+                                  ? 'Sprachzeugnis erfolgreich hochgeladen'
+                                  : 'Ups, hier ist etwas schiefgelaufen',
+                              description: wasSuccessfull
+                                  ? 'Du kannst das Dokument in deinem Profil nachträglich noch ändern.'
+                                  : 'Bitte versuche es erneut oder starte die App neu.',
+                              isSuccess: wasSuccessfull,
+                            );
+                            if (wasSuccessfull) {
+                              Navigator.pop(context);
+                            }
                             setState(() {
                               _isLoading = false;
                             });
@@ -153,6 +155,16 @@ class _LanguageTestViewState extends State<LanguageTestView> {
           ),
         ),
       ),
+    );
+  }
+
+  Future<bool> savePdf(BuildContext context) async {
+    return await DocumentService.savePdf(
+      pickedFile: _pickedFile!,
+      fileName: _pickedFile!.name,
+      documentType: DocumentType.languageTest,
+      documentId: widget.document.id!,
+      context: context,
     );
   }
 }

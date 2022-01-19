@@ -1,3 +1,4 @@
+import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
 import 'package:appflug/ui/views/course/course.dart';
@@ -64,8 +65,12 @@ class AppRouter {
         );
 
       case Views.languageTest:
+        Document document = settings.arguments as Document;
+
         return MaterialPageRoute(
-          builder: (context) => LanguageTestView(),
+          builder: (context) => LanguageTestView(
+            document: document,
+          ),
         );
 
       case Views.letterOfMotivation:

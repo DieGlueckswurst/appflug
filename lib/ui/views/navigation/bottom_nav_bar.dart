@@ -42,7 +42,7 @@ class BottomNavBar extends StatelessWidget {
         ),
         Container(
           height: MediaQuery.of(context).padding.bottom,
-          color: AppColors.red,
+          color: AppColors.white,
         )
       ],
     );

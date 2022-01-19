@@ -1,0 +1,127 @@
+import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/text_styles.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+class FilePickerView extends StatefulWidget {
+  final Function(PlatformFile) onFilePicked;
+
+  const FilePickerView({
+    Key? key,
+    required this.onFilePicked,
+  }) : super(key: key);
+
+  @override
+  _FilePickerViewState createState() => _FilePickerViewState();
+}
+
+class _FilePickerViewState extends State<FilePickerView> {
+  bool _isLoading = false;
+  PlatformFile? _pickedFile;
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () async {
+            setState(() {
+              _isLoading = true;
+            });
+            FilePickerResult? result = await FilePicker.platform.pickFiles(
+              type: FileType.custom,
+              allowedExtensions: [
+                'pdf',
+              ],
+            );
+
+            if (result != null) {
+              setState(
+                () {
+                  _pickedFile = result.files.first;
+                  print(_pickedFile?.name);
+                  print(_pickedFile?.size);
+                  _isLoading = false;
+                  widget.onFilePicked(result.files.first);
+                },
+              );
+            } else {
+              setState(() {
+                _isLoading = false;
+              });
+            }
+          },
+          child: Container(
+            height: 200,
+            width: 180,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: AppColors.blue,
+                width: 3,
+              ),
+              borderRadius: BorderRadius.circular(
+                10,
+              ),
+            ),
+            child: Center(
+              child: AnimatedSwitcher(
+                  duration: kThemeAnimationDuration,
+                  child: _isLoading
+                      ? CircularProgressIndicator()
+                      : _pickedFile == null
+                          ? _buildPickFileWidget()
+                          : _buildFilePickedWidget()),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPickFileWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          'assets/icons/upload.svg',
+          height: 30,
+          color: AppColors.blue,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          'Datei wählen',
+          style: AppTextStyles.montserratH6SemiBold,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilePickedWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        SvgPicture.asset(
+          'assets/icons/document.svg',
+          height: 30,
+          color: AppColors.blue,
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          child: Text(
+            _pickedFile!.name,
+            style: AppTextStyles.montserratH6SemiBold,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+}

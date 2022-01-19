@@ -1,5 +1,6 @@
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/enums/document_type.dart';
 
 class Student {
   String? uid;
@@ -8,7 +9,7 @@ class Student {
   String? course;
   String? birthplace;
   ApplicationStatusOption applicationStatus;
-  List<Document> documents;
+  Map<DocumentType, Document> documents;
 
   Student({
     required this.applicationStatus,

@@ -17,14 +17,13 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
   @override
   Widget build(BuildContext context) {
     Student _student = Provider.of<StudentProvider>(context).currentStudent!;
-
     return Column(
       children: _buildChildren(_student),
     );
   }
 
   List<Widget> _buildChildren(Student student) {
-    List<Document> documents = student.documents;
+    List<Document> documents = student.documents.values.toList();
 
     List<Widget> children = [];
 
@@ -39,6 +38,7 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
                   Navigator.pushNamed(
                     context,
                     Views.languageTest,
+                    arguments: doc,
                   );
                 },
               ),
@@ -74,7 +74,7 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
           case DocumentType.preferenceList:
             children.add(
               CustomListTile(
-                title: '3 Präferenzuniversiäten angeben',
+                title: 'Präferenzuniversiäten angeben',
                 onTap: () {
                   Navigator.pushNamed(
                     context,

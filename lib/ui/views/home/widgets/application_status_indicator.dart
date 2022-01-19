@@ -58,7 +58,7 @@ class ApplicationStatusIndicator extends StatelessWidget {
         }
         break;
       case ApplicationStatusOption.incompleteDocuments:
-        for (Document doc in student.documents) {
+        for (Document doc in student.documents.values) {
           if (doc.downloadUrl != null) {
             progress += 1 / DocumentType.values.length;
           }

@@ -1,4 +1,5 @@
 import 'package:appflug/constants/measurements.dart';
+import 'package:appflug/shared_utils/size_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
 import 'package:appflug/ui/views/home/widgets/application_deadline_view.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_view.dart';
@@ -12,6 +13,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+    initializeSizeService(context);
+
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.symmetric(

@@ -1,5 +1,4 @@
 import 'package:appflug/constants/app_colors.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/enums/views.dart';
 import 'package:appflug/ui/views/navigation/utils.dart';
 import 'package:flutter/material.dart';
@@ -33,16 +32,16 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
             children: [
               SvgPicture.asset(
                 _getIconPath(),
-                height: 20,
+                height: 25,
                 color: _isSelected ? AppColors.blue : AppColors.grey,
               ),
-              Text(
-                _getTitle(),
-                style: AppTextStyles.montserratH7Regular.copyWith(
-                  color: _isSelected ? AppColors.blue : AppColors.grey,
-                  fontWeight: _isSelected ? FontWeight.w700 : FontWeight.w400,
-                ),
-              ),
+              // Text(
+              //   _getTitle(),
+              //   style: AppTextStyles.montserratH7Regular.copyWith(
+              //     color: _isSelected ? AppColors.blue : AppColors.grey,
+              //     fontWeight: _isSelected ? FontWeight.w700 : FontWeight.w400,
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -64,7 +63,7 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
       case NavBarView.faq:
         return '${basePath}faq.svg';
       case NavBarView.settings:
-        return '${basePath}settings.svg';
+        return '${basePath}profile.svg';
     }
   }
 

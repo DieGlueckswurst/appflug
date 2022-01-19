@@ -23,6 +23,7 @@ class BackendKeys {
   String get id => 'id';
   String get storageLocation => 'storageLocation';
   String get downloadUrl => 'downloadUrl';
+  String get name => 'name';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {

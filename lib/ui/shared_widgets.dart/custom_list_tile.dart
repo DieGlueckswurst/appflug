@@ -15,39 +15,42 @@ class CustomListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(
-          20,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.blue,
-            width: 3,
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.all(
+            20,
           ),
-          borderRadius: BorderRadius.circular(
-            10,
-          ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Flexible(
-              child: Text(
-                title,
-                style: AppTextStyles.montserratH6SemiBold,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            SvgPicture.asset(
-              'assets/icons/arrow_right.svg',
+          decoration: BoxDecoration(
+            border: Border.all(
               color: AppColors.blue,
-              height: 20,
+              width: 3,
             ),
-          ],
+            borderRadius: BorderRadius.circular(
+              10,
+            ),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Flexible(
+                child: Text(
+                  title,
+                  style: AppTextStyles.montserratH6SemiBold,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              SvgPicture.asset(
+                'assets/icons/arrow_right.svg',
+                color: AppColors.blue,
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );

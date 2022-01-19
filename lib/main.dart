@@ -14,6 +14,7 @@ Future main() async {
             appId: "1:555930958224:web:72d3389a096c37f9c15b15",
             messagingSenderId: "555930958224",
             projectId: "appflug",
+            storageBucket: "appflug.appspot.com",
           )
         : null,
   );

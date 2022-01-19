@@ -58,7 +58,7 @@ extension StudentBackendService on BackendService {
       course: docData?[keys.course],
       birthplace: docData?[keys.birthplace],
       uid: docData?[keys.uid],
-      documents: [],
+      documents: {},
     );
 
     var documentQuerySnapshot = await firestoreInstance
@@ -68,15 +68,15 @@ extension StudentBackendService on BackendService {
         .get();
     for (var doc in documentQuerySnapshot.docs) {
       Map<String, dynamic> data = doc.data();
-      student.documents.add(
-        Document(
-          id: data[keys.id],
-          type: DocumentService.getDocumentTypeFromString(
-            data[keys.documentType],
-          ),
-          storageLocation: data[keys.storageLocation],
-          downloadUrl: data[keys.downloadUrl],
-        ),
+      DocumentType documentType = DocumentService.getDocumentTypeFromString(
+        data[keys.documentType],
+      );
+      student.documents[documentType] = Document(
+        id: data[keys.id],
+        type: documentType,
+        storageLocation: data[keys.storageLocation],
+        downloadUrl: data[keys.downloadUrl],
+        name: data[keys.name],
       );
     }
     return student;
@@ -171,6 +171,43 @@ extension StudentBackendService on BackendService {
     } on FirebaseException catch (e) {
       AlertService.showSnackBar(
         title: 'Studiengang speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  Future<bool> setDocument({
+    required String downloadUrl,
+    required String fileName,
+    required DocumentType documentType,
+    required String documentId,
+  }) async {
+    try {
+      String documentLocation = DocumentService.buildDocumentPathInStorage(
+        documentType: documentType,
+        fileName: fileName,
+      );
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService().currentUser!.uid)
+          .collection(keys.documents)
+          .doc(documentId)
+          .set(
+        {
+          keys.name: fileName,
+          keys.downloadUrl: downloadUrl,
+          keys.storageLocation: documentLocation,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: '$fileName speichern fehlgeschlagen',
         description: e.message ?? '',
         isSuccess: false,
       );

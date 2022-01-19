@@ -27,7 +27,7 @@ class _SettingsViewState extends State<SettingsView> {
                 height: sidePadding,
               ),
               Text(
-                'Einstellungen',
+                'Mein Profil',
                 style: AppTextStyles.montserratH2Bold.copyWith(
                   color: AppColors.blue,
                 ),
@@ -37,7 +37,7 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               Column(
                 children: [
-                  CustomListTile(title: 'Mein Profil', onTap: () {}),
+                  CustomListTile(title: 'Persönliche Daten', onTap: () {}),
                   SizedBox(
                     height: 20,
                   ),
