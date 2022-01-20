@@ -9,6 +9,11 @@ import 'classes/student.dart';
 
 class StudentService {
   static Future<Student> getStudentData({required BuildContext context}) async {
+    await Future.delayed(
+      Duration(
+        seconds: 2,
+      ),
+    );
     Student student = await BackendService().getStudentData();
     Provider.of<StudentProvider>(context, listen: false).setStudent(
       student,

@@ -1,6 +1,8 @@
 import 'dart:io' show Platform;
 
+import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -63,6 +65,20 @@ Future<void> _launchURL(
   String? errorMessage,
 }) async {
   if (await canLaunch(url) == true) {
-    await launch(url);
+    try {
+      await launch(
+        url,
+      );
+    } on PlatformException catch (e) {
+      // ignore: avoid_print
+      print(e);
+      return;
+    }
+  } else {
+    AlertService.showSnackBar(
+      title: 'Ungültige URL',
+      description: 'URL kann nicht geöffnet werden.',
+      isSuccess: false,
+    );
   }
 }

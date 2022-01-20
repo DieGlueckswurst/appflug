@@ -52,6 +52,7 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
                   Navigator.pushNamed(
                     context,
                     Views.letterOfMotivation,
+                    arguments: doc,
                   );
                 },
               ),
@@ -66,6 +67,7 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
                   Navigator.pushNamed(
                     context,
                     Views.transcriptOfRecords,
+                    arguments: doc,
                   );
                 },
               ),
@@ -93,6 +95,7 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
                   Navigator.pushNamed(
                     context,
                     Views.passport,
+                    arguments: doc,
                   );
                 },
               ),

@@ -26,6 +26,13 @@ class LanguageTestView extends StatefulWidget {
 class _LanguageTestViewState extends State<LanguageTestView> {
   bool _isLoading = false;
   PlatformFile? _pickedFile;
+  late Document initDocumentForFilePicker;
+
+  @override
+  void initState() {
+    super.initState();
+    initDocumentForFilePicker = widget.document;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +72,14 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                       children: [
                         Row(
                           children: [
-                            Text(
-                              'Sprachzeugnis',
-                              style: AppTextStyles.montserratH2Bold.copyWith(
-                                color: AppColors.blue,
+                            Flexible(
+                              child: Text(
+                                _getTitle(),
+                                style: AppTextStyles.montserratH2Bold.copyWith(
+                                  color: AppColors.blue,
+                                ),
+                                textAlign: TextAlign.start,
                               ),
-                              textAlign: TextAlign.start,
                             ),
                           ],
                         ),
@@ -78,6 +87,7 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                           height: 50,
                         ),
                         FilePickerView(
+                          initDocument: initDocumentForFilePicker,
                           onFilePicked: (PlatformFile pickedFile) {
                             setState(() {
                               _pickedFile = pickedFile;
@@ -85,10 +95,7 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                           },
                         ),
                         SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          height: 10,
+                          height: 40,
                         ),
                         CustomHorizontalDevider(),
                         ExpansionTile(
@@ -115,32 +122,25 @@ class _LanguageTestViewState extends State<LanguageTestView> {
                           height: 30,
                         ),
                         RoundedCornersTextButton(
-                          title: 'Hochladen',
+                          title:
+                              initDocumentForFilePicker.downloadUrl == null ||
+                                      _pickedFile != null
+                                  ? 'Hochladen'
+                                  : 'Neues Dokument hochladen',
                           isLoading: _isLoading,
-                          isEnabled: _pickedFile != null,
+                          isEnabled:
+                              initDocumentForFilePicker.downloadUrl != null ||
+                                  _pickedFile != null,
                           onTap: () async {
                             setState(() {
                               _isLoading = true;
                             });
-                            bool wasSuccessfull = await savePdf(
-                              context,
-                            );
 
-                            AlertService.showSnackBar(
-                              title: wasSuccessfull
-                                  ? 'Sprachzeugnis erfolgreich hochgeladen'
-                                  : 'Ups, hier ist etwas schiefgelaufen',
-                              description: wasSuccessfull
-                                  ? 'Du kannst das Dokument in deinem Profil nachträglich noch ändern.'
-                                  : 'Bitte versuche es erneut oder starte die App neu.',
-                              isSuccess: wasSuccessfull,
-                            );
-                            if (wasSuccessfull) {
-                              Navigator.pop(context);
+                            if (initDocumentForFilePicker.downloadUrl != null) {
+                              await _uploadNewDocument();
+                            } else {
+                              await _savePdf(context);
                             }
-                            setState(() {
-                              _isLoading = false;
-                            });
                           },
                         ),
                         SizedBox(
@@ -158,13 +158,72 @@ class _LanguageTestViewState extends State<LanguageTestView> {
     );
   }
 
-  Future<bool> savePdf(BuildContext context) async {
-    return await DocumentService.savePdf(
+  String _getTitle() {
+    switch (widget.document.type) {
+      case DocumentType.languageTest:
+        return 'Sprachzeugnis';
+      case DocumentType.letterOfMotivation:
+        return 'Motivationsschreiben';
+      case DocumentType.transcriptOfRecords:
+        return 'Transcript of Records';
+      case DocumentType.preferenceList:
+        return '';
+      case DocumentType.passport:
+        return 'Personalausweis/Reisepass';
+    }
+  }
+
+  Future<void> _savePdf(BuildContext context) async {
+    bool wasSuccessfull = await DocumentService.savePdf(
       pickedFile: _pickedFile!,
       fileName: _pickedFile!.name,
-      documentType: DocumentType.languageTest,
+      documentType: widget.document.type,
       documentId: widget.document.id!,
       context: context,
+    );
+    AlertService.showSnackBar(
+      title: wasSuccessfull
+          ? 'Sprachzeugnis erfolgreich hochgeladen'
+          : 'Ups, hier ist etwas schiefgelaufen',
+      description: wasSuccessfull
+          ? 'Du kannst das Dokument in deinem Profil nachträglich noch ändern.'
+          : 'Bitte versuche es erneut oder starte die App neu.',
+      isSuccess: wasSuccessfull,
+    );
+    if (wasSuccessfull) {
+      Navigator.pop(context);
+    }
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _uploadNewDocument() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: [
+        'pdf',
+      ],
+    );
+    setState(
+      () {
+        if (result != null) {
+          if (result.files.first.size > 5000000) {
+            AlertService.showSnackBar(
+              title: 'Fehler: Datei ist zu groß.',
+              description: 'Das Dokument darf nicht größer als 5 MB sein.',
+              isSuccess: false,
+            );
+          } else {
+            _pickedFile = result.files.first;
+            initDocumentForFilePicker = Document(
+              type: widget.document.type,
+              name: _pickedFile!.name,
+            );
+          }
+        }
+        _isLoading = false;
+      },
     );
   }
 }

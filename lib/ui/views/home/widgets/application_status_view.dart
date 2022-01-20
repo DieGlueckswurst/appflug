@@ -5,6 +5,7 @@ import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:appflug/ui/views/home/widgets/incomplete_documents_view.dart';
 import 'package:flutter/material.dart';
@@ -38,13 +39,23 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
                   color: AppColors.blue,
                 ),
               ),
-              studentSnapshot.hasData
-                  ? _buildBody(
-                      context: context,
-                    )
-                  : Center(
-                      child: CircularProgressIndicator(),
-                    ),
+              AnimatedSwitcher(
+                duration: kThemeAnimationDuration,
+                child: studentSnapshot.hasData
+                    ? _buildBody(
+                        context: context,
+                      )
+                    : Center(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 100,
+                            ),
+                            LoadingPlane(),
+                          ],
+                        ),
+                      ),
+              )
             ],
           );
         });
