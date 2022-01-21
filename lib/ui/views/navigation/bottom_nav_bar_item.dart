@@ -67,16 +67,16 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
     }
   }
 
-  String _getTitle() {
-    switch (widget.view) {
-      case NavBarView.home:
-        return 'Home';
-      case NavBarView.university:
-        return 'Suche';
-      case NavBarView.faq:
-        return 'FAQ';
-      case NavBarView.settings:
-        return 'Einstellungen';
-    }
-  }
+  // String _getTitle() {
+  //   switch (widget.view) {
+  //     case NavBarView.home:
+  //       return 'Home';
+  //     case NavBarView.university:
+  //       return 'Suche';
+  //     case NavBarView.faq:
+  //       return 'FAQ';
+  //     case NavBarView.settings:
+  //       return 'Einstellungen';
+  //   }
+  // }
 }

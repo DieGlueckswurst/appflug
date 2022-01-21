@@ -41,7 +41,14 @@ class _SettingsViewState extends State<SettingsView> {
                   SizedBox(
                     height: 20,
                   ),
-                  CustomListTile(title: ' Dokumente', onTap: () {}),
+                  CustomListTile(
+                      title: 'Dokumente',
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Views.documents,
+                        );
+                      }),
                   SizedBox(
                     height: 20,
                   ),

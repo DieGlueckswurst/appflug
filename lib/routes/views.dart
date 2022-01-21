@@ -12,4 +12,5 @@ class Views {
   static const String transcriptOfRecords = 'transcriptOfRecords';
   static const String preferenceList = 'preferenceList';
   static const String passport = 'passport';
+  static const String documents = 'documents';
 }

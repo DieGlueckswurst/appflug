@@ -2,8 +2,9 @@ import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
 import 'package:appflug/ui/views/course/course.dart';
+import 'package:appflug/ui/views/document/document_view.dart';
+import 'package:appflug/ui/views/documents/documents_view.dart';
 import 'package:appflug/ui/views/email/email_view.dart';
-import 'package:appflug/ui/views/language_test/language_test_view.dart';
 import 'package:appflug/ui/views/login/login_view.dart';
 import 'package:appflug/ui/views/matriculation_number/matriculation_number_view.dart';
 import 'package:appflug/ui/views/navigation/nav_wrapper.dart';
@@ -65,7 +66,7 @@ class AppRouter {
         Document document = settings.arguments as Document;
 
         return MaterialPageRoute(
-          builder: (context) => LanguageTestView(
+          builder: (context) => DocumentView(
             document: document,
           ),
         );
@@ -74,7 +75,7 @@ class AppRouter {
         Document document = settings.arguments as Document;
 
         return MaterialPageRoute(
-          builder: (context) => LanguageTestView(
+          builder: (context) => DocumentView(
             document: document,
           ),
         );
@@ -83,7 +84,7 @@ class AppRouter {
         Document document = settings.arguments as Document;
 
         return MaterialPageRoute(
-          builder: (context) => LanguageTestView(
+          builder: (context) => DocumentView(
             document: document,
           ),
         );
@@ -92,7 +93,7 @@ class AppRouter {
         Document document = settings.arguments as Document;
 
         return MaterialPageRoute(
-          builder: (context) => LanguageTestView(
+          builder: (context) => DocumentView(
             document: document,
           ),
         );
@@ -100,6 +101,11 @@ class AppRouter {
       case Views.preferenceList:
         return MaterialPageRoute(
           builder: (context) => PreferenceListView(),
+        );
+
+      case Views.documents:
+        return MaterialPageRoute(
+          builder: (context) => DocumentsView(),
         );
 
       default:

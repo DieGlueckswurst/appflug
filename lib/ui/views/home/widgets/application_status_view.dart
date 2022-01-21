@@ -7,7 +7,7 @@ import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
-import 'package:appflug/ui/views/home/widgets/incomplete_documents_view.dart';
+import 'package:appflug/ui/views/home/widgets/documents_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -23,42 +23,43 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: StudentService.getStudentData(
-          context: context,
-        ),
-        builder: (context, AsyncSnapshot<Student> studentSnapshot) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: sidePadding,
+      future: StudentService.getStudentData(
+        context: context,
+      ),
+      builder: (context, AsyncSnapshot<Student> studentSnapshot) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: sidePadding,
+            ),
+            Text(
+              'Bewerbungsstatus',
+              style: AppTextStyles.montserratH3Bold.copyWith(
+                color: AppColors.blue,
               ),
-              Text(
-                'Bewerbungsstatus',
-                style: AppTextStyles.montserratH3Bold.copyWith(
-                  color: AppColors.blue,
-                ),
-              ),
-              AnimatedSwitcher(
-                duration: kThemeAnimationDuration,
-                child: studentSnapshot.hasData
-                    ? _buildBody(
-                        context: context,
-                      )
-                    : Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                            ),
-                            LoadingPlane(),
-                          ],
-                        ),
+            ),
+            AnimatedSwitcher(
+              duration: kThemeAnimationDuration,
+              child: studentSnapshot.hasData
+                  ? _buildBody(
+                      context: context,
+                    )
+                  : Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 100,
+                          ),
+                          LoadingPlane(),
+                        ],
                       ),
-              )
-            ],
-          );
-        });
+                    ),
+            )
+          ],
+        );
+      },
+    );
   }
 
   Widget _buildBody({
@@ -98,7 +99,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
       case ApplicationStatusOption.incompleteProfile:
         return IncompleteProfileView();
       case ApplicationStatusOption.incompleteDocuments:
-        return IncompleteDocumentsView();
+        return DocumentsListView(
+          student: student,
+          isInSettings: false,
+        );
       case ApplicationStatusOption.readyForApplication:
         return Container();
       case ApplicationStatusOption.documentsSubmitted:

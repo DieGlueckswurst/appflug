@@ -1,39 +1,47 @@
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class IncompleteDocumentsView extends StatefulWidget {
+class DocumentsListView extends StatefulWidget {
+  final Student student;
+
+  final bool isInSettings;
+
+  const DocumentsListView({
+    Key? key,
+    required this.student,
+    required this.isInSettings,
+  }) : super(key: key);
+
   @override
-  _IncompleteDocumentsViewState createState() =>
-      _IncompleteDocumentsViewState();
+  _DocumentsListViewState createState() => _DocumentsListViewState();
 }
 
-class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
+class _DocumentsListViewState extends State<DocumentsListView> {
   @override
   Widget build(BuildContext context) {
-    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
     return Column(
-      children: _buildChildren(_student),
+      children: _buildChildren(),
     );
   }
 
-  List<Widget> _buildChildren(Student student) {
-    List<Document> documents = student.documents.values.toList();
+  List<Widget> _buildChildren() {
+    List<Document> documents = widget.student.documents.values.toList();
 
     List<Widget> children = [];
 
     for (Document doc in documents) {
-      if (doc.downloadUrl == null) {
+      if (doc.downloadUrl == null || widget.isInSettings) {
         switch (doc.type) {
           case DocumentType.languageTest:
             children.add(
               CustomListTile(
-                title: 'Aktuelles Sprachzeugnis hochladen',
+                title: widget.isInSettings
+                    ? 'Aktuelles Sprachzeugnis'
+                    : 'Aktuelle Sprachzeugnis hochladen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -47,7 +55,9 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
           case DocumentType.letterOfMotivation:
             children.add(
               CustomListTile(
-                title: 'Motivationsschreiben hochladen',
+                title: widget.isInSettings
+                    ? 'Motivationsschreiben'
+                    : 'Motivationsschreiben hochladen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -61,8 +71,9 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
           case DocumentType.transcriptOfRecords:
             children.add(
               CustomListTile(
-                title:
-                    'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen hochladen',
+                title: widget.isInSettings
+                    ? 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen'
+                    : 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen hochladen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -76,7 +87,9 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
           case DocumentType.preferenceList:
             children.add(
               CustomListTile(
-                title: 'Präferenzuniversiäten angeben',
+                title: widget.isInSettings
+                    ? 'Präferenzliste mit Wunschuniverstitäten'
+                    : 'Präferenzliste mit Wunschuniverstitäten hochladen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
@@ -89,8 +102,9 @@ class _IncompleteDocumentsViewState extends State<IncompleteDocumentsView> {
           case DocumentType.passport:
             children.add(
               CustomListTile(
-                title:
-                    'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder)',
+                title: widget.isInSettings
+                    ? 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder)'
+                    : 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder) hochladen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
