@@ -10,6 +10,13 @@ import 'package:appflug/ui/views/matriculation_number/utils/matriculation_number
 import 'package:flutter/material.dart';
 
 class MatriculationNumberView extends StatefulWidget {
+  final String? initMatriculationNumber;
+
+  const MatriculationNumberView({
+    Key? key,
+    required this.initMatriculationNumber,
+  }) : super(key: key);
+
   @override
   _MatriculationNumberViewState createState() =>
       _MatriculationNumberViewState();
@@ -18,6 +25,15 @@ class MatriculationNumberView extends StatefulWidget {
 class _MatriculationNumberViewState extends State<MatriculationNumberView> {
   String _matriculationNumberString = '';
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initMatriculationNumber != null) {
+      _matriculationNumberString = widget.initMatriculationNumber!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,41 +45,48 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
             left: sidePadding,
             right: sidePadding,
           ),
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleIconButton(
-                      onTapped: () {
-                        Navigator.pop(context);
-                      },
-                      svgPath: 'assets/icons/arrow_left.svg',
-                      svgColor: AppColors.blue,
-                      backgroundColor: AppColors.transparent,
-                      svgSize: 22,
-                      alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CircleIconButton(
+                    onTapped: () {
+                      Navigator.pop(context);
+                    },
+                    svgPath: 'assets/icons/arrow_left.svg',
+                    svgColor: AppColors.blue,
+                    backgroundColor: AppColors.transparent,
+                    svgSize: 22,
+                    alignment: Alignment.centerLeft,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Matrikelnummer',
+                    style: AppTextStyles.montserratH2Bold.copyWith(
+                      color: AppColors.blue,
                     ),
-                  ],
-                ),
-                ConstrainedBox(
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: 400,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Matrikelnummer',
-                        style: AppTextStyles.montserratH2Bold.copyWith(
-                          color: AppColors.blue,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
                       SizedBox(
                         height: 30,
                       ),
                       TextFieldWithRoundedBorder(
+                        initValue: widget.initMatriculationNumber,
                         onChanged: (matriculationNumberString) {
                           setState(() {
                             _matriculationNumberString =
@@ -71,7 +94,7 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
                           });
                         },
                         hintText: 'Matrikelnummer eingeben',
-                        focusOnInit: true,
+                        focusOnInit: widget.initMatriculationNumber == null,
                         textInputType: TextInputType.number,
                       ),
                       SizedBox(
@@ -103,8 +126,8 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -112,20 +135,23 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
   }
 
   Future<void> _saveMatriculationNumber(BuildContext context) async {
-    bool wasSuccessfull =
-        await StudentService.setMatriculationNumber(
+    bool wasSuccessfull = await StudentService.setMatriculationNumber(
       context: context,
       matriculationNumber: int.parse(
         _matriculationNumberString,
       ),
     );
 
+    AlertService.showSnackBar(
+      title: wasSuccessfull
+          ? 'Matrikelnummer erfolgreich gespeichert'
+          : 'Ups, hier ist etwas schiefgelaufen',
+      description: wasSuccessfull
+          ? 'Du kannst deine Matrikelnummer in deinem Profil nachträglich noch ändern.'
+          : 'Bitte versuche es erneut oder starte die App neu.',
+      isSuccess: wasSuccessfull,
+    );
     if (wasSuccessfull) {
-      AlertService.showSnackBar(
-        title: 'Matrikelnummer gespeichert',
-        description: '',
-        isSuccess: true,
-      );
       Navigator.pop(context);
     }
 

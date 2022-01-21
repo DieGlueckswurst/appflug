@@ -37,7 +37,14 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               Column(
                 children: [
-                  CustomListTile(title: 'Persönliche Daten', onTap: () {}),
+                  CustomListTile(
+                      title: 'Persönliche Daten',
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          Views.personalData,
+                        );
+                      }),
                   SizedBox(
                     height: 20,
                   ),

@@ -1,28 +1,38 @@
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class IncompleteProfileView extends StatefulWidget {
+class PersonalDataListView extends StatefulWidget {
+  final Student student;
+  final bool isInSettings;
+
+  const PersonalDataListView({
+    Key? key,
+    required this.student,
+    required this.isInSettings,
+  }) : super(key: key);
+
   @override
-  _IncompleteProfileViewState createState() => _IncompleteProfileViewState();
+  _PersonalDataListViewState createState() => _PersonalDataListViewState();
 }
 
-class _IncompleteProfileViewState extends State<IncompleteProfileView> {
+class _PersonalDataListViewState extends State<PersonalDataListView> {
   @override
   Widget build(BuildContext context) {
-    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
     return Column(
       children: [
-        if (_student.matriculationNumber == null) ...[
+        if (widget.student.matriculationNumber == null ||
+            widget.isInSettings) ...[
           CustomListTile(
-            title: 'Matrikelnummer hinzufügen',
+            title: widget.isInSettings
+                ? 'Matrikelnummer'
+                : 'Matrikelnummer hinzufügen',
             onTap: () {
               Navigator.pushNamed(
                 context,
                 Views.matriculationNumber,
+                arguments: widget.student.matriculationNumber?.toString(),
               );
             },
           ),
@@ -30,9 +40,9 @@ class _IncompleteProfileViewState extends State<IncompleteProfileView> {
             height: 20,
           ),
         ],
-        if (_student.birthplace == null) ...[
+        if (widget.student.birthplace == null || widget.isInSettings) ...[
           CustomListTile(
-            title: 'Geburtsort hinzufügen',
+            title: widget.isInSettings ? 'Geburtsort' : 'Geburtsort hinzufügen',
             onTap: () {
               Navigator.pushNamed(
                 context,
@@ -44,9 +54,10 @@ class _IncompleteProfileViewState extends State<IncompleteProfileView> {
             height: 20,
           ),
         ],
-        if (_student.course == null)
+        if (widget.student.course == null || widget.isInSettings)
           CustomListTile(
-            title: 'Studiengang hinzufügen',
+            title:
+                widget.isInSettings ? 'Studiengang' : 'Studiengang hinzufügen',
             onTap: () {
               Navigator.pushNamed(
                 context,

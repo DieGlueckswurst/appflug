@@ -8,6 +8,7 @@ import 'package:appflug/ui/views/email/email_view.dart';
 import 'package:appflug/ui/views/login/login_view.dart';
 import 'package:appflug/ui/views/matriculation_number/matriculation_number_view.dart';
 import 'package:appflug/ui/views/navigation/nav_wrapper.dart';
+import 'package:appflug/ui/views/personal_data/personal_data_view.dart';
 import 'package:appflug/ui/views/preference_list/preference_list_view.dart';
 import 'package:appflug/ui/views/sign_up/sign_up_view.dart';
 import 'package:appflug/ui/views/start/start_view.dart';
@@ -48,8 +49,11 @@ class AppRouter {
         );
 
       case Views.matriculationNumber:
+        String? matriculationNumberString = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (context) => MatriculationNumberView(),
+          builder: (context) => MatriculationNumberView(
+            initMatriculationNumber: matriculationNumberString,
+          ),
         );
 
       case Views.birthplace:
@@ -106,6 +110,11 @@ class AppRouter {
       case Views.documents:
         return MaterialPageRoute(
           builder: (context) => DocumentsView(),
+        );
+
+      case Views.personalData:
+        return MaterialPageRoute(
+          builder: (context) => PersonalDataView(),
         );
 
       default:

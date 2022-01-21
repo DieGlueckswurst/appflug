@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'application_progress_indicator.dart';
-import 'incomplete_profile_view.dart';
+import 'personal_data_list_view.dart';
 
 class ApplicationStatusView extends StatefulWidget {
   @override
@@ -97,7 +97,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
   Widget _buildViewDependingOnApplicationsStatus(Student student) {
     switch (student.applicationStatus) {
       case ApplicationStatusOption.incompleteProfile:
-        return IncompleteProfileView();
+        return PersonalDataListView(
+          student: student,
+          isInSettings: false,
+        );
       case ApplicationStatusOption.incompleteDocuments:
         return DocumentsListView(
           student: student,
