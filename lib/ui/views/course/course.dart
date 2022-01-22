@@ -10,11 +10,11 @@ import 'package:appflug/ui/views/course/widgets/course_tile.dart';
 import 'package:flutter/material.dart';
 
 class CourseView extends StatefulWidget {
-  final String? selectedCourse;
+  final String? initCourse;
 
   const CourseView({
     Key? key,
-    this.selectedCourse,
+    this.initCourse,
   }) : super(key: key);
 
   @override
@@ -28,8 +28,8 @@ class _CourseViewState extends State<CourseView> {
   @override
   void initState() {
     super.initState();
-    if (widget.selectedCourse != null) {
-      _course = widget.selectedCourse!;
+    if (widget.initCourse != null) {
+      _course = widget.initCourse!;
     }
   }
 
@@ -44,37 +44,43 @@ class _CourseViewState extends State<CourseView> {
             left: sidePadding,
             right: sidePadding,
           ),
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxWidth: 400,
-            ),
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleIconButton(
-                      onTapped: () {
-                        Navigator.pop(context);
-                      },
-                      svgPath: 'assets/icons/arrow_left.svg',
-                      svgColor: AppColors.blue,
-                      backgroundColor: AppColors.transparent,
-                      svgSize: 22,
-                      alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CircleIconButton(
+                    onTapped: () {
+                      Navigator.pop(context);
+                    },
+                    svgPath: 'assets/icons/arrow_left.svg',
+                    svgColor: AppColors.blue,
+                    backgroundColor: AppColors.transparent,
+                    svgSize: 22,
+                    alignment: Alignment.centerLeft,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Studiengang',
+                    style: AppTextStyles.montserratH2Bold.copyWith(
+                      color: AppColors.blue,
                     ),
-                  ],
-                ),
-                Expanded(
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: 400,
+                  ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Studiengang',
-                        style: AppTextStyles.montserratH2Bold.copyWith(
-                          color: AppColors.blue,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
                       SizedBox(
                         height: 30,
                       ),
@@ -140,8 +146,8 @@ class _CourseViewState extends State<CourseView> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -154,12 +160,17 @@ class _CourseViewState extends State<CourseView> {
       course: _course,
     );
 
+    AlertService.showSnackBar(
+      title: wasSuccessfull
+          ? 'Studiengang erfolgreich gespeichert'
+          : 'Ups, hier ist etwas schiefgelaufen',
+      description: wasSuccessfull
+          ? 'Du kannst deinen Studiengang in deinem Profil nachträglich noch ändern.'
+          : 'Bitte versuche es erneut oder starte die App neu.',
+      isSuccess: wasSuccessfull,
+    );
+
     if (wasSuccessfull) {
-      AlertService.showSnackBar(
-        title: 'Studiengang gespeichert',
-        description: '',
-        isSuccess: true,
-      );
       Navigator.pop(context);
     }
 

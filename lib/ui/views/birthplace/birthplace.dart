@@ -9,6 +9,12 @@ import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_bo
 import 'package:flutter/material.dart';
 
 class BirthplaceView extends StatefulWidget {
+  final String? initBirthplace;
+
+  const BirthplaceView({
+    Key? key,
+    this.initBirthplace,
+  }) : super(key: key);
   @override
   _BirthplaceViewViewState createState() => _BirthplaceViewViewState();
 }
@@ -16,6 +22,15 @@ class BirthplaceView extends StatefulWidget {
 class _BirthplaceViewViewState extends State<BirthplaceView> {
   String _birthplace = '';
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initBirthplace != null) {
+      _birthplace = widget.initBirthplace!;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,48 +42,55 @@ class _BirthplaceViewViewState extends State<BirthplaceView> {
             left: sidePadding,
             right: sidePadding,
           ),
-          child: Center(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    CircleIconButton(
-                      onTapped: () {
-                        Navigator.pop(context);
-                      },
-                      svgPath: 'assets/icons/arrow_left.svg',
-                      svgColor: AppColors.blue,
-                      backgroundColor: AppColors.transparent,
-                      svgSize: 22,
-                      alignment: Alignment.centerLeft,
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  CircleIconButton(
+                    onTapped: () {
+                      Navigator.pop(context);
+                    },
+                    svgPath: 'assets/icons/arrow_left.svg',
+                    svgColor: AppColors.blue,
+                    backgroundColor: AppColors.transparent,
+                    svgSize: 22,
+                    alignment: Alignment.centerLeft,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Text(
+                    'Geburtsort',
+                    style: AppTextStyles.montserratH2Bold.copyWith(
+                      color: AppColors.blue,
                     ),
-                  ],
-                ),
-                ConstrainedBox(
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+              Expanded(
+                child: ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: 400,
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Geburtsort',
-                        style: AppTextStyles.montserratH2Bold.copyWith(
-                          color: AppColors.blue,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
                       SizedBox(
                         height: 30,
                       ),
                       TextFieldWithRoundedBorder(
+                        initValue: widget.initBirthplace,
                         onChanged: (birthplace) {
                           setState(() {
                             _birthplace = birthplace.trim();
                           });
                         },
                         hintText: 'Geburtsort eingeben',
-                        focusOnInit: true,
+                        focusOnInit: widget.initBirthplace == null,
                       ),
                       SizedBox(
                         height: 20,
@@ -97,8 +119,8 @@ class _BirthplaceViewViewState extends State<BirthplaceView> {
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -111,12 +133,17 @@ class _BirthplaceViewViewState extends State<BirthplaceView> {
       birthplace: _birthplace,
     );
 
+    AlertService.showSnackBar(
+      title: wasSuccessfull
+          ? 'Geburtsort erfolgreich gespeichert'
+          : 'Ups, hier ist etwas schiefgelaufen',
+      description: wasSuccessfull
+          ? 'Du kannst deinen Geburtsort in deinem Profil nachträglich noch ändern.'
+          : 'Bitte versuche es erneut oder starte die App neu.',
+      isSuccess: wasSuccessfull,
+    );
+
     if (wasSuccessfull) {
-      AlertService.showSnackBar(
-        title: 'Geburtsort gespeichert',
-        description: '',
-        isSuccess: true,
-      );
       Navigator.pop(context);
     }
 

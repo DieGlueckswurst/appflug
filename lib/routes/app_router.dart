@@ -57,13 +57,19 @@ class AppRouter {
         );
 
       case Views.birthplace:
+        String? birthplace = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (context) => BirthplaceView(),
+          builder: (context) => BirthplaceView(
+            initBirthplace: birthplace,
+          ),
         );
 
       case Views.course:
+        String? course = settings.arguments as String?;
         return MaterialPageRoute(
-          builder: (context) => CourseView(),
+          builder: (context) => CourseView(
+            initCourse: course,
+          ),
         );
 
       case Views.languageTest:

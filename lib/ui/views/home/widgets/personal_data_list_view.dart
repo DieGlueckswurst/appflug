@@ -47,6 +47,7 @@ class _PersonalDataListViewState extends State<PersonalDataListView> {
               Navigator.pushNamed(
                 context,
                 Views.birthplace,
+                arguments: widget.student.birthplace,
               );
             },
           ),
@@ -62,6 +63,7 @@ class _PersonalDataListViewState extends State<PersonalDataListView> {
               Navigator.pushNamed(
                 context,
                 Views.course,
+                arguments: widget.student.course,
               );
             },
           ),
