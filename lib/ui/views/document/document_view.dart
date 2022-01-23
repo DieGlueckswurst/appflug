@@ -68,7 +68,9 @@ class _DocumentViewState extends State<DocumentView> {
                 children: [
                   Flexible(
                     child: Text(
-                      _getTitle(),
+                      DocumentService.getDocumentTitleFromType(
+                        widget.document.type,
+                      ),
                       style: AppTextStyles.montserratH2Bold.copyWith(
                         color: AppColors.blue,
                       ),
@@ -158,21 +160,6 @@ class _DocumentViewState extends State<DocumentView> {
     );
   }
 
-  String _getTitle() {
-    switch (widget.document.type) {
-      case DocumentType.languageTest:
-        return 'Sprachzeugnis';
-      case DocumentType.letterOfMotivation:
-        return 'Motivationsschreiben';
-      case DocumentType.transcriptOfRecords:
-        return 'Transcript of Records';
-      case DocumentType.preferenceList:
-        return '';
-      case DocumentType.passport:
-        return 'Personalausweis/Reisepass';
-    }
-  }
-
   String _getHint() {
     switch (widget.document.type) {
       case DocumentType.languageTest:
@@ -198,7 +185,7 @@ class _DocumentViewState extends State<DocumentView> {
     );
     AlertService.showSnackBar(
       title: wasSuccessfull
-          ? 'Sprachzeugnis erfolgreich hochgeladen'
+          ? '${DocumentService.getDocumentTitleFromType(widget.document.type)} erfolgreich hochgeladen'
           : 'Ups, hier ist etwas schiefgelaufen',
       description: wasSuccessfull
           ? 'Du kannst das Dokument in deinem Profil nachträglich noch ändern.'

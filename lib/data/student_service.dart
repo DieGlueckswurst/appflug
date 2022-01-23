@@ -1,3 +1,4 @@
+import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/application_status_option.dart';
@@ -8,17 +9,17 @@ import 'backend/base.dart';
 import 'classes/student.dart';
 
 class StudentService {
-  static Future<Student> getStudentData({required BuildContext context}) async {
-    await Future.delayed(
-      Duration(
-        seconds: 2,
-      ),
-    );
-    Student student = await BackendService().getStudentData();
-    Provider.of<StudentProvider>(context, listen: false).setStudent(
-      student,
-    );
-    return student;
+  static Future<String> getStudentData({required BuildContext context}) async {
+    if (AuthenticationService().currentUser != null) {
+      Student student = await BackendService().getStudentData();
+      Provider.of<StudentProvider>(context, listen: false).setStudent(
+        student,
+      );
+      Provider.of<StudentProvider>(context, listen: false).setDataIsRetrieved(
+        true,
+      );
+    }
+    return 'pfusch';
   }
 
   static Future<bool> setBirthplace({

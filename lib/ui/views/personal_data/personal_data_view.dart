@@ -3,9 +3,7 @@ import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
-import 'package:appflug/data/student_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
-import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/home/widgets/personal_data_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,57 +24,36 @@ class _PersonalDataViewState extends State<PersonalDataView> {
             left: sidePadding,
             right: sidePadding,
           ),
-          child: FutureBuilder(
-            future: StudentService.getStudentData(
-              context: context,
-            ),
-            builder: (context, AsyncSnapshot<Student> studentSnapshot) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      CircleIconButton(
-                        onTapped: () {
-                          Navigator.pop(context);
-                        },
-                        svgPath: 'assets/icons/arrow_left.svg',
-                        svgColor: AppColors.blue,
-                        backgroundColor: AppColors.transparent,
-                        svgSize: 22,
-                        alignment: Alignment.centerLeft,
-                      ),
-                    ],
+                  CircleIconButton(
+                    onTapped: () {
+                      Navigator.pop(context);
+                    },
+                    svgPath: 'assets/icons/arrow_left.svg',
+                    svgColor: AppColors.blue,
+                    backgroundColor: AppColors.transparent,
+                    svgSize: 22,
+                    alignment: Alignment.centerLeft,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Persönliche Daten',
-                    style: AppTextStyles.montserratH2Bold.copyWith(
-                      color: AppColors.blue,
-                    ),
-                  ),
-                  AnimatedSwitcher(
-                    duration: kThemeAnimationDuration,
-                    child: studentSnapshot.hasData
-                        ? _buildBody(
-                            context: context,
-                          )
-                        : Center(
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  height: 100,
-                                ),
-                                LoadingPlane(),
-                              ],
-                            ),
-                          ),
-                  )
                 ],
-              );
-            },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Persönliche Daten',
+                style: AppTextStyles.montserratH2Bold.copyWith(
+                  color: AppColors.blue,
+                ),
+              ),
+              _buildBody(
+                context: context,
+              ),
+            ],
           ),
         ),
       ),

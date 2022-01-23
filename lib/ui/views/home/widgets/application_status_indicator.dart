@@ -2,17 +2,28 @@ import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/ui/views/home/utils/application_status_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class ApplicationStatusIndicator extends StatelessWidget {
+class ApplicationStatusIndicator extends StatefulWidget {
+  final Student student;
+
+  const ApplicationStatusIndicator({
+    Key? key,
+    required this.student,
+  }) : super(key: key);
+
+  @override
+  State<ApplicationStatusIndicator> createState() =>
+      _ApplicationStatusIndicatorState();
+}
+
+class _ApplicationStatusIndicatorState
+    extends State<ApplicationStatusIndicator> {
   @override
   Widget build(BuildContext context) {
-    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
     return Stack(
       children: [
         Container(
@@ -25,11 +36,13 @@ class ApplicationStatusIndicator extends StatelessWidget {
               color: AppColors.blue,
             ),
             borderRadius: BorderRadius.circular(30),
-            gradient: _getGradient(_student),
+            gradient: _getGradient(
+              widget.student,
+            ),
           ),
           child: Text(
             ApplicationStatusService.getApplicationStatusTitleFromOption(
-              _student.applicationStatus,
+              widget.student.applicationStatus,
             ),
             style: AppTextStyles.montserratH5SemiBold.copyWith(
               height: 1,

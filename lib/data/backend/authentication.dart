@@ -2,9 +2,14 @@
 
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/student.dart';
+import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/status_option.dart';
+import 'package:appflug/enums/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
+import 'package:appflug/ui/views/navigation/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class AuthenticationService {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -96,9 +101,20 @@ class AuthenticationService {
     }
   }
 
-  static Future<bool> signOut() async {
+  static Future<bool> signOut(BuildContext context) async {
     try {
       await _firebaseAuth.signOut();
+      BottomNavBarService.setSelectedView(
+        context: context,
+        viewToSelect: NavBarView.home,
+      );
+      Provider.of<StudentProvider>(context, listen: false).setStudent(
+        null,
+      );
+      Provider.of<StudentProvider>(context, listen: false).setDataIsRetrieved(
+        false,
+      );
+
       return true;
     } on FirebaseAuthException catch (e) {
       print(e.message);

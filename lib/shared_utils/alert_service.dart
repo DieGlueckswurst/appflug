@@ -1,5 +1,4 @@
 import 'package:appflug/constants/app_colors.dart';
-import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -16,18 +15,18 @@ class AlertService {
       '',
       margin: EdgeInsets.only(
         top: 20,
-        left: sidePadding,
-        right: sidePadding,
+        left: 20,
+        right: 20,
       ),
       titleText: Text(
         title,
-        style: AppTextStyles.montserratH5SemiBold.copyWith(
+        style: AppTextStyles.montserratH6SemiBold.copyWith(
           color: AppColors.white,
         ),
       ),
       messageText: Text(
         description,
-        style: AppTextStyles.montserratH6SemiBold.copyWith(
+        style: AppTextStyles.montserratH7Regular.copyWith(
           color: AppColors.white,
         ),
       ),

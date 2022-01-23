@@ -26,7 +26,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
       future: StudentService.getStudentData(
         context: context,
       ),
-      builder: (context, AsyncSnapshot<Student> studentSnapshot) {
+      builder: (context, AsyncSnapshot<void> studentSnapshot) {
+        Student? _student =
+            Provider.of<StudentProvider>(context).currentStudent;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,9 +44,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
             ),
             AnimatedSwitcher(
               duration: kThemeAnimationDuration,
-              child: studentSnapshot.hasData
+              child: _student != null
                   ? _buildBody(
                       context: context,
+                      student: _student,
                     )
                   : Center(
                       child: Column(
@@ -64,8 +68,8 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
 
   Widget _buildBody({
     required BuildContext context,
+    required Student student,
   }) {
-    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
     return Column(
       children: [
         SizedBox(
@@ -76,17 +80,21 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
             horizontal: 10,
           ),
           child: ApplicationProgressIndicator(
-            currentApplicationStatus: _student.applicationStatus,
+            currentApplicationStatus: student.applicationStatus,
           ),
         ),
         SizedBox(
           height: 30,
         ),
-        ApplicationStatusIndicator(),
+        ApplicationStatusIndicator(
+          student: student,
+        ),
         SizedBox(
           height: 30,
         ),
-        _buildViewDependingOnApplicationsStatus(_student),
+        _buildViewDependingOnApplicationsStatus(
+          student,
+        ),
         SizedBox(
           height: sidePadding,
         ),

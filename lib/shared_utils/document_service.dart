@@ -67,4 +67,19 @@ class DocumentService {
 
     return wasSuccessfull;
   }
+
+  static String getDocumentTitleFromType(DocumentType type) {
+    switch (type) {
+      case DocumentType.languageTest:
+        return 'Sprachzeugnis';
+      case DocumentType.letterOfMotivation:
+        return 'Motivationsschreiben';
+      case DocumentType.transcriptOfRecords:
+        return 'Transcript of Records';
+      case DocumentType.preferenceList:
+        return 'Präferenzliste';
+      case DocumentType.passport:
+        return 'Personalausweis/Reisepass';
+    }
+  }
 }

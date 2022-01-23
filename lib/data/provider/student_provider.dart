@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 
 class StudentProvider extends ChangeNotifier {
   Student? currentStudent;
+  bool dataIsRetrieved = false;
 
-  setStudent(Student student) {
+  setStudent(Student? student) {
     currentStudent = student;
     notifyListeners();
   }
@@ -33,6 +34,11 @@ class StudentProvider extends ChangeNotifier {
 
   setDocument(Document document) {
     currentStudent?.documents[document.type] = document;
+    notifyListeners();
+  }
+
+  setDataIsRetrieved(bool isRetrieved) {
+    dataIsRetrieved = isRetrieved;
     notifyListeners();
   }
 

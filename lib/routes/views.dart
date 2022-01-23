@@ -14,4 +14,5 @@ class Views {
   static const String passport = 'passport';
   static const String documents = 'documents';
   static const String personalData = 'personalData';
+  static const String account = 'account';
 }

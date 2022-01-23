@@ -9,12 +9,12 @@ class CourseTile extends StatelessWidget {
   final bool isSelected;
   final Function(Course) onCourseChange;
 
-  const CourseTile(
-      {Key? key,
-      required this.course,
-      required this.isSelected,
-      required this.onCourseChange})
-      : super(key: key);
+  const CourseTile({
+    Key? key,
+    required this.course,
+    required this.isSelected,
+    required this.onCourseChange,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/routes/views.dart';
+import 'package:appflug/ui/views/account/account_view.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
 import 'package:appflug/ui/views/course/course.dart';
 import 'package:appflug/ui/views/document/document_view.dart';
@@ -121,6 +122,11 @@ class AppRouter {
       case Views.personalData:
         return MaterialPageRoute(
           builder: (context) => PersonalDataView(),
+        );
+
+      case Views.account:
+        return MaterialPageRoute(
+          builder: (context) => AccountView(),
         );
 
       default:
