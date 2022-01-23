@@ -27,29 +27,32 @@ class CircleIconButton extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: onTapped,
-        child: Container(
-          height: size + padding,
-          width: size + padding,
-          color: AppColors.transparent,
-          child: Center(
-            child: Container(
-              height: size,
-              width: size,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: backgroundColor,
-              ),
-              child: Align(
-                alignment: alignment,
-                child: SvgPicture.asset(
-                  svgPath,
-                  height: svgSize,
-                  width: svgSize,
-                  color: isMulticolor ? null : svgColor,
+    return Hero(
+      tag: 'back',
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: onTapped,
+          child: Container(
+            height: size + padding,
+            width: size + padding,
+            color: AppColors.transparent,
+            child: Center(
+              child: Container(
+                height: size,
+                width: size,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: backgroundColor,
+                ),
+                child: Align(
+                  alignment: alignment,
+                  child: SvgPicture.asset(
+                    svgPath,
+                    height: svgSize,
+                    width: svgSize,
+                    color: isMulticolor ? null : svgColor,
+                  ),
                 ),
               ),
             ),

@@ -44,10 +44,16 @@ class _DocumentsViewState extends State<DocumentsView> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Meine Dokumente',
-                style: AppTextStyles.montserratH2Bold.copyWith(
-                  color: AppColors.blue,
+              Hero(
+                tag: 'text',
+                child: Material(
+                  color: AppColors.white,
+                  child: Text(
+                    'Meine Dokumente',
+                    style: AppTextStyles.montserratH2Bold.copyWith(
+                      color: AppColors.blue,
+                    ),
+                  ),
                 ),
               ),
               _buildBody(

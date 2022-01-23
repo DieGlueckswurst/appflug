@@ -24,8 +24,9 @@ class _AccountViewState extends State<AccountView> {
               title: wasSuccessfull
                   ? 'Erfolgreich ausgeloggt'
                   : 'Beim ausloggen ist etwas schiefgelaufen.',
-              description:
-                  'AppFlug ist übrigens auf iOS, Android und im Web verfügbar.',
+              description: wasSuccessfull
+                  ? 'AppFlug ist übrigens auf iOS, Android und im Web verfügbar.'
+                  : 'Bitte versuche es erneut oder starte die App neu.',
               isSuccess: wasSuccessfull,
             );
             if (wasSuccessfull) {

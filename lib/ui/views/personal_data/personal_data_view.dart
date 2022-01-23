@@ -44,10 +44,16 @@ class _PersonalDataViewState extends State<PersonalDataView> {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                'Persönliche Daten',
-                style: AppTextStyles.montserratH2Bold.copyWith(
-                  color: AppColors.blue,
+              Hero(
+                tag: 'text',
+                child: Material(
+                  color: AppColors.transparent,
+                  child: Text(
+                    'Persönliche Daten',
+                    style: AppTextStyles.montserratH2Bold.copyWith(
+                      color: AppColors.blue,
+                    ),
+                  ),
                 ),
               ),
               _buildBody(

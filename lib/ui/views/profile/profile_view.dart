@@ -30,10 +30,22 @@ class _SettingsViewState extends State<SettingsView> {
             SizedBox(
               height: sidePadding,
             ),
-            Text(
-              'Mein Profil',
-              style: AppTextStyles.montserratH2Bold.copyWith(
-                color: AppColors.blue,
+            Hero(
+              tag: 'text',
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Material(
+                      color: AppColors.white,
+                      child: Text(
+                        'Mein Profil',
+                        style: AppTextStyles.montserratH2Bold.copyWith(
+                          color: AppColors.blue,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
