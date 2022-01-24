@@ -8,6 +8,7 @@ import 'package:appflug/shared_utils/document_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/document/widgets/file_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -64,20 +65,10 @@ class _DocumentViewState extends State<DocumentView> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Text(
-                      DocumentService.getDocumentTitleFromType(
-                        widget.document.type,
-                      ),
-                      style: AppTextStyles.montserratH2Bold.copyWith(
-                        color: AppColors.blue,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
-                ],
+              HeroHeader(
+                title: DocumentService.getDocumentTitleFromType(
+                  widget.document.type,
+                ),
               ),
               Expanded(
                 child: ConstrainedBox(

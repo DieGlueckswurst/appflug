@@ -1,11 +1,11 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/student_service.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_border.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/matriculation_number/utils/matriculation_number_service.dart';
 import 'package:flutter/material.dart';
 
@@ -64,16 +64,8 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
               SizedBox(
                 height: 10,
               ),
-              Row(
-                children: [
-                  Text(
-                    'Matrikelnummer',
-                    style: AppTextStyles.montserratH2Bold.copyWith(
-                      color: AppColors.blue,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+              HeroHeader(
+                title: 'Matrikelnummer',
               ),
               Expanded(
                 child: ConstrainedBox(

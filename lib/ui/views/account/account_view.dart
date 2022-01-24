@@ -1,12 +1,12 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:flutter/material.dart';
 
 class AccountView extends StatefulWidget {
@@ -45,17 +45,8 @@ class _AccountViewState extends State<AccountView> {
               SizedBox(
                 height: 10,
               ),
-              Hero(
-                tag: 'text',
-                child: Material(
-                  color: AppColors.transparent,
-                  child: Text(
-                    'Konto',
-                    style: AppTextStyles.montserratH2Bold.copyWith(
-                      color: AppColors.blue,
-                    ),
-                  ),
-                ),
+              HeroHeader(
+                title: 'Konto',
               ),
               SizedBox(
                 height: 30,

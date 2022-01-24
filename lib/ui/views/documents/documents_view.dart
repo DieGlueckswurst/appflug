@@ -1,9 +1,9 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/home/widgets/documents_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,17 +44,8 @@ class _DocumentsViewState extends State<DocumentsView> {
               SizedBox(
                 height: 10,
               ),
-              Hero(
-                tag: 'text',
-                child: Material(
-                  color: AppColors.white,
-                  child: Text(
-                    'Meine Dokumente',
-                    style: AppTextStyles.montserratH2Bold.copyWith(
-                      color: AppColors.blue,
-                    ),
-                  ),
-                ),
+              HeroHeader(
+                title: 'Meine Dokumente',
               ),
               _buildBody(
                 context: context,

@@ -1,9 +1,9 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/home/widgets/personal_data_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +25,6 @@ class _PersonalDataViewState extends State<PersonalDataView> {
             right: sidePadding,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -44,17 +43,8 @@ class _PersonalDataViewState extends State<PersonalDataView> {
               SizedBox(
                 height: 10,
               ),
-              Hero(
-                tag: 'text',
-                child: Material(
-                  color: AppColors.transparent,
-                  child: Text(
-                    'Persönliche Daten',
-                    style: AppTextStyles.montserratH2Bold.copyWith(
-                      color: AppColors.blue,
-                    ),
-                  ),
-                ),
+              HeroHeader(
+                title: 'Persönliche Daten',
               ),
               _buildBody(
                 context: context,
@@ -70,19 +60,24 @@ class _PersonalDataViewState extends State<PersonalDataView> {
     required BuildContext context,
   }) {
     Student _student = Provider.of<StudentProvider>(context).currentStudent!;
-    return Column(
-      children: [
-        SizedBox(
-          height: 30,
+    return Expanded(
+      child: ConstrainedBox(
+        constraints: webMaxWidthConstraint,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            PersonalDataListView(
+              student: _student,
+              isInSettings: true,
+            ),
+            SizedBox(
+              height: sidePadding,
+            ),
+          ],
         ),
-        PersonalDataListView(
-          student: _student,
-          isInSettings: true,
-        ),
-        SizedBox(
-          height: sidePadding,
-        ),
-      ],
+      ),
     );
   }
 }
