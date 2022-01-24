@@ -1,12 +1,14 @@
 // ignore_for_file: avoid_print
 
 import 'package:appflug/data/backend/base.dart';
+import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/enums/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/views/navigation/utils.dart';
+import 'package:appflug/ui/views/sign_up/utils/regex_map_with_descriptions_for_password.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +16,7 @@ import 'package:provider/provider.dart';
 class AuthenticationService {
   static final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  User? get currentUser => FirebaseAuth.instance.currentUser;
+  static User? get currentUser => FirebaseAuth.instance.currentUser;
 
   static bool isLoggedIn() {
     return _firebaseAuth.currentUser != null;
@@ -30,13 +32,21 @@ class AuthenticationService {
         password: password,
       );
       return true;
-    } on FirebaseAuthException catch (e) {
-      print(e.message);
-      AlertService.showSnackBar(
-        title: 'Hopla, hier ist etwas schiefgelaufen...',
-        description: e.message ?? 'Unbekannter Fehler',
-        isSuccess: false,
-      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'wrong-password') {
+        AlertService.showSnackBar(
+          title: 'Falsches Passwort',
+          description:
+              'Du kannst dein Passwort auch über den "Passwort vergessen"-Button zurücksetzen.',
+          isSuccess: false,
+        );
+      } else {
+        AlertService.showSnackBar(
+          title: 'Fehler',
+          description: error.message ?? 'Unbekannter Fehler',
+          isSuccess: false,
+        );
+      }
       return false;
     }
   }
@@ -108,12 +118,7 @@ class AuthenticationService {
         context: context,
         viewToSelect: NavBarView.home,
       );
-      Provider.of<StudentProvider>(context, listen: false).setStudent(
-        null,
-      );
-      Provider.of<StudentProvider>(context, listen: false).setDataIsRetrieved(
-        false,
-      );
+      Provider.of<StudentProvider>(context, listen: false).reset();
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -135,5 +140,86 @@ class AuthenticationService {
       print(e.message);
       return false;
     }
+  }
+
+  static Future<bool> reauthenticate({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      AuthCredential credentials =
+          EmailAuthProvider.credential(email: email, password: password);
+      var _ = await currentUser!.reauthenticateWithCredential(credentials);
+
+      return true;
+    } on FirebaseAuthException catch (error) {
+      print(error.code);
+      if (error.code == 'wrong-password') {
+        AlertService.showSnackBar(
+          title: 'Falsches Passwort',
+          description:
+              'Du kannst dein Passwort auch über den "Passwort vergessen"-Button zurücksetzen.',
+          isSuccess: false,
+        );
+      } else {
+        AlertService.showSnackBar(
+          title: 'Fehler',
+          description: error.message ?? 'Unbekannter Fehler',
+          isSuccess: false,
+        );
+      }
+      return false;
+    }
+  }
+
+  static Future<bool> deleteUser(BuildContext context) async {
+    try {
+      await BackendStorageService.deleteUser(context);
+      await BackendService().deleteUser();
+      await currentUser!.delete();
+      BottomNavBarService.setSelectedView(
+        context: context,
+        viewToSelect: NavBarView.home,
+      );
+      Provider.of<StudentProvider>(context, listen: false).reset();
+
+      return true;
+    } on FirebaseException catch (error) {
+      print(error.message);
+      AlertService.showSnackBar(
+        title: 'Fehler',
+        description: error.message ?? 'Unbekannter Fehler',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  static Future<bool> changePassword(String newPassword) async {
+    try {
+      await currentUser!.updatePassword(
+        newPassword,
+      );
+      return true;
+    } on FirebaseAuthException catch (error) {
+      AlertService.showSnackBar(
+        title: 'Fehler',
+        description: error.message ?? 'Unbekannter Fehler',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  static bool isValidPassword(String password) {
+    return regexMapWithDescriptionsForPassword.keys.toList()[0].hasMatch(
+              password,
+            ) &&
+        regexMapWithDescriptionsForPassword.keys.toList()[1].hasMatch(
+              password,
+            ) &&
+        regexMapWithDescriptionsForPassword.keys.toList()[2].hasMatch(
+              password,
+            );
   }
 }

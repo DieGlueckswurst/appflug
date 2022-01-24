@@ -24,7 +24,7 @@ class DocumentService {
     required DocumentType documentType,
     required String fileName,
   }) {
-    return '${BackendService().keys.studs}/${AuthenticationService().currentUser?.uid}/${documentType.name}/$fileName';
+    return '${BackendService().keys.studs}/${AuthenticationService.currentUser?.uid}/${documentType.name}/$fileName';
   }
 
   static Future<bool> savePdf({
@@ -43,6 +43,7 @@ class DocumentService {
       assetAsUint8List: assetAsUint8List,
       fileName: fileName,
       documentType: documentType,
+      context: context,
     );
 
     bool wasSuccessfull = await BackendService().setDocument(

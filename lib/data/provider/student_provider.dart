@@ -42,6 +42,12 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  reset() {
+    dataIsRetrieved = false;
+    currentStudent = null;
+    notifyListeners();
+  }
+
   bool get profileIsComplete =>
       currentStudent?.matriculationNumber != null &&
       currentStudent?.birthplace != null &&

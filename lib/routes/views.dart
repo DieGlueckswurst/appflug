@@ -15,4 +15,7 @@ class Views {
   static const String documents = 'documents';
   static const String personalData = 'personalData';
   static const String account = 'account';
+  static const String authentication = 'authentication';
+  static const String changePassword = 'changePassword';
+  static const String deleteAccount = 'deleteAccount';
 }

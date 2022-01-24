@@ -45,7 +45,7 @@ extension StudentBackendService on BackendService {
   Future<Student> getStudentData() async {
     var docSnapshot = await firestoreInstance
         .collection(keys.studs)
-        .doc(AuthenticationService().currentUser!.uid)
+        .doc(AuthenticationService.currentUser!.uid)
         .get();
     Map<String, dynamic>? docData = docSnapshot.data();
     Student student = Student(
@@ -63,7 +63,7 @@ extension StudentBackendService on BackendService {
 
     var documentQuerySnapshot = await firestoreInstance
         .collection(keys.studs)
-        .doc(AuthenticationService().currentUser!.uid)
+        .doc(AuthenticationService.currentUser!.uid)
         .collection(keys.documents)
         .get();
     for (var doc in documentQuerySnapshot.docs) {
@@ -86,7 +86,7 @@ extension StudentBackendService on BackendService {
     try {
       await firestoreInstance
           .collection(keys.studs)
-          .doc(AuthenticationService().currentUser!.uid)
+          .doc(AuthenticationService.currentUser!.uid)
           .set(
         {
           keys.applicationStatus: status.name,
@@ -110,7 +110,7 @@ extension StudentBackendService on BackendService {
     try {
       await firestoreInstance
           .collection(keys.studs)
-          .doc(AuthenticationService().currentUser!.uid)
+          .doc(AuthenticationService.currentUser!.uid)
           .set(
         {
           keys.matriculationNumber: matriculationNumber,
@@ -134,7 +134,7 @@ extension StudentBackendService on BackendService {
     try {
       await firestoreInstance
           .collection(keys.studs)
-          .doc(AuthenticationService().currentUser!.uid)
+          .doc(AuthenticationService.currentUser!.uid)
           .set(
         {
           keys.birthplace: birthplace,
@@ -158,7 +158,7 @@ extension StudentBackendService on BackendService {
     try {
       await firestoreInstance
           .collection(keys.studs)
-          .doc(AuthenticationService().currentUser!.uid)
+          .doc(AuthenticationService.currentUser!.uid)
           .set(
         {
           keys.course: course,
@@ -191,7 +191,7 @@ extension StudentBackendService on BackendService {
       );
       await firestoreInstance
           .collection(keys.studs)
-          .doc(AuthenticationService().currentUser!.uid)
+          .doc(AuthenticationService.currentUser!.uid)
           .collection(keys.documents)
           .doc(documentId)
           .set(
@@ -208,6 +208,23 @@ extension StudentBackendService on BackendService {
     } on FirebaseException catch (e) {
       AlertService.showSnackBar(
         title: '$fileName speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  Future<bool> deleteUser() async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService.currentUser!.uid)
+          .delete();
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Fehler',
         description: e.message ?? '',
         isSuccess: false,
       );

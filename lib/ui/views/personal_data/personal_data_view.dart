@@ -1,12 +1,11 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/data/student_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/home/widgets/personal_data_list_view.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class PersonalDataView extends StatefulWidget {
   @override
@@ -59,7 +58,11 @@ class _PersonalDataViewState extends State<PersonalDataView> {
   Widget _buildBody({
     required BuildContext context,
   }) {
-    Student _student = Provider.of<StudentProvider>(context).currentStudent!;
+    Student _student = StudentService.getStudent(
+      context,
+      listen: true,
+    );
+
     return Expanded(
       child: ConstrainedBox(
         constraints: webMaxWidthConstraint,

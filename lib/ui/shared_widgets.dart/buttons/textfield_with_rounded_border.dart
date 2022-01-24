@@ -77,11 +77,14 @@ class _TextFieldWithRoundedBorderState
                     _showPassword = !_showPassword;
                   });
                 },
-                child: Icon(
-                  _showPassword
-                      ? CupertinoIcons.eye_slash_fill
-                      : CupertinoIcons.eye_fill,
-                  color: AppColors.blue,
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Icon(
+                    _showPassword
+                        ? CupertinoIcons.eye_slash_fill
+                        : CupertinoIcons.eye_fill,
+                    color: AppColors.blue,
+                  ),
                 ),
               )
             : null,

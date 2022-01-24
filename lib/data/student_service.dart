@@ -9,8 +9,18 @@ import 'backend/base.dart';
 import 'classes/student.dart';
 
 class StudentService {
+  static Student getStudent(
+    BuildContext context, {
+    required bool listen,
+  }) {
+    return Provider.of<StudentProvider>(
+      context,
+      listen: listen,
+    ).currentStudent!;
+  }
+
   static Future<String> getStudentData({required BuildContext context}) async {
-    if (AuthenticationService().currentUser != null) {
+    if (AuthenticationService.currentUser != null) {
       Student student = await BackendService().getStudentData();
       Provider.of<StudentProvider>(context, listen: false).setStudent(
         student,

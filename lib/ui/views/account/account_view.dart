@@ -26,7 +26,6 @@ class _AccountViewState extends State<AccountView> {
             right: sidePadding,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -51,39 +50,65 @@ class _AccountViewState extends State<AccountView> {
               SizedBox(
                 height: 30,
               ),
-              CustomListTile(
-                title: 'Email bearbeiten',
-                onTap: () {},
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              RoundedCornersTextButton(
-                title: 'Logout',
-                onTap: () async {
-                  bool wasSuccessfull = await AuthenticationService.signOut(
-                    context,
-                  );
-                  AlertService.showSnackBar(
-                    title: wasSuccessfull
-                        ? 'Erfolgreich ausgeloggt'
-                        : 'Beim ausloggen ist etwas schiefgelaufen.',
-                    description: wasSuccessfull
-                        ? 'AppFlug ist übrigens auf iOS, Android und im Web verfügbar.'
-                        : 'Bitte versuche es erneut oder starte die App neu.',
-                    isSuccess: wasSuccessfull,
-                  );
-                  if (wasSuccessfull) {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      Views.start,
-                      (route) => false,
-                    );
-                  }
-                },
+              Expanded(
+                child: ConstrainedBox(
+                  constraints: webMaxWidthConstraint,
+                  child: Column(
+                    children: [
+                      CustomListTile(
+                        title: 'Konto löschen',
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            Views.authentication,
+                            arguments: Views.deleteAccount,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomListTile(
+                        title: 'Passwort ändern',
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            Views.authentication,
+                            arguments: Views.changePassword,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      RoundedCornersTextButton(
+                        title: 'Logout',
+                        onTap: () async {
+                          bool wasSuccessfull =
+                              await AuthenticationService.signOut(
+                            context,
+                          );
+                          AlertService.showSnackBar(
+                            title: wasSuccessfull
+                                ? 'Erfolgreich ausgeloggt'
+                                : 'Beim ausloggen ist etwas schiefgelaufen.',
+                            description: wasSuccessfull
+                                ? 'AppFlug ist übrigens auf iOS, Android und im Web verfügbar.'
+                                : 'Bitte versuche es erneut oder starte die App neu.',
+                            isSuccess: wasSuccessfull,
+                          );
+                          if (wasSuccessfull) {
+                            Navigator.pushNamedAndRemoveUntil(
+                              context,
+                              Views.start,
+                              (route) => false,
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
               SizedBox(
                 height: sidePadding,

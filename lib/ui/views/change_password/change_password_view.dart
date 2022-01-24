@@ -1,24 +1,20 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
-import 'package:appflug/routes/views.dart';
+import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_border.dart';
+import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/shared_widgets.dart/password_validation_view.dart';
 import 'package:flutter/material.dart';
 
-class SignUpView extends StatefulWidget {
-  final String email;
-
-  const SignUpView({required this.email});
-
+class ChangePasswordView extends StatefulWidget {
   @override
-  _SignUpViewState createState() => _SignUpViewState();
+  _ChangePasswordViewState createState() => _ChangePasswordViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _ChangePasswordViewState extends State<ChangePasswordView> {
   String _password = '';
   bool _isLoading = false;
   @override
@@ -49,6 +45,10 @@ class _SignUpViewState extends State<SignUpView> {
                     ),
                   ],
                 ),
+                HeroHeader(title: 'Passwort ändern'),
+                SizedBox(
+                  height: 10,
+                ),
                 ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: 400,
@@ -56,25 +56,6 @@ class _SignUpViewState extends State<SignUpView> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Konto erstellen',
-                        style: AppTextStyles.montserratH2Bold.copyWith(
-                          color: AppColors.blue,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      TextFieldWithRoundedBorder(
-                        initValue: widget.email,
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       TextFieldWithRoundedBorder(
                         onChanged: (password) {
                           setState(() {
@@ -86,40 +67,29 @@ class _SignUpViewState extends State<SignUpView> {
                         textInputType: TextInputType.visiblePassword,
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       PasswordValidationView(
                         password: _password,
                       ),
                       SizedBox(
-                        height: 20,
+                        height: 30,
                       ),
                       RoundedCornersTextButton(
+                        title: 'Passwort ändern',
+                        isLoading: _isLoading,
                         isEnabled: AuthenticationService.isValidPassword(
                           _password,
                         ),
-                        title: 'Weiter',
-                        isLoading: _isLoading,
                         onTap: () async {
                           setState(() {
                             _isLoading = true;
                           });
-                          bool wasSuccessfull =
-                              await AuthenticationService.signUp(
-                            email: widget.email,
-                            password: _password,
-                          );
-                          if (wasSuccessfull) {
-                            Navigator.pushNamedAndRemoveUntil(
-                              context,
-                              Views.home,
-                              (route) => false,
-                            );
-                          }
-                          setState(() {
-                            _isLoading = false;
-                          });
+                          _changePassword();
                         },
+                      ),
+                      SizedBox(
+                        height: sidePadding,
                       ),
                     ],
                   ),
@@ -130,5 +100,21 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       ),
     );
+  }
+
+  Future<void> _changePassword() async {
+    bool wasSuccessfull = await AuthenticationService.changePassword(_password);
+
+    if (wasSuccessfull) {
+      AlertService.showSnackBar(
+        title: 'Passwort erfolgreich geändert.',
+        description: 'Du kannst dich mit deinem neuen Passwort jetzt anmelden.',
+        isSuccess: true,
+      );
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
