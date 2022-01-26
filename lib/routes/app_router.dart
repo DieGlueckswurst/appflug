@@ -1,4 +1,5 @@
 import 'package:appflug/data/classes/document.dart';
+import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/account/account_view.dart';
 import 'package:appflug/ui/views/authentication/authentication_view.dart';
@@ -40,10 +41,13 @@ class AppRouter {
         );
 
       case Views.login:
-        String email = settings.arguments as String;
+        List<Object> args = settings.arguments as List<Object>;
+        String email = args[0] as String;
+        StatusOption statusOption = args[1] as StatusOption;
         return MaterialPageRoute(
           builder: (context) => LoginView(
             email: email,
+            statusOption: statusOption,
           ),
         );
 

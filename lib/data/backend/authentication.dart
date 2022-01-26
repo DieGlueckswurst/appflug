@@ -114,7 +114,7 @@ class AuthenticationService {
   static Future<bool> signOut(BuildContext context) async {
     try {
       await _firebaseAuth.signOut();
-      BottomNavBarService.setSelectedView(
+      NavBarService.setSelectedView(
         context: context,
         viewToSelect: NavBarView.home,
       );
@@ -177,7 +177,7 @@ class AuthenticationService {
       await BackendStorageService.deleteUser(context);
       await BackendService().deleteUser();
       await currentUser!.delete();
-      BottomNavBarService.setSelectedView(
+      NavBarService.setSelectedView(
         context: context,
         viewToSelect: NavBarView.home,
       );

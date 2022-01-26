@@ -5,7 +5,7 @@ import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/shared_utils/document_service.dart';
-import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
@@ -48,20 +48,7 @@ class _DocumentViewState extends State<DocumentView> {
           ),
           child: Column(
             children: [
-              Row(
-                children: [
-                  CircleIconButton(
-                    onTapped: () {
-                      Navigator.pop(context);
-                    },
-                    svgPath: 'assets/icons/arrow_left.svg',
-                    svgColor: AppColors.blue,
-                    backgroundColor: AppColors.transparent,
-                    svgSize: 22,
-                    alignment: Alignment.centerLeft,
-                  ),
-                ],
-              ),
+              CustomBackButton(),
               SizedBox(
                 height: 10,
               ),

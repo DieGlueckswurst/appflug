@@ -20,7 +20,7 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
     return Expanded(
       child: GestureDetector(
         onTap: () {
-          BottomNavBarService.setSelectedView(
+          NavBarService.setSelectedView(
             context: context,
             viewToSelect: widget.view,
           );
@@ -50,7 +50,7 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
   }
 
   bool _getIsSelected(BuildContext context) {
-    return widget.view == BottomNavBarService.getSelectedView(context);
+    return widget.view == NavBarService.getSelectedView(context);
   }
 
   String _getIconPath() {
@@ -66,17 +66,4 @@ class _BottomNavBarItemState extends State<BottomNavBarItem> {
         return '${basePath}profile.svg';
     }
   }
-
-  // String _getTitle() {
-  //   switch (widget.view) {
-  //     case NavBarView.home:
-  //       return 'Home';
-  //     case NavBarView.university:
-  //       return 'Suche';
-  //     case NavBarView.faq:
-  //       return 'FAQ';
-  //     case NavBarView.settings:
-  //       return 'Einstellungen';
-  //   }
-  // }
 }

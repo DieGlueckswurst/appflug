@@ -5,6 +5,7 @@ import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:appflug/ui/views/home/widgets/documents_list_view.dart';
@@ -77,7 +78,9 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
         ),
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 10,
+            horizontal: LayoutService.isDesktop(context)
+                ? sidePadding * 3
+                : sidePadding,
           ),
           child: ApplicationProgressIndicator(
             currentApplicationStatus: student.applicationStatus,
@@ -92,8 +95,13 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
         SizedBox(
           height: 30,
         ),
-        _buildViewDependingOnApplicationsStatus(
-          student,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: LayoutService.isDesktop(context) ? 400 : double.infinity,
+          ),
+          child: _buildViewDependingOnApplicationsStatus(
+            student,
+          ),
         ),
         SizedBox(
           height: sidePadding,

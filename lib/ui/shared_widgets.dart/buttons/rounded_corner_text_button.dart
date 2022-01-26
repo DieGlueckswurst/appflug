@@ -17,6 +17,7 @@ class RoundedCornersTextButton extends StatefulWidget {
   final Color? iconColor;
   final bool isEnabled;
   final double iconSize;
+  final String? heroKey;
 
   const RoundedCornersTextButton({
     required this.title,
@@ -30,6 +31,7 @@ class RoundedCornersTextButton extends StatefulWidget {
     this.iconColor,
     this.isEnabled = true,
     this.iconSize = 23,
+    this.heroKey,
   });
 
   @override
@@ -60,96 +62,108 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
     _scale = 1 - _controller.value;
     return Material(
       color: AppColors.transparent,
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: Listener(
-          onPointerDown: (PointerDownEvent event) {
-            _onTapDown();
-          },
-          onPointerUp: (PointerUpEvent event) {
-            _onTapCancel();
-          },
-          child: GestureDetector(
-            onTap: () {
-              if (widget.isEnabled) {
-                widget.onTap();
-              }
-            },
-            onTapCancel: () {
-              _onTapCancel();
-            },
-            child: Transform.scale(
-              scale: _scale,
-              child: Container(
-                height: 55,
-                width: widget.width,
-                decoration: BoxDecoration(
-                  borderRadius: borderRadius,
-                  color: widget.isEnabled
-                      ? widget.backgroundColor
-                      : widget.backgroundColor.withOpacity(0.5),
-                  border: widget.borderColor != null
-                      ? Border.all(
-                          color: widget.borderColor!,
-                          width: 3,
-                        )
-                      : null,
-                ),
-                child: Center(
-                  child: widget.isLoading
-                      ? Padding(
-                          padding: EdgeInsets.only(bottom: 4),
-                          child: Lottie.asset(
-                            'assets/lottie/loading_dots_secondary.json',
-                            animate: true,
-                            repeat: true,
-                          ),
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: 20,
-                            ),
-                            if (widget.leadingIconPath != null)
-                              SvgPicture.asset(
-                                widget.leadingIconPath!,
-                                height: widget.iconSize,
-                                width: widget.iconSize,
-                                color: isTapped
-                                    ? (widget.iconColor ?? AppColors.blue)
-                                        .withOpacity(0.5)
-                                    : widget.iconColor ?? AppColors.blue,
-                                fit: BoxFit.contain,
+      child: HeroMode(
+        enabled: widget.heroKey != null,
+        child: Hero(
+          tag: widget.heroKey ?? '',
+          child: MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: Listener(
+              onPointerDown: (PointerDownEvent event) {
+                _onTapDown();
+              },
+              onPointerUp: (PointerUpEvent event) {
+                _onTapCancel();
+              },
+              child: GestureDetector(
+                onTap: () {
+                  if (widget.isEnabled) {
+                    widget.onTap();
+                  }
+                },
+                onTapCancel: () {
+                  _onTapCancel();
+                },
+                child: Transform.scale(
+                  scale: _scale,
+                  child: Container(
+                    height: 55,
+                    width: widget.width,
+                    decoration: BoxDecoration(
+                      borderRadius: borderRadius,
+                      color: widget.isEnabled
+                          ? widget.backgroundColor
+                          : widget.backgroundColor.withOpacity(0.5),
+                      border: widget.borderColor != null
+                          ? Border.all(
+                              color: widget.borderColor!,
+                              width: 3,
+                            )
+                          : null,
+                    ),
+                    child: Center(
+                      child: widget.isLoading
+                          ? Padding(
+                              padding: EdgeInsets.only(bottom: 4),
+                              child: Lottie.asset(
+                                'assets/lottie/loading_dots_secondary.json',
+                                animate: true,
+                                repeat: true,
                               ),
-                            Expanded(
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 10),
-                                child: Text(
-                                  widget.title,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  softWrap: false,
-                                  textAlign: TextAlign.center,
-                                  style: AppTextStyles.montserratH6SemiBold
-                                      .copyWith(
-                                    color: isTapped || !widget.isEnabled
-                                        ? widget.textColor.withOpacity(0.5)
-                                        : widget.textColor,
-                                    height: 1,
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                if (widget.leadingIconPath != null)
+                                  SvgPicture.asset(
+                                    widget.leadingIconPath!,
+                                    height: widget.iconSize,
+                                    width: widget.iconSize,
+                                    color: isTapped
+                                        ? (widget.iconColor ?? AppColors.blue)
+                                            .withOpacity(0.5)
+                                        : widget.iconColor ?? AppColors.blue,
+                                    fit: BoxFit.contain,
+                                  ),
+                                Expanded(
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Material(
+                                      color: AppColors.transparent,
+                                      child: Text(
+                                        widget.title,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyles
+                                            .montserratH6SemiBold
+                                            .copyWith(
+                                          color: isTapped || !widget.isEnabled
+                                              ? widget.textColor
+                                                  .withOpacity(0.5)
+                                              : widget.textColor,
+                                          height: 1,
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ),
+                                if (widget.leadingIconPath != null)
+                                  SizedBox(
+                                    width: widget.iconSize,
+                                  ),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                              ],
                             ),
-                            if (widget.leadingIconPath != null)
-                              SizedBox(
-                                width: widget.iconSize,
-                              ),
-                            SizedBox(
-                              width: 20,
-                            ),
-                          ],
-                        ),
+                    ),
+                  ),
                 ),
               ),
             ),

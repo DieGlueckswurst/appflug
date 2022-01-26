@@ -1,18 +1,24 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
+import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
-import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/textfield_with_rounded_border.dart';
 import 'package:flutter/material.dart';
 
 class LoginView extends StatefulWidget {
   final String email;
+  final StatusOption statusOption;
 
-  const LoginView({required this.email});
+  const LoginView({
+    required this.email,
+    required this.statusOption,
+  });
 
   @override
   State<LoginView> createState() => _LoginViewState();
@@ -35,20 +41,7 @@ class _LoginViewState extends State<LoginView> {
           child: Center(
             child: Column(
               children: [
-                Row(
-                  children: [
-                    CircleIconButton(
-                      onTapped: () {
-                        Navigator.pop(context);
-                      },
-                      svgPath: 'assets/icons/arrow_left.svg',
-                      svgColor: AppColors.blue,
-                      backgroundColor: AppColors.transparent,
-                      svgSize: 22,
-                      alignment: Alignment.centerLeft,
-                    ),
-                  ],
-                ),
+                CustomBackButton(),
                 ConstrainedBox(
                   constraints: BoxConstraints(
                     maxWidth: 400,
@@ -91,6 +84,9 @@ class _LoginViewState extends State<LoginView> {
                       RoundedCornersTextButton(
                         title: 'Weiter',
                         isLoading: _isLoading,
+                        heroKey: widget.statusOption == StatusOption.stud
+                            ? HeroKeys.buttonKeyAsStud
+                            : HeroKeys.buttonKeysAsEmpl,
                         onTap: () async {
                           setState(() {
                             _isLoading = true;

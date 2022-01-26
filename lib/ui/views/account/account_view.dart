@@ -1,9 +1,8 @@
-import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
-import 'package:appflug/ui/shared_widgets.dart/buttons/circle_icon_button.dart';
+import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
@@ -27,20 +26,7 @@ class _AccountViewState extends State<AccountView> {
           ),
           child: Column(
             children: [
-              Row(
-                children: [
-                  CircleIconButton(
-                    onTapped: () {
-                      Navigator.pop(context);
-                    },
-                    svgPath: 'assets/icons/arrow_left.svg',
-                    svgColor: AppColors.blue,
-                    backgroundColor: AppColors.transparent,
-                    svgSize: 22,
-                    alignment: Alignment.centerLeft,
-                  ),
-                ],
-              ),
+              CustomBackButton(),
               SizedBox(
                 height: 10,
               ),

@@ -1,9 +1,12 @@
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/enums/views.dart';
 import 'package:appflug/routes/views.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
+import 'package:appflug/ui/views/navigation/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +23,8 @@ class _SettingsViewState extends State<SettingsView> {
     ).dataIsRetrieved;
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: sidePadding,
+        padding: LayoutService.getSidePaddingDependingOnDeviceSize(
+          context,
         ),
         child: Column(
           children: [
@@ -29,6 +32,8 @@ class _SettingsViewState extends State<SettingsView> {
               height: sidePadding,
             ),
             HeroHeader(
+              isEnabled:
+                  NavBarView.settings == NavBarService.getSelectedView(context),
               title: 'Mein Profil',
             ),
             SizedBox(

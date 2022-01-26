@@ -19,7 +19,7 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => BottomNavBarProvider(),
+          create: (context) => NavBarProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => StudentProvider(),

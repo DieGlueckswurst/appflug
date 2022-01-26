@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/routes/views.dart';
@@ -82,6 +83,7 @@ class _HStartViewState extends State<StartView> {
                       );
                     },
                     isEnabled: _termsOfServiceIsChecked,
+                    heroKey: HeroKeys.buttonKeyAsStud,
                   ),
                   SizedBox(
                     height: 15,
