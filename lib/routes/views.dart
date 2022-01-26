@@ -18,4 +18,5 @@ class Views {
   static const String authentication = 'authentication';
   static const String changePassword = 'changePassword';
   static const String deleteAccount = 'deleteAccount';
+  static const String changeEmail = 'changeEmail';
 }

@@ -42,12 +42,12 @@ class _AccountViewState extends State<AccountView> {
                   child: Column(
                     children: [
                       CustomListTile(
-                        title: 'Konto löschen',
+                        title: 'Email ändern',
                         onTap: () {
                           Navigator.pushNamed(
                             context,
                             Views.authentication,
-                            arguments: Views.deleteAccount,
+                            arguments: Views.changeEmail,
                           );
                         },
                       ),
@@ -61,6 +61,19 @@ class _AccountViewState extends State<AccountView> {
                             context,
                             Views.authentication,
                             arguments: Views.changePassword,
+                          );
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomListTile(
+                        title: 'Konto löschen',
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            Views.authentication,
+                            arguments: Views.deleteAccount,
                           );
                         },
                       ),

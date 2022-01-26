@@ -4,6 +4,7 @@ import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/account/account_view.dart';
 import 'package:appflug/ui/views/authentication/authentication_view.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
+import 'package:appflug/ui/views/change_email/change_email_view.dart';
 import 'package:appflug/ui/views/change_password/change_password_view.dart';
 import 'package:appflug/ui/views/course/course.dart';
 import 'package:appflug/ui/views/delete_account/delete_account_view.dart';
@@ -152,6 +153,11 @@ class AppRouter {
           builder: (context) => AuthenticationView(
             viewToNavigateTo: viewToNavigateTo,
           ),
+        );
+
+      case Views.changeEmail:
+        return MaterialPageRoute(
+          builder: (context) => ChangeEmailView(),
         );
 
       default:

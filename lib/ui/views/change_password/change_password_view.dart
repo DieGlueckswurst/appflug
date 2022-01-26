@@ -31,7 +31,9 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
             child: Column(
               children: [
                 CustomBackButton(),
-                HeroHeader(title: 'Passwort ändern'),
+                HeroHeader(
+                  title: 'Passwort ändern',
+                ),
                 SizedBox(
                   height: 10,
                 ),

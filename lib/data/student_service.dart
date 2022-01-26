@@ -19,7 +19,7 @@ class StudentService {
     ).currentStudent!;
   }
 
-  static Future<String> getStudentData({required BuildContext context}) async {
+  static Future<void> getStudentData({required BuildContext context}) async {
     if (AuthenticationService.currentUser != null) {
       Student student = await BackendService().getStudentData();
       Provider.of<StudentProvider>(context, listen: false).setStudent(
@@ -29,7 +29,7 @@ class StudentService {
         true,
       );
     }
-    return 'pfusch';
+    return;
   }
 
   static Future<bool> setBirthplace({
@@ -117,6 +117,23 @@ class StudentService {
     } else {
       return false;
     }
+  }
+
+  static Future<bool> setEmail({
+    required BuildContext context,
+    required String email,
+  }) async {
+    StudentProvider studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    );
+    studentProvider.setEmail(
+      email,
+    );
+
+    return await BackendService().setEmail(
+      email,
+    );
   }
 
   static bool getProfileIsComplete(BuildContext context) {

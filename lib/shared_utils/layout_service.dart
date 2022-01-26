@@ -15,7 +15,7 @@ class LayoutService {
   static EdgeInsetsGeometry getSidePaddingDependingOnDeviceSize(
       BuildContext context) {
     return EdgeInsets.only(
-      top: LayoutService.isDesktop(context) ? sidePadding : 0,
+      top: LayoutService.isDesktop(context) ? sidePadding * 2 : sidePadding,
       left: LayoutService.isDesktop(context) ? sidePadding * 4 : sidePadding,
       right: LayoutService.isDesktop(context) ? sidePadding * 4 : sidePadding,
     );

@@ -12,6 +12,11 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  setEmail(String email) {
+    currentStudent?.email = email;
+    notifyListeners();
+  }
+
   setMatriculationNumber(int matriculationNumber) {
     currentStudent?.matriculationNumber = matriculationNumber;
     notifyListeners();

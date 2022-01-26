@@ -28,9 +28,6 @@ class _SettingsViewState extends State<SettingsView> {
         ),
         child: Column(
           children: [
-            SizedBox(
-              height: sidePadding,
-            ),
             HeroHeader(
               isEnabled:
                   NavBarView.settings == NavBarService.getSelectedView(context),

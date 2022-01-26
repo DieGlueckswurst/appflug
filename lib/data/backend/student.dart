@@ -106,6 +106,30 @@ extension StudentBackendService on BackendService {
     }
   }
 
+  Future<bool> setEmail(String email) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService.currentUser!.uid)
+          .set(
+        {
+          keys.email: email,
+        },
+        SetOptions(
+          merge: true,
+        ),
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Email speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
   Future<bool> setMatriculationNumber(int matriculationNumber) async {
     try {
       await firestoreInstance

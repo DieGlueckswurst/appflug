@@ -18,6 +18,8 @@ class _HomeViewState extends State<HomeView> {
           context,
         ),
         child: ListView(
+          shrinkWrap: true,
+          controller: ScrollController(),
           children: [
             ApplicationDeadlineView(),
             SizedBox(

@@ -4,6 +4,7 @@ import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/data/student_service.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/enums/views.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
@@ -201,6 +202,29 @@ class AuthenticationService {
         newPassword,
       );
       return true;
+    } on FirebaseAuthException catch (error) {
+      AlertService.showSnackBar(
+        title: 'Fehler',
+        description: error.message ?? 'Unbekannter Fehler',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
+  static Future<bool> changeEmail(
+    BuildContext context,
+    String newEmail,
+  ) async {
+    try {
+      await currentUser!.updateEmail(
+        newEmail,
+      );
+
+      return await StudentService.setEmail(
+        context: context,
+        email: newEmail,
+      );
     } on FirebaseAuthException catch (error) {
       AlertService.showSnackBar(
         title: 'Fehler',

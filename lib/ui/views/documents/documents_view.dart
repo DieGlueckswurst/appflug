@@ -23,7 +23,6 @@ class _DocumentsViewState extends State<DocumentsView> {
             right: sidePadding,
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomBackButton(),
               SizedBox(
@@ -50,19 +49,24 @@ class _DocumentsViewState extends State<DocumentsView> {
       listen: true,
     );
 
-    return Column(
-      children: [
-        SizedBox(
-          height: 30,
+    return Expanded(
+      child: ConstrainedBox(
+        constraints: webMaxWidthConstraint,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 30,
+            ),
+            DocumentsListView(
+              student: _student,
+              isInSettings: true,
+            ),
+            SizedBox(
+              height: sidePadding,
+            ),
+          ],
         ),
-        DocumentsListView(
-          student: _student,
-          isInSettings: true,
-        ),
-        SizedBox(
-          height: sidePadding,
-        ),
-      ],
+      ),
     );
   }
 }
