@@ -2,6 +2,7 @@ import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/classes/review.dart';
 import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/data/classes/university_image.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -14,6 +15,15 @@ class UniversityBackendService extends BackendService {
 
       for (var doc in universityQuerySnapshot.docs) {
         Map<String, dynamic> data = doc.data();
+        List<String> courseOfStudiesString =
+            List.from(data[keys.coursesOfStudy] as Iterable<dynamic>);
+        List<Course> courseOfStudies = courseOfStudiesString
+            .map(
+              (courseString) => Course.values.byName(
+                courseString,
+              ),
+            )
+            .toList();
         universities.add(
           University(
             id: data[keys.id],
@@ -26,6 +36,7 @@ class UniversityBackendService extends BackendService {
             logoDownloadUrl: data[keys.logoDownloadUrl],
             images: [],
             reviews: [],
+            coursesOfStudy: courseOfStudies,
           ),
         );
       }

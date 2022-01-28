@@ -1,5 +1,6 @@
 import 'package:appflug/data/classes/review.dart';
 import 'package:appflug/data/classes/university_image.dart';
+import 'package:appflug/enums/courses.dart';
 
 class University {
   final String id;
@@ -12,6 +13,7 @@ class University {
   final String logoDownloadUrl;
   List<Review> reviews;
   List<UniversityImage> images;
+  List<Course> coursesOfStudy;
 
   University({
     required this.id,
@@ -24,5 +26,6 @@ class University {
     required this.logoDownloadUrl,
     required this.images,
     required this.reviews,
+    required this.coursesOfStudy,
   });
 }

@@ -46,6 +46,7 @@ class BackendKeys {
   String get index => 'index';
   String get addedAtInMilliSecondsSinceEpoch =>
       'addedAtInMilliSecondsSinceEpoch';
+  String get coursesOfStudy => 'coursesOfStudy';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {

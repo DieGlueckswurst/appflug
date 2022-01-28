@@ -1,11 +1,12 @@
-import 'package:appflug/constants/measurements.dart';
+import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/university.dart';
 import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
-import 'package:appflug/shared_utils/string_service.dart';
+import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
+import 'package:appflug/ui/views/university/widgets/university_card.dart';
 import 'package:flutter/material.dart';
 
 class UniversityView extends StatefulWidget {
@@ -29,7 +30,31 @@ class _UniversityViewState extends State<UniversityView> {
                 isEnabled: false,
               ),
               SizedBox(
-                height: 30,
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Flexible(
+                    child: Text(
+                      'Nur für meinen Studiengang zulässige Universitäten anzeigen',
+                      style: AppTextStyles.montserratH6Regular,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Switch.adaptive(
+                      value: true,
+                      activeColor: AppColors.green,
+                      onChanged: (enabled) {}),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomHorizontalDevider(),
+              SizedBox(
+                height: 20,
               ),
               FutureBuilder(
                 future: UniversityBackendService().getUniversities(),
@@ -40,52 +65,11 @@ class _UniversityViewState extends State<UniversityView> {
                   return universitiesSnapshot.hasData
                       ? Column(
                           children: [
-                            Text(
-                              'CA'.toFlagEmoji(),
-                              style: AppTextStyles.montserratH1Bold,
-                            ),
-                            Image.network(
-                              universitiesSnapshot.data!.first.logoDownloadUrl,
-                              fit: BoxFit.fill,
-                              loadingBuilder: (
-                                BuildContext context,
-                                Widget child,
-                                ImageChunkEvent? loadingProgress,
-                              ) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
-                            ),
-                            Image.network(
-                              universitiesSnapshot
-                                  .data!.first.images.first.downloadUrl,
-                              fit: BoxFit.fill,
-                              loadingBuilder: (
-                                BuildContext context,
-                                Widget child,
-                                ImageChunkEvent? loadingProgress,
-                              ) {
-                                if (loadingProgress == null) return child;
-                                return Center(
-                                  child: CircularProgressIndicator(
-                                    value: loadingProgress.expectedTotalBytes !=
-                                            null
-                                        ? loadingProgress
-                                                .cumulativeBytesLoaded /
-                                            loadingProgress.expectedTotalBytes!
-                                        : null,
-                                  ),
-                                );
-                              },
+                            ...List.generate(
+                              universitiesSnapshot.data!.length,
+                              (index) => UniversityCard(
+                                university: universitiesSnapshot.data![index],
+                              ),
                             ),
                           ],
                         )
