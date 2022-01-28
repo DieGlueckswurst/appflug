@@ -30,7 +30,6 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
       builder: (context, AsyncSnapshot<void> studentSnapshot) {
         Student? _student =
             Provider.of<StudentProvider>(context).currentStudent;
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

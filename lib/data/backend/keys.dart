@@ -24,6 +24,28 @@ class BackendKeys {
   String get storageLocation => 'storageLocation';
   String get downloadUrl => 'downloadUrl';
   String get name => 'name';
+  String get countryCode => 'countryCode';
+  String get city => 'city';
+  String get description => 'description';
+  String get requiredGPA => 'requiredGPA';
+  String get websiteUrl => 'websiteUrl';
+  String get logoStorageLocation => 'logoStorageLocation';
+  String get logoDownloadUrl => 'logoDownloadUrl';
+  String get userId => 'userId';
+  String get universityId => 'universityId';
+  String get average => 'average';
+  String get professors => 'professors';
+  String get lectures => 'lectures';
+  String get equipment => 'equipment';
+  String get freetimeActivities => 'freetimeActivities';
+  String get internationality => 'internationality';
+  String get universities => 'universities';
+  String get reviews => 'reviews';
+  String get images => 'images';
+  String get location => 'location';
+  String get index => 'index';
+  String get addedAtInMilliSecondsSinceEpoch =>
+      'addedAtInMilliSecondsSinceEpoch';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {
