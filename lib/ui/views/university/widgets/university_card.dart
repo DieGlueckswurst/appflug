@@ -182,7 +182,7 @@ class UniversityCard extends StatelessWidget {
   String _getCoursesString() {
     String coursesString = '';
     for (var course in university.coursesOfStudy) {
-      coursesString += '${CourseService.courses[course]!},\n';
+      coursesString += '${CourseService.enumToString(course)},\n';
     }
     return coursesString.removeLastCharacter().removeLastCharacter();
   }

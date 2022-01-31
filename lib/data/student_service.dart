@@ -2,6 +2,7 @@ import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,14 +10,14 @@ import 'backend/base.dart';
 import 'classes/student.dart';
 
 class StudentService {
-  static Student getStudent(
+  static Student? getStudent(
     BuildContext context, {
     required bool listen,
   }) {
     return Provider.of<StudentProvider>(
       context,
       listen: listen,
-    ).currentStudent!;
+    ).currentStudent;
   }
 
   static Future<void> getStudentData({required BuildContext context}) async {
@@ -62,7 +63,7 @@ class StudentService {
 
   static Future<bool> setCourse({
     required BuildContext context,
-    required String course,
+    required Course course,
   }) async {
     StudentProvider studentProvider = Provider.of<StudentProvider>(
       context,

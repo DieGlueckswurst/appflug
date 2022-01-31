@@ -3,6 +3,7 @@ import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
@@ -55,7 +56,9 @@ extension StudentBackendService on BackendService {
           ApplicationStatusService.getApplicationStatusOptionFromString(
         docData?[keys.applicationStatus],
       ),
-      course: docData?[keys.course],
+      course: docData?[keys.course] != null
+          ? Course.values.byName(docData?[keys.course])
+          : null,
       birthplace: docData?[keys.birthplace],
       uid: docData?[keys.uid],
       documents: {},
@@ -178,14 +181,14 @@ extension StudentBackendService on BackendService {
     }
   }
 
-  Future<bool> setCourse(String course) async {
+  Future<bool> setCourse(Course course) async {
     try {
       await firestoreInstance
           .collection(keys.studs)
           .doc(AuthenticationService.currentUser!.uid)
           .set(
         {
-          keys.course: course,
+          keys.course: course.name,
         },
         SetOptions(
           merge: true,

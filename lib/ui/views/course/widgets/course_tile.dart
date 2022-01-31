@@ -66,7 +66,9 @@ class CourseTile extends StatelessWidget {
             ),
             Flexible(
               child: Text(
-                CourseService.courses[course]!,
+                CourseService.enumToString(
+                  course,
+                ),
                 style: AppTextStyles.montserratH6Regular,
               ),
             ),

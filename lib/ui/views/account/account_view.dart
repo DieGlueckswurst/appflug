@@ -1,3 +1,4 @@
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/routes/views.dart';
@@ -81,6 +82,7 @@ class _AccountViewState extends State<AccountView> {
                         height: 20,
                       ),
                       RoundedCornersTextButton(
+                        heroKey: HeroKeys.buttonKeyAsStud,
                         title: 'Logout',
                         onTap: () async {
                           bool wasSuccessfull =

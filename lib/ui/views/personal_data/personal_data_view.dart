@@ -47,7 +47,7 @@ class _PersonalDataViewState extends State<PersonalDataView> {
     Student _student = StudentService.getStudent(
       context,
       listen: true,
-    );
+    )!;
 
     return Expanded(
       child: ConstrainedBox(

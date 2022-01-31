@@ -1,6 +1,7 @@
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/application_status_option.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:flutter/material.dart';
 
 class StudentProvider extends ChangeNotifier {
@@ -27,7 +28,7 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setCourse(String course) {
+  setCourse(Course course) {
     currentStudent?.course = course;
     notifyListeners();
   }

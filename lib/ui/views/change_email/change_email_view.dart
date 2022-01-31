@@ -28,7 +28,8 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
     _email = StudentService.getStudent(
       context,
       listen: false,
-    ).email!;
+    )!
+        .email!;
     initEmailStringWithoutEnding = _email.substring(
       0,
       _email.lastIndexOf('@'),

@@ -47,7 +47,7 @@ class _DocumentsViewState extends State<DocumentsView> {
     Student _student = StudentService.getStudent(
       context,
       listen: true,
-    );
+    )!;
 
     return Expanded(
       child: ConstrainedBox(

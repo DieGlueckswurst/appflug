@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/data/classes/student.dart';
@@ -30,7 +31,7 @@ class _AuthenticationViewState extends State<AuthenticationView> {
     Student _student = StudentService.getStudent(
       context,
       listen: false,
-    );
+    )!;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -81,26 +82,16 @@ class _AuthenticationViewState extends State<AuthenticationView> {
                         height: 20,
                       ),
                       RoundedCornersTextButton(
+                        heroKey: HeroKeys.buttonKeyAsStud,
                         title: 'Identität bestätigen',
                         isLoading: _isLoading,
                         onTap: () async {
                           setState(() {
                             _isLoading = true;
                           });
-                          _password.isNotEmpty
-                              ? _reauthenticate(
-                                  email: _student.email!,
-                                )
-                              : AlertService.showSnackBar(
-                                  title: 'Ungültiges Passwort',
-                                  description:
-                                      'Bitte gib einen gültiges Passwort ein.',
-                                  isSuccess: false,
-                                );
-
-                          setState(() {
-                            _isLoading = false;
-                          });
+                          await _reauthenticate(
+                            email: _student.email!,
+                          );
                         },
                       ),
                       SizedBox(
@@ -140,12 +131,14 @@ class _AuthenticationViewState extends State<AuthenticationView> {
       email: email,
       password: _password,
     );
+
     if (wasSuccessfull) {
       Navigator.pushReplacementNamed(
         context,
         widget.viewToNavigateTo,
       );
     }
+
     setState(() {
       _isLoading = false;
     });

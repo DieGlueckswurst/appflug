@@ -1,3 +1,4 @@
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
@@ -62,6 +63,7 @@ class _DeleteAccountViewState extends State<DeleteAccountView> {
                         height: 30,
                       ),
                       RoundedCornersTextButton(
+                        heroKey: HeroKeys.buttonKeyAsStud,
                         title: 'Konto löschen',
                         isLoading: _isLoading,
                         onTap: () async {

@@ -1,4 +1,5 @@
 import 'package:appflug/data/classes/document.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/views/account/account_view.dart';
@@ -74,7 +75,7 @@ class AppRouter {
         );
 
       case Views.course:
-        String? course = settings.arguments as String?;
+        Course? course = settings.arguments as Course?;
         return MaterialPageRoute(
           builder: (context) => CourseView(
             initCourse: course,

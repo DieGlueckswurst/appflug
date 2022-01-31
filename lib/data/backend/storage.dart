@@ -17,7 +17,8 @@ class BackendStorageService {
     Document oldDocument = StudentService.getStudent(
       context,
       listen: false,
-    ).documents[documentType]!;
+    )!
+        .documents[documentType]!;
 
     if (oldDocument.downloadUrl != null) {
       await deleteDocument(oldDocument);
@@ -43,7 +44,9 @@ class BackendStorageService {
     for (Document doc in StudentService.getStudent(
       context,
       listen: false,
-    ).documents.values) {
+    )!
+        .documents
+        .values) {
       if (doc.type != DocumentType.preferenceList && doc.downloadUrl != null) {
         await FirebaseStorage.instanceFor()
             .refFromURL(doc.downloadUrl!)

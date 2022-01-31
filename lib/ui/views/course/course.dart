@@ -1,5 +1,6 @@
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/student_service.dart';
+import 'package:appflug/enums/courses.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
@@ -9,7 +10,7 @@ import 'package:appflug/ui/views/course/widgets/course_tile.dart';
 import 'package:flutter/material.dart';
 
 class CourseView extends StatefulWidget {
-  final String? initCourse;
+  final Course? initCourse;
 
   const CourseView({
     Key? key,
@@ -21,7 +22,7 @@ class CourseView extends StatefulWidget {
 }
 
 class _CourseViewState extends State<CourseView> {
-  String _course = '';
+  Course? _course;
   bool _isLoading = false;
 
   @override
@@ -73,14 +74,12 @@ class _CourseViewState extends State<CourseView> {
                                 bottom: 10,
                               ),
                               child: CourseTile(
-                                course:
-                                    CourseService.courses.keys.toList()[index],
-                                isSelected: CourseService.courses.values
-                                        .toList()[index] ==
-                                    _course,
+                                course: CourseService.courses[index],
+                                isSelected:
+                                    CourseService.courses[index] == _course,
                                 onCourseChange: (course) {
                                   setState(() {
-                                    _course = CourseService.courses[course]!;
+                                    _course = course;
                                   });
                                 },
                               ),
@@ -102,7 +101,7 @@ class _CourseViewState extends State<CourseView> {
                                 setState(() {
                                   _isLoading = true;
                                 });
-                                _course.isNotEmpty
+                                _course != null
                                     ? await _saveCourse(context)
                                     : AlertService.showSnackBar(
                                         title: 'Ungültiger Studiengang',
@@ -136,7 +135,7 @@ class _CourseViewState extends State<CourseView> {
   Future<void> _saveCourse(BuildContext context) async {
     bool wasSuccessfull = await StudentService.setCourse(
       context: context,
-      course: _course,
+      course: _course!,
     );
 
     AlertService.showSnackBar(

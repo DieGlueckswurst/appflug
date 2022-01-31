@@ -1,13 +1,20 @@
 import 'package:appflug/enums/courses.dart';
 
 class CourseService {
-  static const Map<Course, String> courses = {
-    Course.angewandteInformatik: 'Angewandte Informatik',
-    Course.computingInHumanities: 'Computing in the Humanities',
-    Course.informatikSoftwareSystemScience:
-        'Informatik: Software Systems Science',
-    Course.internationalInformationSystemScience:
-        'International Information System Science',
-    Course.wirtschaftsInformatik: 'Wirtschaftsinformatik',
-  };
+  static const List<Course> courses = Course.values;
+
+  static String enumToString(Course course) {
+    switch (course) {
+      case Course.angewandteInformatik:
+        return 'Angewandte Informatik';
+      case Course.computingInHumanities:
+        return 'Computing in the Humanities';
+      case Course.informatikSoftwareSystemScience:
+        return 'Informatik: Software Systems Science';
+      case Course.internationalInformationSystemScience:
+        return 'International Information System Science';
+      case Course.wirtschaftsInformatik:
+        return 'Wirtschaftsinformatik';
+    }
+  }
 }
