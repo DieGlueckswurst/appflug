@@ -1,4 +1,5 @@
 import 'package:appflug/data/classes/document.dart';
+import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/enums/courses.dart';
 import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/routes/views.dart';
@@ -19,6 +20,7 @@ import 'package:appflug/ui/views/personal_data/personal_data_view.dart';
 import 'package:appflug/ui/views/preference_list/preference_list_view.dart';
 import 'package:appflug/ui/views/sign_up/sign_up_view.dart';
 import 'package:appflug/ui/views/start/start_view.dart';
+import 'package:appflug/ui/views/university_detail/university_detail_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -160,6 +162,15 @@ class AppRouter {
       case Views.changeEmail:
         return MaterialPageRoute(
           builder: (context) => ChangeEmailView(),
+        );
+
+      case Views.universityDetail:
+        University university = settings.arguments as University;
+
+        return MaterialPageRoute(
+          builder: (context) => UniversityDetailView(
+            university: university,
+          ),
         );
 
       default:

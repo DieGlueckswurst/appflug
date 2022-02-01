@@ -2,6 +2,7 @@ import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
@@ -26,11 +27,7 @@ class _PreferenceListViewState extends State<PreferenceListView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: sidePadding,
-            right: sidePadding,
-          ),
+          padding: LayoutService.defaultViewPadding,
           child: Column(
             children: [
               CustomBackButton(),

@@ -5,6 +5,7 @@ import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/shared_utils/document_service.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
@@ -41,11 +42,7 @@ class _DocumentViewState extends State<DocumentView> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: sidePadding,
-            right: sidePadding,
-          ),
+          padding: LayoutService.defaultViewPadding,
           child: Column(
             children: [
               CustomBackButton(),

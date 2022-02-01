@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 
 class CustomExpansionTile extends StatefulWidget {
   final String title;
-  final String description;
+  final String? description;
   final String content;
 
   const CustomExpansionTile({
     Key? key,
     required this.title,
-    required this.description,
     required this.content,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -44,13 +44,15 @@ class _CustomExpansionTileState extends State<CustomExpansionTile>
           SizedBox(
             height: 10,
           ),
-          Text(
-            widget.description,
-            style: AppTextStyles.montserratH5SemiBold,
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          if (widget.description != null) ...[
+            Text(
+              widget.description!,
+              style: AppTextStyles.montserratH5SemiBold,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ]
         ],
       ),
       collapsedIconColor: AppColors.blue,

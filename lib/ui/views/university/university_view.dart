@@ -1,4 +1,3 @@
-import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
@@ -107,9 +106,6 @@ class _UniversityViewState extends State<UniversityView> {
           ),
         ),
       ),
-      SizedBox(
-        height: sidePadding,
-      ),
     ];
   }
 
@@ -134,12 +130,6 @@ class _UniversityViewState extends State<UniversityView> {
             university: university,
           ),
         );
-
-        universityCards.add(
-          SizedBox(
-            height: 20,
-          ),
-        );
       }
     }
 
@@ -157,6 +147,11 @@ class _UniversityViewState extends State<UniversityView> {
         ),
       );
     }
+
+    universityCards.add(
+      SizedBox(),
+    );
+
     return universityCards;
   }
 }

@@ -2,6 +2,7 @@ import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/other.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
@@ -42,11 +43,7 @@ class _ChangeEmailViewState extends State<ChangeEmailView> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: sidePadding,
-            right: sidePadding,
-          ),
+          padding: LayoutService.defaultViewPadding,
           child: Center(
             child: Column(
               children: [

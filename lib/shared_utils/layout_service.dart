@@ -20,4 +20,10 @@ class LayoutService {
       right: LayoutService.isDesktop(context) ? sidePadding * 4 : sidePadding,
     );
   }
+
+  static EdgeInsets get defaultViewPadding => const EdgeInsets.only(
+        top: 10,
+        left: sidePadding,
+        right: sidePadding,
+      );
 }

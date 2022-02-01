@@ -1,4 +1,4 @@
-import 'package:appflug/constants/measurements.dart';
+import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
@@ -36,11 +36,7 @@ class _BirthplaceViewViewState extends State<BirthplaceView> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            top: 10,
-            left: sidePadding,
-            right: sidePadding,
-          ),
+          padding: LayoutService.defaultViewPadding,
           child: Column(
             children: [
               CustomBackButton(),

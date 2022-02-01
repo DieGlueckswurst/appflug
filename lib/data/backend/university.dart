@@ -90,7 +90,9 @@ class UniversityBackendService extends BackendService {
           ),
         );
       }
-
+      images.sort(
+        (a, b) => a.index.compareTo(b.index),
+      );
       return images;
     } on FirebaseException catch (e) {
       AlertService.showSnackBar(
