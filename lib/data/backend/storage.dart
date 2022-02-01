@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:appflug/data/classes/document.dart';
-import 'package:appflug/data/student_service.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/shared_utils/document_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';

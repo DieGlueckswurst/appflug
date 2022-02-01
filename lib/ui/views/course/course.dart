@@ -1,5 +1,5 @@
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/data/student_service.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/enums/courses.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
@@ -64,62 +64,55 @@ class _CourseViewState extends State<CourseView> {
                       SizedBox(
                         height: 30,
                       ),
-                      ListView(
-                        shrinkWrap: true,
-                        children: [
-                          ...List<Widget>.generate(
-                            CourseService.courses.length,
-                            (index) => Padding(
-                              padding: EdgeInsets.only(
-                                bottom: 10,
-                              ),
-                              child: CourseTile(
-                                course: CourseService.courses[index],
-                                isSelected:
-                                    CourseService.courses[index] == _course,
-                                onCourseChange: (course) {
-                                  setState(() {
-                                    _course = course;
-                                  });
-                                },
+                      Expanded(
+                        child: ListView(
+                          children: [
+                            ...List<Widget>.generate(
+                              CourseService.courses.length,
+                              (index) => Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: 20,
+                                ),
+                                child: CourseTile(
+                                  course: CourseService.courses[index],
+                                  isSelected:
+                                      CourseService.courses[index] == _course,
+                                  onCourseChange: (course) {
+                                    setState(() {
+                                      _course = course;
+                                    });
+                                  },
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Spacer(),
-                            RoundedCornersTextButton(
-                              title: 'Speichern',
-                              isLoading: _isLoading,
-                              onTap: () async {
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                _course != null
-                                    ? await _saveCourse(context)
-                                    : AlertService.showSnackBar(
-                                        title: 'Ungültiger Studiengang',
-                                        description:
-                                            'Bitte wähle einen Studiengang.',
-                                        isSuccess: false,
-                                      );
+                      RoundedCornersTextButton(
+                        title: 'Speichern',
+                        isLoading: _isLoading,
+                        onTap: () async {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          _course != null
+                              ? await _saveCourse(context)
+                              : AlertService.showSnackBar(
+                                  title: 'Ungültiger Studiengang',
+                                  description: 'Bitte wähle einen Studiengang.',
+                                  isSuccess: false,
+                                );
 
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                              },
-                            ),
-                            SizedBox(
-                              height: sidePadding,
-                            )
-                          ],
-                        ),
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        height: sidePadding,
                       ),
                     ],
                   ),

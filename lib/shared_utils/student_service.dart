@@ -6,8 +6,8 @@ import 'package:appflug/enums/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'backend/base.dart';
-import 'classes/student.dart';
+import '../data/backend/base.dart';
+import '../data/classes/student.dart';
 
 class StudentService {
   static Student? getStudent(
@@ -20,7 +20,7 @@ class StudentService {
     ).currentStudent;
   }
 
-  static Future<void> getStudentData({required BuildContext context}) async {
+  static Future<void> initStudent({required BuildContext context}) async {
     if (AuthenticationService.currentUser != null) {
       Student student = await BackendService().getStudentData();
       Provider.of<StudentProvider>(context, listen: false).setStudent(

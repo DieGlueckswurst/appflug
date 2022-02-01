@@ -1,6 +1,6 @@
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/classes/student.dart';
-import 'package:appflug/data/student_service.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/home/widgets/personal_data_list_view.dart';

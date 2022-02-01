@@ -26,6 +26,7 @@ class CourseTile extends StatelessWidget {
           20,
         ),
         decoration: BoxDecoration(
+          color: isSelected ? AppColors.yellow : AppColors.white,
           border: Border.all(
             color: AppColors.blue,
             width: 3,
@@ -52,7 +53,7 @@ class CourseTile extends StatelessWidget {
                   ? Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: AppColors.yellow,
+                        color: AppColors.blue,
                         border: Border.all(
                           color: AppColors.white,
                           width: 3,
@@ -69,7 +70,9 @@ class CourseTile extends StatelessWidget {
                 CourseService.enumToString(
                   course,
                 ),
-                style: AppTextStyles.montserratH6Regular,
+                style: AppTextStyles.montserratH6Regular.copyWith(
+                  color: AppColors.black,
+                ),
               ),
             ),
           ],

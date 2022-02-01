@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
@@ -82,6 +83,7 @@ class _SignUpViewState extends State<SignUpView> {
                         height: 20,
                       ),
                       RoundedCornersTextButton(
+                        heroKey: HeroKeys.buttonKeyAsStud,
                         isEnabled: AuthenticationService.isValidPassword(
                           _password,
                         ),

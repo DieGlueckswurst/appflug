@@ -36,10 +36,26 @@ extension StudentBackendService on BackendService {
 
     for (var documentType in DocumentType.values) {
       var docRef = documentsCollectionRef.doc();
+
       await docRef.set({
         keys.documentType: documentType.name,
         keys.id: docRef.id,
       });
+
+      if (documentType == DocumentType.preferenceList) {
+        await docRef.set(
+          {
+            keys.preferenceList: {
+              '1': '',
+              '2': '',
+              '3': '',
+            },
+          },
+          SetOptions(
+            merge: true,
+          ),
+        );
+      }
     }
   }
 
@@ -74,13 +90,23 @@ extension StudentBackendService on BackendService {
       DocumentType documentType = DocumentService.getDocumentTypeFromString(
         data[keys.documentType],
       );
-      student.documents[documentType] = Document(
-        id: data[keys.id],
-        type: documentType,
-        storageLocation: data[keys.storageLocation],
-        downloadUrl: data[keys.downloadUrl],
-        name: data[keys.name],
-      );
+      if (documentType == DocumentType.preferenceList) {
+        student.documents[documentType] = Document(
+          id: data[keys.id],
+          type: documentType,
+          preferenceList: Map<String, String>.from(
+            data[keys.preferenceList],
+          ),
+        );
+      } else {
+        student.documents[documentType] = Document(
+          id: data[keys.id],
+          type: documentType,
+          storageLocation: data[keys.storageLocation],
+          downloadUrl: data[keys.downloadUrl],
+          name: data[keys.name],
+        );
+      }
     }
     return student;
   }

@@ -1,4 +1,6 @@
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
+import 'package:appflug/shared_utils/university_service.dart';
 import 'package:appflug/ui/views/faq/faq_view.dart';
 import 'package:appflug/ui/views/home/home.dart';
 import 'package:appflug/ui/views/navigation/utils.dart';
@@ -23,14 +25,28 @@ class _NavWrapperState extends State<NavWrapper> {
               context: context,
             )
           : null,
-      body: IndexedStack(
-        children: [
-          HomeView(),
-          UniversityView(),
-          FaqView(),
-          SettingsView(),
-        ],
-        index: _getSelectedViewIndex(context),
+      body: FutureBuilder(
+        future: Future.wait(
+          [
+            StudentService.initStudent(
+              context: context,
+            ),
+            UniversityService.initUniversities(
+              context,
+            ),
+          ],
+        ),
+        builder: (context, studentSnapshot) {
+          return IndexedStack(
+            children: [
+              HomeView(),
+              UniversityView(),
+              FaqView(),
+              SettingsView(),
+            ],
+            index: _getSelectedViewIndex(context),
+          );
+        },
       ),
       bottomNavigationBar:
           LayoutService.isMobile(context) ? BottomNavBar() : null,

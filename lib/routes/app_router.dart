@@ -35,7 +35,8 @@ class AppRouter {
         );
 
       case Views.signUp:
-        String email = settings.arguments as String;
+        List<Object> args = settings.arguments as List<Object>;
+        String email = args[0] as String;
         return MaterialPageRoute(
           builder: (context) => SignUpView(
             email: email,

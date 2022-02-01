@@ -70,6 +70,10 @@ Future<void> _launchURL(
         url,
       );
     } on PlatformException catch (e) {
+      // opening pdf files will throw a Platform Exeption,
+      // even though the file is opened/downlaoded correctly
+      // so no further action needed
+
       // ignore: avoid_print
       print(e);
       return;

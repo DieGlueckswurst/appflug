@@ -1,3 +1,4 @@
+import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/document_type.dart';
@@ -118,7 +119,7 @@ class _DocumentsListViewState extends State<DocumentsListView> {
         }
         children.add(
           SizedBox(
-            height: 20,
+            height: sidePadding,
           ),
         );
       }

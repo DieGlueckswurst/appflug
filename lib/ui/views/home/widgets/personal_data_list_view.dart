@@ -1,3 +1,4 @@
+import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
@@ -67,6 +68,9 @@ class _PersonalDataListViewState extends State<PersonalDataListView> {
               );
             },
           ),
+        SizedBox(
+          height: sidePadding,
+        ),
       ],
     );
   }

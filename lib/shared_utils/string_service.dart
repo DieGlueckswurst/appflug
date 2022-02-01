@@ -22,8 +22,12 @@ extension StringService on String {
       return 'Vereinigte Staaten von Amerika';
     } else if (this == 'DE') {
       return 'Deutschland';
+    } else if (this == 'CZ') {
+      return 'Tschechien';
+    } else if (this == 'GB') {
+      return 'Vereinigtes Königreich';
     } else {
-      return 'unbekannte Land';
+      return 'unbekanntes Land';
     }
   }
 }

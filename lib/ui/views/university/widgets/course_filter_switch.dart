@@ -28,57 +28,57 @@ class _CourseFilterSwitchState extends State<CourseFilterSwitch> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: widget.student.course == null
-          ? [
-              Text(
-                'Du hast noch keinen Studiengang angegeben. Es werden alle Partneruniversitäten angezeigt.',
-                style: defaultStyle,
-              )
-            ]
-          : [
-              Flexible(
-                child: RichText(
-                  text: TextSpan(
-                    style: defaultStyle,
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'Nur für ',
-                      ),
-                      TextSpan(
-                        text: 'meinen Studiengang',
-                        style: linkStyle,
-                        recognizer: TapGestureRecognizer()
-                          ..onTap = () {
-                            Navigator.pushNamed(
-                              context,
-                              Views.course,
-                              arguments: widget.student.course,
-                            );
-                          },
-                      ),
-                      TextSpan(
-                        text: ' zulässige Universitäten anzeigen.',
-                      ),
-                    ],
-                  ),
+      children: [
+        Flexible(
+          child: RichText(
+            text: TextSpan(
+              style: defaultStyle,
+              children: <TextSpan>[
+                TextSpan(
+                  text: widget.student.course == null
+                      ? 'Du hast noch keinen '
+                      : 'Nur für ',
                 ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              Switch.adaptive(
-                value: _isEnabled,
-                activeColor: AppColors.green,
-                onChanged: (isEnabled) {
-                  setState(() {
-                    _isEnabled = isEnabled;
-                  });
-                  widget.onChanged(
-                    isEnabled,
-                  );
-                },
-              )
-            ],
+                TextSpan(
+                  text: widget.student.course == null
+                      ? 'Studiengang'
+                      : 'meinen Studiengang',
+                  style: linkStyle,
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.pushNamed(
+                        context,
+                        Views.course,
+                        arguments: widget.student.course,
+                      );
+                    },
+                ),
+                TextSpan(
+                  text: widget.student.course == null
+                      ? ' angegeben. Es werden alle Partneruniversitäten angezeigt.'
+                      : ' zulässige Universitäten anzeigen.',
+                ),
+              ],
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 20,
+        ),
+        if (widget.student.course != null)
+          Switch.adaptive(
+            value: _isEnabled,
+            activeColor: AppColors.green,
+            onChanged: (isEnabled) {
+              setState(() {
+                _isEnabled = isEnabled;
+              });
+              widget.onChanged(
+                isEnabled,
+              );
+            },
+          ),
+      ],
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:appflug/constants/measurements.dart';
-import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/enums/views.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
@@ -8,7 +9,6 @@ import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/navigation/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SettingsView extends StatefulWidget {
   @override
@@ -18,9 +18,10 @@ class SettingsView extends StatefulWidget {
 class _SettingsViewState extends State<SettingsView> {
   @override
   Widget build(BuildContext context) {
-    bool _studentHasData = Provider.of<StudentProvider>(
+    Student? _student = StudentService.getStudent(
       context,
-    ).dataIsRetrieved;
+      listen: true,
+    );
     return SafeArea(
       child: Padding(
         padding: LayoutService.getSidePaddingDependingOnDeviceSize(
@@ -36,7 +37,7 @@ class _SettingsViewState extends State<SettingsView> {
             SizedBox(
               height: 30,
             ),
-            _studentHasData
+            _student != null
                 ? Expanded(
                     child: ConstrainedBox(
                       constraints: webMaxWidthConstraint,

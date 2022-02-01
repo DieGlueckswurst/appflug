@@ -6,6 +6,7 @@ class Document {
   DocumentType type;
   String? storageLocation;
   String? downloadUrl;
+  Map<String, String>? preferenceList;
 
   Document({
     required this.type,
@@ -13,5 +14,6 @@ class Document {
     this.storageLocation,
     this.downloadUrl,
     this.name,
+    this.preferenceList,
   });
 }

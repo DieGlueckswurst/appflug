@@ -2,6 +2,7 @@ import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/data/provider/bottom_nav_bar_provider.dart';
 import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/data/provider/university_provider.dart';
 import 'package:appflug/routes/app_router.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/colors_service.dart';
@@ -27,6 +28,9 @@ class App extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => StudentProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => UniversityProvider(),
         ),
       ],
       child: MaterialApp(

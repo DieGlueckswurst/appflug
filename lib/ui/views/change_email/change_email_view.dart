@@ -2,7 +2,7 @@ import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/other.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/authentication.dart';
-import 'package:appflug/data/student_service.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
