@@ -81,15 +81,14 @@ class _PreferenceListViewState extends State<PreferenceListView> {
                                     physics: NeverScrollableScrollPhysics(),
                                     onReorder: (int oldIndex, int newIndex) {},
                                     children: [
-                                      CustomListTile(
-                                          key: Key('1'),
-                                          title: 'Persönliche Daten',
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              Views.personalData,
-                                            );
-                                          }),
+                                      // Container(
+                                      //   padding: EdgeInsets.all(
+                                      //     20,
+                                      //   ),
+                                      //   child: Text(
+                                      //       // _student.documents[DocumentType.preferenceList]!.preferenceList!['1']!
+                                      //       'Penis'),
+                                      // ),
                                       CustomListTile(
                                           key: Key('2'),
                                           title: 'Dokumente',

@@ -2,6 +2,7 @@ import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
@@ -25,6 +26,8 @@ class UniversityDetailView extends StatefulWidget {
 }
 
 class _UniversityDetailViewState extends State<UniversityDetailView> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     Student _student = StudentService.getStudent(
@@ -73,7 +76,16 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                                   4 * sidePadding,
                           child: RoundedCornersTextButton(
                             title: 'In Präferenzliste speichern',
-                            onTap: () {},
+                            isLoading: _isLoading,
+                            onTap: () {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                              _savePreference(
+                                context,
+                                _student,
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -133,5 +145,25 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
         ),
       ),
     );
+  }
+
+  Future _savePreference(BuildContext context, Student student) async {
+    AlertService.showPreferenceDialog(
+      context,
+      onPositionSaved: (
+        String position,
+      ) async {
+        await StudentService.setUniInPreferenceList(
+          context: context,
+          student: student,
+          university: widget.university,
+          position: position,
+        );
+      },
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 }
