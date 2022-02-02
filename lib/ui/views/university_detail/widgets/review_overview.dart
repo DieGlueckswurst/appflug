@@ -57,14 +57,20 @@ class ReviewOverview extends StatelessWidget {
               ),
               if (!_average.isNaN)
                 TextSpan(
-                  text: 'Bewertungen',
+                  text: '${university.reviews.length} ' +
+                      (university.reviews.length > 1
+                          ? 'Bewertungen'
+                          : 'Bewertung'),
                   style: AppTextStyles.montserratH5SemiBold.copyWith(
                     color: AppColors.blue,
                     decoration: TextDecoration.underline,
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      openURL(context, url: 'https://pointerpointer.com/');
+                      openURL(
+                        context,
+                        url: 'https://pointerpointer.com/',
+                      );
                     },
                 ),
             ],

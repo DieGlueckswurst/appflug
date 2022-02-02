@@ -1,4 +1,4 @@
-import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
@@ -6,8 +6,9 @@ import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
-import 'package:appflug/ui/shared_widgets.dart/custom_expansoin_tile.dart';
 import 'package:appflug/ui/shared_widgets.dart/university_hero_logo.dart';
+import 'package:appflug/ui/shared_widgets.dart/university_information.dart';
+import 'package:appflug/ui/views/university_detail/widgets/h2_header.dart';
 import 'package:appflug/ui/views/university_detail/widgets/review_overview.dart';
 import 'package:appflug/ui/views/university_detail/widgets/university_image_list_view.dart';
 import 'package:flutter/material.dart';
@@ -67,24 +68,29 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                       onTap: () {},
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
-                    CustomExpansionTile(
+                    H2Header(
                       title: 'Beschreibung',
-                      content: widget.university.description,
                     ),
                     SizedBox(
                       height: 20,
                     ),
                     Row(
                       children: [
-                        Text(
-                          'Bilder',
-                          style: AppTextStyles.montserratH3Bold.copyWith(
-                            color: AppColors.blue,
+                        Flexible(
+                          child: Text(
+                            widget.university.description,
+                            style: AppTextStyles.montserratH6Regular,
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    H2Header(
+                      title: 'Bilder',
                     ),
                     SizedBox(
                       height: 20,
@@ -92,6 +98,22 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                     UniversityImageListView(
                       university: widget.university,
                     ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    H2Header(
+                      title: 'Informationen',
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    UniversityInformation(
+                      university: widget.university,
+                      showWebsite: true,
+                    ),
+                    SizedBox(
+                      height: sidePadding,
+                    )
                   ],
                 ),
               ),

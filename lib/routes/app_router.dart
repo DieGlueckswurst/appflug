@@ -21,6 +21,7 @@ import 'package:appflug/ui/views/preference_list/preference_list_view.dart';
 import 'package:appflug/ui/views/sign_up/sign_up_view.dart';
 import 'package:appflug/ui/views/start/start_view.dart';
 import 'package:appflug/ui/views/university_detail/university_detail_view.dart';
+import 'package:appflug/ui/views/university_detail/widgets/university_photo_view.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -170,6 +171,18 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (context) => UniversityDetailView(
             university: university,
+          ),
+        );
+
+      case Views.universityPhoto:
+        List<Object> args = settings.arguments as List<Object>;
+        University university = args[0] as University;
+        int initIndex = args[1] as int;
+
+        return MaterialPageRoute(
+          builder: (context) => UniversityPhotoView(
+            university: university,
+            initIndex: initIndex,
           ),
         );
 

@@ -20,4 +20,5 @@ class Views {
   static const String deleteAccount = 'deleteAccount';
   static const String changeEmail = 'changeEmail';
   static const String universityDetail = 'universityDetail';
+  static const String universityPhoto = 'universityPhoto';
 }
