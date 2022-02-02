@@ -3,6 +3,8 @@
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
+import 'package:appflug/data/local_storage/local_storage_keys.dart';
+import 'package:appflug/data/local_storage/local_storage_service.dart';
 import 'package:appflug/data/provider/student_provider.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/enums/status_option.dart';
@@ -112,14 +114,19 @@ class AuthenticationService {
     }
   }
 
-  static Future<bool> signOut(BuildContext context) async {
+  static Future<bool> signOut({
+    BuildContext? context,
+  }) async {
     try {
       await _firebaseAuth.signOut();
-      NavBarService.setSelectedView(
-        context: context,
-        viewToSelect: NavBarView.home,
-      );
-      Provider.of<StudentProvider>(context, listen: false).reset();
+
+      if (context != null) {
+        NavBarService.setSelectedView(
+          context: context,
+          viewToSelect: NavBarView.home,
+        );
+        Provider.of<StudentProvider>(context, listen: false).reset();
+      }
 
       return true;
     } on FirebaseAuthException catch (e) {
@@ -130,6 +137,19 @@ class AuthenticationService {
         isSuccess: false,
       );
       return false;
+    }
+  }
+
+  static Future signOutUserIfUserDeinstalledAndReinstalledApp() async {
+    bool? isFirstStart = await LocalStorageService.getData(
+      key: LocalStorageKeys.isFirstStart,
+    );
+    if (isFirstStart == null) {
+      await signOut();
+      await LocalStorageService.setBool(
+        key: LocalStorageKeys.isFirstStart,
+        value: false,
+      );
     }
   }
 

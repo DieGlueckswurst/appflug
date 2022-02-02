@@ -18,6 +18,7 @@ import 'package:appflug/ui/views/matriculation_number/matriculation_number_view.
 import 'package:appflug/ui/views/navigation/nav_wrapper.dart';
 import 'package:appflug/ui/views/personal_data/personal_data_view.dart';
 import 'package:appflug/ui/views/preference_list/preference_list_view.dart';
+import 'package:appflug/ui/views/review/review_view.dart';
 import 'package:appflug/ui/views/sign_up/sign_up_view.dart';
 import 'package:appflug/ui/views/start/start_view.dart';
 import 'package:appflug/ui/views/university_detail/university_detail_view.dart';
@@ -167,7 +168,6 @@ class AppRouter {
 
       case Views.universityDetail:
         University university = settings.arguments as University;
-
         return MaterialPageRoute(
           builder: (context) => UniversityDetailView(
             university: university,
@@ -183,6 +183,14 @@ class AppRouter {
           builder: (context) => UniversityPhotoView(
             university: university,
             initIndex: initIndex,
+          ),
+        );
+
+      case Views.review:
+        University university = settings.arguments as University;
+        return MaterialPageRoute(
+          builder: (context) => ReviewView(
+            university: university,
           ),
         );
 

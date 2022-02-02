@@ -1,8 +1,8 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/review._service.dart';
-import 'package:appflug/shared_utils/url_launch_service.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -67,9 +67,10 @@ class ReviewOverview extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      openURL(
+                      Navigator.pushNamed(
                         context,
-                        url: 'https://pointerpointer.com/',
+                        Views.review,
+                        arguments: university,
                       );
                     },
                 ),

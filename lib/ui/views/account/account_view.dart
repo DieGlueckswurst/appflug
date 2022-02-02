@@ -87,7 +87,7 @@ class _AccountViewState extends State<AccountView> {
                         onTap: () async {
                           bool wasSuccessfull =
                               await AuthenticationService.signOut(
-                            context,
+                            context: context,
                           );
                           AlertService.showSnackBar(
                             title: wasSuccessfull

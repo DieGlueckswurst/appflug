@@ -16,10 +16,6 @@ import 'constants/app_colors.dart';
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
-  String printText() {
-    return 'Ina ist cool';
-  }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(

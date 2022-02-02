@@ -284,4 +284,24 @@ extension StudentBackendService on BackendService {
       return false;
     }
   }
+
+  Future<String?> getEmailForUser({
+    required String uid,
+  }) async {
+    try {
+      dynamic doc =
+          await firestoreInstance.collection(keys.studs).doc(uid).get();
+
+      Map<String, dynamic> data = doc.data();
+
+      return data[keys.email];
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Fehler',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return null;
+    }
+  }
 }

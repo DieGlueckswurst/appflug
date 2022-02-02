@@ -1,3 +1,4 @@
+import 'package:appflug/data/backend/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -18,6 +19,12 @@ Future main() async {
           )
         : null,
   );
+
+  // very important step! Without this, after the user deinstalls the app and installs it again,
+  // Firebase still thinks that the user is logged in so we have to check if it is the first app start (local storage)
+  // and if so, sign out the user from Firebase so 'currentUser' is null.
+  await AuthenticationService.signOutUserIfUserDeinstalledAndReinstalledApp();
+
   runApp(
     const App(),
   );
