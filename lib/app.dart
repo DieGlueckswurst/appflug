@@ -6,6 +6,7 @@ import 'package:appflug/data/provider/university_provider.dart';
 import 'package:appflug/routes/app_router.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/colors_service.dart';
+import 'package:appflug/shared_utils/custom_scroll_behavior_for_web.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +37,7 @@ class App extends StatelessWidget {
       child: MaterialApp(
         title: 'AppFlug',
         navigatorKey: Get.key,
+        scrollBehavior: MyCustomScrollBehavior(),
         theme: ThemeData(
           fontFamily: AppTextStyles.montserrat,
           primarySwatch: ColorService.createMaterialColor(

@@ -25,34 +25,31 @@ class _HomeViewState extends State<HomeView> {
         padding: LayoutService.getSidePaddingDependingOnDeviceSize(
           context,
         ),
-        child: AnimatedSwitcher(
-          duration: Duration(milliseconds: 400),
-          child: _student != null
-              ? ListView(
-                  shrinkWrap: true,
-                  controller: ScrollController(),
-                  children: [
-                    ApplicationDeadlineView(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    CustomHorizontalDevider(),
-                    ApplicationStatusView(
-                      student: _student,
-                    ),
-                    CustomHorizontalDevider(),
-                    PreferenceListView(),
-                  ],
-                )
-              : Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LoadingPlane(),
-                    ],
+        child: _student != null
+            ? ListView(
+                shrinkWrap: true,
+                controller: ScrollController(),
+                children: [
+                  ApplicationDeadlineView(),
+                  SizedBox(
+                    height: 20,
                   ),
+                  CustomHorizontalDevider(),
+                  ApplicationStatusView(
+                    student: _student,
+                  ),
+                  CustomHorizontalDevider(),
+                  PreferenceListView(),
+                ],
+              )
+            : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    LoadingPlane(),
+                  ],
                 ),
-        ),
+              ),
       ),
     );
   }

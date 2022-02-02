@@ -63,9 +63,20 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                     SizedBox(
                       height: 20,
                     ),
-                    RoundedCornersTextButton(
-                      title: 'In Präferenzliste speichern',
-                      onTap: () {},
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: LayoutService.isDesktop(context)
+                              ? 400
+                              : MediaQuery.of(context).size.width -
+                                  4 * sidePadding,
+                          child: RoundedCornersTextButton(
+                            title: 'In Präferenzliste speichern',
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(
                       height: 30,

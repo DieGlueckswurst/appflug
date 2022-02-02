@@ -40,10 +40,13 @@ class UniversityInformation extends StatelessWidget {
                   width: 20,
                 ),
                 Flexible(
-                  child: Text(
-                    university.websiteUrl,
-                    style: AppTextStyles.montserratH6Regular.copyWith(
-                      decoration: TextDecoration.underline,
+                  child: MouseRegion(
+                    cursor: SystemMouseCursors.click,
+                    child: Text(
+                      university.websiteUrl,
+                      style: AppTextStyles.montserratH6Regular.copyWith(
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                 ),
