@@ -1,6 +1,8 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/data/local_storage/local_storage_keys.dart';
+import 'package:appflug/data/local_storage/local_storage_service.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +26,6 @@ class _CourseFilterSwitchState extends State<CourseFilterSwitch> {
     decoration: TextDecoration.underline,
   );
 
-  bool _isEnabled = true;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -66,15 +67,29 @@ class _CourseFilterSwitchState extends State<CourseFilterSwitch> {
           width: 20,
         ),
         if (widget.student.course != null)
-          Switch.adaptive(
-            value: _isEnabled,
-            activeColor: AppColors.green,
-            onChanged: (isEnabled) {
-              setState(() {
-                _isEnabled = isEnabled;
-              });
-              widget.onChanged(
-                isEnabled,
+          FutureBuilder(
+            future: LocalStorageService.getData(
+              key: LocalStorageKeys.onlyShowCompatibleUniversities,
+            ),
+            builder: (context, AsyncSnapshot<dynamic> snapshot) {
+              return AnimatedSwitcher(
+                duration: kThemeAnimationDuration,
+                child: snapshot.connectionState == ConnectionState.done
+                    ? Switch.adaptive(
+                        value: snapshot.data ?? true,
+                        activeColor: AppColors.green,
+                        onChanged: (isEnabled) async {
+                          widget.onChanged(
+                            isEnabled,
+                          );
+                          await LocalStorageService.setBool(
+                            key:
+                                LocalStorageKeys.onlyShowCompatibleUniversities,
+                            value: isEnabled,
+                          );
+                        },
+                      )
+                    : CircularProgressIndicator.adaptive(),
               );
             },
           ),

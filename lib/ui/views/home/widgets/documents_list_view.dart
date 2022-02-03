@@ -90,7 +90,7 @@ class _DocumentsListViewState extends State<DocumentsListView> {
               CustomListTile(
                 title: widget.isInSettings
                     ? 'Präferenzliste mit Wunschuniverstitäten'
-                    : 'Präferenzliste mit Wunschuniverstitäten hochladen',
+                    : 'Präferenzliste mit Wunschuniverstitäten vervollständigen',
                 onTap: () {
                   Navigator.pushNamed(
                     context,
