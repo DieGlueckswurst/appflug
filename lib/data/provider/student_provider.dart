@@ -82,4 +82,19 @@ class StudentProvider extends ChangeNotifier {
       currentStudent?.matriculationNumber != null &&
       currentStudent?.birthplace != null &&
       currentStudent?.course != null;
+
+  bool getAreDocumentsComplete() {
+    for (Document doc in currentStudent!.documents.values.toList()) {
+      if (doc.type == DocumentType.preferenceList) {
+        if (doc.preferenceList!.containsValue('')) {
+          return false;
+        }
+      } else {
+        if (doc.downloadUrl == null) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 }

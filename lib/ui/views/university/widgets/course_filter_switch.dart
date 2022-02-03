@@ -72,24 +72,30 @@ class _CourseFilterSwitchState extends State<CourseFilterSwitch> {
               key: LocalStorageKeys.onlyShowCompatibleUniversities,
             ),
             builder: (context, AsyncSnapshot<dynamic> snapshot) {
-              return AnimatedSwitcher(
-                duration: kThemeAnimationDuration,
-                child: snapshot.connectionState == ConnectionState.done
-                    ? Switch.adaptive(
-                        value: snapshot.data ?? true,
-                        activeColor: AppColors.green,
-                        onChanged: (isEnabled) async {
-                          widget.onChanged(
-                            isEnabled,
-                          );
-                          await LocalStorageService.setBool(
-                            key:
-                                LocalStorageKeys.onlyShowCompatibleUniversities,
-                            value: isEnabled,
-                          );
-                        },
-                      )
-                    : CircularProgressIndicator.adaptive(),
+              return Stack(
+                children: [
+                  Switch.adaptive(
+                    value: snapshot.data ?? true,
+                    activeColor: AppColors.green,
+                    onChanged: (isEnabled) async {
+                      widget.onChanged(
+                        isEnabled,
+                      );
+                      await LocalStorageService.setBool(
+                        key: LocalStorageKeys.onlyShowCompatibleUniversities,
+                        value: isEnabled,
+                      );
+                    },
+                  ),
+                  AnimatedSwitcher(
+                    duration: kThemeAnimationDuration,
+                    child: snapshot.connectionState == ConnectionState.done
+                        ? SizedBox.shrink()
+                        : Container(
+                            color: AppColors.white.withOpacity(1),
+                          ),
+                  )
+                ],
               );
             },
           ),

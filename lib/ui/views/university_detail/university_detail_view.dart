@@ -43,7 +43,9 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: LayoutService.defaultViewPadding,
+          padding: LayoutService.getSidePaddingDependingOnDeviceSize(
+            context,
+          ),
           child: Column(
             children: [
               CustomBackButton(),

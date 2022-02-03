@@ -1,3 +1,4 @@
+import 'package:appflug/data/backend/application.dart';
 import 'package:appflug/data/backend/authentication.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/classes/university.dart';
@@ -147,6 +148,13 @@ class StudentService {
     ).profileIsComplete;
   }
 
+  static bool getAreDocumentsComplete(BuildContext context) {
+    return Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    ).getAreDocumentsComplete();
+  }
+
   static bool getIsValidPreference({
     required Student student,
     required University university,
@@ -227,6 +235,14 @@ class StudentService {
       );
 
       if (wasSuccessfull) {
+        if (StudentService.getAreDocumentsComplete(context)) {
+          studentProvider.setApplicationStatusOption(
+            ApplicationStatusOption.readyForApplication,
+          );
+          return await BackendService().setApplicationStatus(
+            studentProvider.currentStudent!.applicationStatus,
+          );
+        }
         AlertService.showSnackBar(
           title: 'Erfolgreich gespeichert.',
           description:
@@ -244,6 +260,40 @@ class StudentService {
             'Du kannst nur Universitäten, die deinen Studiengang anbieten, als Präferenz speichern.',
         isSuccess: false,
       );
+      return false;
+    }
+  }
+
+  static Future<bool> apply({
+    required BuildContext context,
+  }) async {
+    StudentProvider studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    );
+
+    Student student = StudentService.getStudent(
+      context,
+      listen: false,
+    )!;
+    bool wasSuccessfull = await BackendService().saveApplication(
+      student: student,
+    );
+
+    if (wasSuccessfull) {
+      studentProvider.setApplicationStatusOption(
+        ApplicationStatusOption.documentsSubmitted,
+      );
+
+      AlertService.showSnackBar(
+        title: 'Erfolgreich beworben.',
+        description: 'Wir drücken dir die Daumen!',
+        isSuccess: true,
+      );
+      return await BackendService().setApplicationStatus(
+        studentProvider.currentStudent!.applicationStatus,
+      );
+    } else {
       return false;
     }
   }

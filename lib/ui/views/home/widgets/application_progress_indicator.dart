@@ -24,6 +24,11 @@ class _ApplicationProgressIndicatorState
         ApplicationStatusOption.values.toList().indexWhere(
               (option) => option == widget.currentApplicationStatus,
             );
+
+    if (widget.currentApplicationStatus ==
+        ApplicationStatusOption.rejectedDocuments) {
+      currentApplicationOptionIndex = 2;
+    }
     return Stack(
       alignment: Alignment.center,
       children: [
@@ -34,7 +39,7 @@ class _ApplicationProgressIndicatorState
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
-            ApplicationStatusOption.values.length,
+            ApplicationStatusOption.values.length - 1,
             (index) => _buildDot(
               index: index,
             ),

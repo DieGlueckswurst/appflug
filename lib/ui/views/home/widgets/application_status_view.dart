@@ -6,6 +6,7 @@ import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_indicator.dart';
 import 'package:appflug/ui/views/home/widgets/documents_list_view.dart';
+import 'package:appflug/ui/views/home/widgets/ready_for_application_view.dart';
 import 'package:flutter/material.dart';
 
 import 'application_progress_indicator.dart';
@@ -37,7 +38,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
             color: AppColors.blue,
           ),
         ),
-        _buildBody(context: context, student: widget.student),
+        _buildBody(
+          context: context,
+          student: widget.student,
+        ),
       ],
     );
   }
@@ -95,10 +99,28 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
           isInSettings: false,
         );
       case ApplicationStatusOption.readyForApplication:
-        return Container();
+        return ReadyForApplicationView();
       case ApplicationStatusOption.documentsSubmitted:
-        return Container();
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: sidePadding,
+          ),
+          child: Text(
+            'Deine Dokumente werden von uns überprüft. Das kann bis zu 14 Tagen dauern. Du musst nichts weiter tun.',
+            style: AppTextStyles.montserratH6Regular,
+          ),
+        );
       case ApplicationStatusOption.waitingForUniversity:
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: sidePadding,
+          ),
+          child: Text(
+            'Deine Dokumente wurden erfolgreich überprüft und an deine angegebenen Präferenzuniversitäten weitergeleitet. Wir melden uns sobald es eine Antwort der Partneruniversitäten gibt und drücken dir bis dahin die Daumen!',
+            style: AppTextStyles.montserratH6Regular,
+          ),
+        );
+      case ApplicationStatusOption.rejectedDocuments:
         return Container();
     }
   }

@@ -13,15 +13,17 @@ class ApplicationStatusService {
       ApplicationStatusOption option) {
     switch (option) {
       case ApplicationStatusOption.incompleteProfile:
-        return 'unvollständiges Profil';
+        return 'Unvollständiges Profil';
       case ApplicationStatusOption.incompleteDocuments:
-        return 'unvollständige Dokumente';
+        return 'Unvollständige Dokumente';
       case ApplicationStatusOption.readyForApplication:
-        return 'bereit für Bewerbung';
+        return 'Bereit für Bewerbung';
       case ApplicationStatusOption.documentsSubmitted:
         return 'Bewerbung eingereicht';
       case ApplicationStatusOption.waitingForUniversity:
-        return 'warten auf Universität';
+        return 'Warten auf Universität';
+      case ApplicationStatusOption.rejectedDocuments:
+        return 'Fehlerhafte Dokumente';
     }
   }
 }

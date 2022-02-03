@@ -7,7 +7,9 @@ import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/enums/application_status_option.dart';
 import 'package:appflug/enums/document_type.dart';
+import 'package:appflug/shared_utils/student_service.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +55,12 @@ class DocumentService {
       documentId: documentId,
     );
 
-    Provider.of<StudentProvider>(context, listen: false).setDocument(
+    StudentProvider studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    );
+
+    studentProvider.setDocument(
       Document(
         type: documentType,
         id: documentId,
@@ -66,7 +73,19 @@ class DocumentService {
       ),
     );
 
-    return wasSuccessfull;
+    if (wasSuccessfull) {
+      if (StudentService.getAreDocumentsComplete(context)) {
+        studentProvider.setApplicationStatusOption(
+          ApplicationStatusOption.readyForApplication,
+        );
+        return await BackendService().setApplicationStatus(
+          studentProvider.currentStudent!.applicationStatus,
+        );
+      }
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static String getDocumentTitleFromType(DocumentType type) {

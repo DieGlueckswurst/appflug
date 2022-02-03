@@ -72,8 +72,14 @@ class _ApplicationStatusIndicatorState
         break;
       case ApplicationStatusOption.incompleteDocuments:
         for (Document doc in student.documents.values) {
-          if (doc.downloadUrl != null) {
-            progress += 1 / DocumentType.values.length;
+          if (doc.type == DocumentType.preferenceList) {
+            if (!doc.preferenceList!.values.contains('')) {
+              progress += 1 / DocumentType.values.length;
+            }
+          } else {
+            if (doc.downloadUrl != null) {
+              progress += 1 / DocumentType.values.length;
+            }
           }
         }
         break;
@@ -87,18 +93,23 @@ class _ApplicationStatusIndicatorState
       case ApplicationStatusOption.waitingForUniversity:
         progress = 1;
         break;
+      case ApplicationStatusOption.rejectedDocuments:
+        progress = 1;
+        break;
     }
+    Color primaryColor = student.applicationStatus ==
+            ApplicationStatusOption.readyForApplication
+        ? AppColors.green
+        : student.applicationStatus == ApplicationStatusOption.rejectedDocuments
+            ? AppColors.red
+            : AppColors.yellow;
 
     return LinearGradient(
       colors: [
         AppColors.white,
         AppColors.white,
-        student.applicationStatus == ApplicationStatusOption.readyForApplication
-            ? AppColors.green
-            : AppColors.yellow,
-        student.applicationStatus == ApplicationStatusOption.readyForApplication
-            ? AppColors.green
-            : AppColors.yellow,
+        primaryColor,
+        primaryColor,
       ],
       stops: [
         0.0,

@@ -5,7 +5,7 @@ import 'package:appflug/ui/shared_widgets.dart/custom_horizontal_devider.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
 import 'package:appflug/ui/views/home/widgets/application_deadline_view.dart';
 import 'package:appflug/ui/views/home/widgets/application_status_view.dart';
-import 'package:appflug/ui/views/home/widgets/preference_list_view.dart';
+import 'package:appflug/ui/views/home/widgets/fast_access_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -39,7 +39,7 @@ class _HomeViewState extends State<HomeView> {
                     student: _student,
                   ),
                   CustomHorizontalDevider(),
-                  PreferenceListView(),
+                  FastAccessView(),
                 ],
               )
             : Center(

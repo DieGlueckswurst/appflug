@@ -35,93 +35,106 @@ class _DocumentsListViewState extends State<DocumentsListView> {
     List<Widget> children = [];
 
     for (Document doc in documents) {
-      if (doc.downloadUrl == null || widget.isInSettings) {
-        switch (doc.type) {
-          case DocumentType.languageTest:
-            children.add(
-              CustomListTile(
-                title: widget.isInSettings
-                    ? 'Aktuelles Sprachzeugnis'
-                    : 'Aktuelle Sprachzeugnis hochladen',
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Views.languageTest,
-                    arguments: doc,
-                  );
-                },
-              ),
-            );
-            break;
-          case DocumentType.letterOfMotivation:
-            children.add(
-              CustomListTile(
-                title: widget.isInSettings
-                    ? 'Motivationsschreiben'
-                    : 'Motivationsschreiben hochladen',
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Views.letterOfMotivation,
-                    arguments: doc,
-                  );
-                },
-              ),
-            );
-            break;
-          case DocumentType.transcriptOfRecords:
-            children.add(
-              CustomListTile(
-                title: widget.isInSettings
-                    ? 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen'
-                    : 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen hochladen',
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Views.transcriptOfRecords,
-                    arguments: doc,
-                  );
-                },
-              ),
-            );
-            break;
-          case DocumentType.preferenceList:
-            children.add(
-              CustomListTile(
-                title: widget.isInSettings
-                    ? 'Präferenzliste mit Wunschuniverstitäten'
-                    : 'Präferenzliste mit Wunschuniverstitäten vervollständigen',
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Views.preferenceList,
-                  );
-                },
-              ),
-            );
-            break;
-          case DocumentType.passport:
-            children.add(
-              CustomListTile(
-                title: widget.isInSettings
-                    ? 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder)'
-                    : 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder) hochladen',
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    Views.passport,
-                    arguments: doc,
-                  );
-                },
-              ),
-            );
-            break;
+      if (doc.type == DocumentType.preferenceList) {
+        if (doc.preferenceList!.containsValue('')) {
+          children.add(
+            CustomListTile(
+              title: widget.isInSettings
+                  ? 'Präferenzliste mit Wunschuniverstitäten'
+                  : 'Präferenzliste mit Wunschuniverstitäten vervollständigen',
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  Views.preferenceList,
+                );
+              },
+            ),
+          );
+          children.add(
+            SizedBox(
+              height: sidePadding,
+            ),
+          );
         }
-        children.add(
-          SizedBox(
-            height: sidePadding,
-          ),
-        );
+      } else {
+        if ((doc.downloadUrl == null &&
+                doc.type != DocumentType.preferenceList) ||
+            widget.isInSettings) {
+          switch (doc.type) {
+            case DocumentType.languageTest:
+              children.add(
+                CustomListTile(
+                  title: widget.isInSettings
+                      ? 'Aktuelles Sprachzeugnis'
+                      : 'Aktuelle Sprachzeugnis hochladen',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Views.languageTest,
+                      arguments: doc,
+                    );
+                  },
+                ),
+              );
+              break;
+            case DocumentType.letterOfMotivation:
+              children.add(
+                CustomListTile(
+                  title: widget.isInSettings
+                      ? 'Motivationsschreiben'
+                      : 'Motivationsschreiben hochladen',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Views.letterOfMotivation,
+                      arguments: doc,
+                    );
+                  },
+                ),
+              );
+              break;
+            case DocumentType.transcriptOfRecords:
+              children.add(
+                CustomListTile(
+                  title: widget.isInSettings
+                      ? 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen'
+                      : 'Auflistung der bisher von Ihnen besuchten Studienveranstaltungen hochladen',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Views.transcriptOfRecords,
+                      arguments: doc,
+                    );
+                  },
+                ),
+              );
+              break;
+            case DocumentType.preferenceList:
+              break;
+            case DocumentType.passport:
+              children.add(
+                CustomListTile(
+                  title: widget.isInSettings
+                      ? 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder)'
+                      : 'Kopie Ihres Personalausweises (EU, Norwegen, Schweiz) bzw. Reisepasses (alle anderen Länder) hochladen',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      Views.passport,
+                      arguments: doc,
+                    );
+                  },
+                ),
+              );
+              break;
+          }
+
+          children.add(
+            SizedBox(
+              height: sidePadding,
+            ),
+          );
+        }
       }
     }
     return children;

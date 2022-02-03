@@ -4,4 +4,5 @@ enum ApplicationStatusOption {
   readyForApplication,
   documentsSubmitted,
   waitingForUniversity,
+  rejectedDocuments,
 }
