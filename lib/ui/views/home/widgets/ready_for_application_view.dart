@@ -27,7 +27,7 @@ class _ReadyForApplicationViewState extends State<ReadyForApplicationView> {
           height: 20,
         ),
         Text(
-          'Bitte überprüfe vor dem abschicken noch einmal all deine Dokumente auf Vollständigkeit und Richtigkeit.',
+          'Bitte überprüfe vor dem Abschicken noch einmal all deine Dokumente auf Vollständigkeit und Richtigkeit.',
           style: AppTextStyles.montserratH6SemiBold,
         ),
         SizedBox(

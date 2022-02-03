@@ -30,4 +30,18 @@ extension StringService on String {
       return 'unbekanntes Land';
     }
   }
+
+  String toCapitalized() =>
+      length > 0 ? '${this[0].toUpperCase()}${substring(1).toLowerCase()}' : '';
+
+  static String getNameFromEmail(String email) {
+    List<String> splittedEmail = email
+        .substring(
+          0,
+          email.indexOf('@'),
+        )
+        .split('.');
+
+    return splittedEmail.first + ' ' + splittedEmail.last.toCapitalized();
+  }
 }

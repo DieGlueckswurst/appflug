@@ -102,4 +102,17 @@ class DocumentService {
         return 'Personalausweis/Reisepass';
     }
   }
+
+  static List<Document> sortDocumentsAlphabetically(List<Document> documents) {
+    documents.sort(
+      (docA, docB) => getDocumentTitleFromType(
+        docA.type,
+      ).compareTo(
+        getDocumentTitleFromType(
+          docB.type,
+        ),
+      ),
+    );
+    return documents;
+  }
 }

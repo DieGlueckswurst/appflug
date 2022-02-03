@@ -3,6 +3,7 @@ import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/routes/views.dart';
+import 'package:appflug/shared_utils/document_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,9 @@ class _DocumentsListViewState extends State<DocumentsListView> {
 
   List<Widget> _buildChildren() {
     List<Document> documents = widget.student.documents.values.toList();
+    documents = DocumentService.sortDocumentsAlphabetically(
+      documents,
+    );
 
     List<Widget> children = [];
 

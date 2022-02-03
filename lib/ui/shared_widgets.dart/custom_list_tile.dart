@@ -5,12 +5,14 @@ import 'package:flutter_svg/svg.dart';
 
 class CustomListTile extends StatelessWidget {
   final String title;
+  final String? description;
   final VoidCallback onTap;
 
   const CustomListTile({
     Key? key,
     required this.title,
     required this.onTap,
+    this.description,
   }) : super(key: key);
 
   @override
@@ -36,9 +38,23 @@ class CustomListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: Text(
-                  title,
-                  style: AppTextStyles.montserratH6SemiBold,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: AppTextStyles.montserratH6SemiBold,
+                    ),
+                    if (description != null) ...[
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        description!,
+                        style: AppTextStyles.montserratH6Regular,
+                      ),
+                    ]
+                  ],
                 ),
               ),
               SizedBox(

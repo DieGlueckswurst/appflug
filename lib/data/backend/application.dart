@@ -1,4 +1,6 @@
 import 'package:appflug/data/backend/base.dart';
+import 'package:appflug/data/backend/student.dart';
+import 'package:appflug/data/classes/application.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -57,5 +59,26 @@ extension ApplicationBackendService on BackendService {
       );
       return false;
     }
+  }
+
+  Future<List<Application>> getApplicationData() async {
+    List<Application> applications = [];
+    var documentQuerySnapshot =
+        await firestoreInstance.collection(keys.applications).get();
+    for (var doc in documentQuerySnapshot.docs) {
+      Map<String, dynamic> data = doc.data();
+
+      applications.add(
+        Application(
+          dateTimeInMilliSecondsSinceEpoch:
+              data[keys.dateDateInMillisecondsSinceEpoch],
+          student: await BackendService().getStudentData(
+            uid: data[keys.studentId],
+          ),
+        ),
+      );
+    }
+
+    return applications;
   }
 }

@@ -59,11 +59,11 @@ extension StudentBackendService on BackendService {
     }
   }
 
-  Future<Student> getStudentData() async {
-    var docSnapshot = await firestoreInstance
-        .collection(keys.studs)
-        .doc(AuthenticationService.currentUser!.uid)
-        .get();
+  Future<Student> getStudentData({
+    required String uid,
+  }) async {
+    var docSnapshot =
+        await firestoreInstance.collection(keys.studs).doc(uid).get();
     Map<String, dynamic>? docData = docSnapshot.data();
     Student student = Student(
       email: docData?[keys.email],
@@ -82,7 +82,7 @@ extension StudentBackendService on BackendService {
 
     var documentQuerySnapshot = await firestoreInstance
         .collection(keys.studs)
-        .doc(AuthenticationService.currentUser!.uid)
+        .doc(uid)
         .collection(keys.documents)
         .get();
     for (var doc in documentQuerySnapshot.docs) {
