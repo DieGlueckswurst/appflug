@@ -165,6 +165,7 @@ class StudentService {
     required Student student,
     required University university,
     required String position,
+    required bool isRemoving,
   }) async {
     StudentProvider studentProvider = Provider.of<StudentProvider>(
       context,
@@ -177,14 +178,14 @@ class StudentService {
       position: position,
     );
 
-    if (isValid) {
+    if (isValid || isRemoving) {
       studentProvider.setUniInPreferenceList(
-        universityId: university.id,
+        universityId: isRemoving ? '' : university.id,
         position: position,
       );
 
       bool wasSuccessfull = await BackendService().setPreferenceList(
-        universityId: university.id,
+        universityId: isRemoving ? '' : university.id,
         position: position,
         documentId: student.documents[DocumentType.preferenceList]!.id!,
       );

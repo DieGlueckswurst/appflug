@@ -1,7 +1,9 @@
+import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
@@ -32,8 +34,12 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
   Widget build(BuildContext context) {
     Student _student = StudentService.getStudent(
       context,
-      listen: false,
+      listen: true,
     )!;
+
+    bool _isOnPreferenceList = _getIsOnPreferenceList(
+      student: _student,
+    );
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -75,15 +81,26 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                               : MediaQuery.of(context).size.width -
                                   4 * sidePadding,
                           child: RoundedCornersTextButton(
-                            title: 'In Präferenzliste speichern',
+                            title: _isOnPreferenceList
+                                ? 'Von Präferenzliste entfernen'
+                                : 'In Präferenzliste speichern',
+                            backgroundColor: _isOnPreferenceList
+                                ? AppColors.white
+                                : AppColors.blue,
+                            borderColor:
+                                _isOnPreferenceList ? AppColors.blue : null,
+                            textColor: _isOnPreferenceList
+                                ? AppColors.red
+                                : AppColors.yellow,
                             isLoading: _isLoading,
                             onTap: () {
                               setState(() {
                                 _isLoading = true;
                               });
                               _savePreference(
-                                context,
-                                _student,
+                                context: context,
+                                student: _student,
+                                isRemoving: _isOnPreferenceList,
                               );
                             },
                           ),
@@ -147,20 +164,61 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
     );
   }
 
-  Future _savePreference(BuildContext context, Student student) async {
-    AlertService.showPreferenceDialog(
-      context,
-      onPositionSaved: (
-        String position,
-      ) async {
-        await StudentService.setUniInPreferenceList(
-          context: context,
-          student: student,
-          university: widget.university,
-          position: position,
-        );
-      },
+  bool _getIsOnPreferenceList({
+    required Student student,
+  }) {
+    return student
+        .documents[DocumentType.preferenceList]!.preferenceList!.values
+        .contains(
+      widget.university.id,
     );
+  }
+
+  String _getIndexOfUniversityInPrefList({
+    required Student student,
+  }) {
+    List<String> keys = student
+        .documents[DocumentType.preferenceList]!.preferenceList!.keys
+        .toList();
+    return keys.firstWhere(
+      (key) =>
+          student
+              .documents[DocumentType.preferenceList]!.preferenceList![key] ==
+          widget.university.id,
+    );
+  }
+
+  Future _savePreference({
+    required BuildContext context,
+    required Student student,
+    required bool isRemoving,
+  }) async {
+    if (isRemoving) {
+      await StudentService.setUniInPreferenceList(
+        context: context,
+        student: student,
+        university: widget.university,
+        position: _getIndexOfUniversityInPrefList(
+          student: student,
+        ).toString(),
+        isRemoving: true,
+      );
+    } else {
+      AlertService.showPreferenceDialog(
+        context,
+        onPositionSaved: (
+          String position,
+        ) async {
+          await StudentService.setUniInPreferenceList(
+            context: context,
+            student: student,
+            university: widget.university,
+            position: position,
+            isRemoving: false,
+          );
+        },
+      );
+    }
 
     setState(() {
       _isLoading = false;

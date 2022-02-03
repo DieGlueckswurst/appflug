@@ -77,7 +77,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
               },
               child: GestureDetector(
                 onTap: () {
-                  if (widget.isEnabled) {
+                  if (widget.isEnabled && !widget.isLoading) {
                     widget.onTap();
                   }
                 },

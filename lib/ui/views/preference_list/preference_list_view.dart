@@ -2,14 +2,17 @@ import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
+import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/enums/views.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
-import 'package:appflug/routes/views.dart';
+import 'package:appflug/shared_utils/university_service.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/back_button.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
-import 'package:appflug/ui/shared_widgets.dart/custom_list_tile.dart';
 import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/shared_widgets.dart/lottie_animations/loading_plane.dart';
+import 'package:appflug/ui/views/navigation/utils.dart';
+import 'package:appflug/ui/views/preference_list/widgets/preference_list_tile.dart';
 import 'package:flutter/material.dart';
 
 class PreferenceListView extends StatefulWidget {
@@ -22,6 +25,11 @@ class _PreferenceListViewState extends State<PreferenceListView> {
   Widget build(BuildContext context) {
     Student? _student = StudentService.getStudent(
       context,
+      listen: true,
+    );
+
+    List<University>? _universities = UniversityService.getUniversities(
+      context: context,
       listen: true,
     );
     return Scaffold(
@@ -49,70 +57,91 @@ class _PreferenceListViewState extends State<PreferenceListView> {
                           children: [
                             Row(
                               children: [
-                                Container(
-                                  color: AppColors.green,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        height: 30,
-                                        width: 20,
-                                        color: AppColors.red,
+                                Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 100,
+                                      child: Center(
+                                        child: Text(
+                                          '1.',
+                                          style: AppTextStyles.montserratH2Bold,
+                                        ),
                                       ),
-                                      Text(
-                                        '1',
-                                        style: AppTextStyles.montserratH2Bold,
+                                    ),
+                                    SizedBox(
+                                      height: 100,
+                                      child: Center(
+                                        child: Text(
+                                          '2.',
+                                          style: AppTextStyles.montserratH2Bold,
+                                        ),
                                       ),
-                                      Text(
-                                        '2',
-                                        style: AppTextStyles.montserratH2Bold,
+                                    ),
+                                    SizedBox(
+                                      height: 100,
+                                      child: Center(
+                                        child: Text(
+                                          '3.',
+                                          style: AppTextStyles.montserratH2Bold,
+                                        ),
                                       ),
-                                      Text(
-                                        '3',
-                                        style: AppTextStyles.montserratH2Bold,
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(
+                                  width: 20,
                                 ),
                                 Expanded(
-                                  child: ReorderableListView(
-                                    shrinkWrap: true,
-                                    physics: NeverScrollableScrollPhysics(),
-                                    onReorder: (int oldIndex, int newIndex) {},
-                                    children: [
-                                      // Container(
-                                      //   padding: EdgeInsets.all(
-                                      //     20,
-                                      //   ),
-                                      //   child: Text(
-                                      //       // _student.documents[DocumentType.preferenceList]!.preferenceList!['1']!
-                                      //       'Penis'),
-                                      // ),
-                                      CustomListTile(
+                                  child: Theme(
+                                    data: ThemeData(
+                                      canvasColor: AppColors.transparent,
+                                    ),
+                                    child: ReorderableListView(
+                                      shrinkWrap: true,
+                                      physics: NeverScrollableScrollPhysics(),
+                                      onReorder:
+                                          (int oldIndex, int newIndex) {},
+                                      children: [
+                                        PreferenceListTile(
+                                          key: Key('1'),
+                                          student: _student,
+                                          universities: _universities!,
+                                          position: '1',
+                                        ),
+                                        PreferenceListTile(
                                           key: Key('2'),
-                                          title: 'Dokumente',
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              Views.documents,
-                                            );
-                                          }),
-                                      CustomListTile(
+                                          student: _student,
+                                          universities: _universities,
+                                          position: '2',
+                                        ),
+                                        PreferenceListTile(
                                           key: Key('3'),
-                                          title: 'Konto',
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              Views.account,
-                                            );
-                                          }),
-                                    ],
+                                          student: _student,
+                                          universities: _universities,
+                                          position: '3',
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                             Spacer(),
+                            RoundedCornersTextButton(
+                              title: 'Zu den Universitäten',
+                              backgroundColor: AppColors.white,
+                              textColor: AppColors.blue,
+                              onTap: () {
+                                Navigator.pop(context);
+                                NavBarService.setSelectedView(
+                                  context: context,
+                                  viewToSelect: NavBarView.university,
+                                );
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             RoundedCornersTextButton(
                               title: 'Speichern',
                               onTap: () {},
