@@ -93,7 +93,7 @@ class _TextFieldWithRoundedBorderState
           !_showPassword,
       enableSuggestions: widget.textInputType != TextInputType.visiblePassword,
       autocorrect: widget.textInputType != TextInputType.visiblePassword,
-      style: AppTextStyles.montserratH6Regular,
+      style: AppTextStyles.montserratH6SemiBold,
       onChanged: widget.onChanged,
       focusNode: _focusNode,
       keyboardType: widget.textInputType,

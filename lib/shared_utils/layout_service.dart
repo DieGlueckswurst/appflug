@@ -4,6 +4,14 @@ import 'package:flutter/material.dart';
 class LayoutService {
   static const double minimumWidthForWebLayout = 1000;
 
+  static double safeAreaTop(BuildContext context) {
+    return MediaQuery.of(context).padding.top;
+  }
+
+  static double safeAreaBottom(BuildContext context) {
+    return MediaQuery.of(context).padding.bottom;
+  }
+
   static bool isDesktop(BuildContext context) {
     return MediaQuery.of(context).size.width > minimumWidthForWebLayout;
   }

@@ -2,6 +2,7 @@ import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/hero_key.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
+import 'package:appflug/enums/status_option.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
 import 'package:appflug/ui/views/start/widgets/terms_of_service_view.dart';
@@ -92,7 +93,17 @@ class _HStartViewState extends State<StartView> {
                     title: 'Ich bearbeite Anträge',
                     textColor: AppColors.blue,
                     backgroundColor: AppColors.yellow,
-                    onTap: () {},
+                    heroKey: HeroKeys.buttonKeysAsEmpl,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        Views.login,
+                        arguments: <Object>[
+                          '',
+                          StatusOption.empl,
+                        ],
+                      );
+                    },
                     isEnabled: _termsOfServiceIsChecked,
                   ),
                   Spacer(),

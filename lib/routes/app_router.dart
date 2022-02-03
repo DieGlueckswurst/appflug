@@ -2,7 +2,9 @@ import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/enums/courses.dart';
 import 'package:appflug/enums/status_option.dart';
+import 'package:appflug/routes/view_for_empl.dart';
 import 'package:appflug/routes/views.dart';
+import 'package:appflug/ui/empl/views/wrapper/wrapper.dart';
 import 'package:appflug/ui/views/account/account_view.dart';
 import 'package:appflug/ui/views/authentication/authentication_view.dart';
 import 'package:appflug/ui/views/birthplace/birthplace.dart';
@@ -192,6 +194,11 @@ class AppRouter {
           builder: (context) => ReviewView(
             university: university,
           ),
+        );
+
+      case ViewsForEmpl.wrapper:
+        return MaterialPageRoute(
+          builder: (context) => WrapperViewForEmpl(),
         );
 
       default:
