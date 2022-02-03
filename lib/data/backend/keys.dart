@@ -51,6 +51,7 @@ class BackendKeys {
   String get studentId => 'studentId';
   String get dateDateInMillisecondsSinceEpoch =>
       'dateDateInMillisecondsSinceEpoch';
+  String get rejectionText => 'rejectionText';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {

@@ -13,6 +13,7 @@ import 'package:appflug/ui/shared_widgets.dart/hero_header.dart';
 import 'package:appflug/ui/views/document/widgets/file_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class DocumentView extends StatefulWidget {
   final Document document;
@@ -77,6 +78,34 @@ class _DocumentViewState extends State<DocumentView> {
                         height: 40,
                       ),
                       CustomHorizontalDevider(),
+                      if (widget.document.rejectionText != null) ...[
+                        SizedBox(
+                          height: 20,
+                        ),
+                        SvgPicture.asset(
+                          'assets/icons/warning.svg',
+                          color: AppColors.red,
+                          height: 30,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Ablehnungsgrund:',
+                          style: AppTextStyles.montserratH5SemiBold,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          widget.document.rejectionText!,
+                          style: AppTextStyles.montserratH5Regular,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        CustomHorizontalDevider(),
+                      ],
                       ExpansionTile(
                         title: Text(
                           'Hinweise',

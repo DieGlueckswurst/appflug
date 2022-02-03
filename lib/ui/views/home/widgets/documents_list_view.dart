@@ -59,7 +59,8 @@ class _DocumentsListViewState extends State<DocumentsListView> {
       } else {
         if ((doc.downloadUrl == null &&
                 doc.type != DocumentType.preferenceList) ||
-            widget.isInSettings) {
+            widget.isInSettings ||
+            doc.rejectionText != null) {
           switch (doc.type) {
             case DocumentType.languageTest:
               children.add(

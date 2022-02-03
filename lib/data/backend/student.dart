@@ -97,6 +97,7 @@ extension StudentBackendService on BackendService {
           preferenceList: Map<String, String>.from(
             data[keys.preferenceList],
           ),
+          rejectionText: data[keys.rejectionText],
         );
       } else {
         student.documents[documentType] = Document(
@@ -105,6 +106,7 @@ extension StudentBackendService on BackendService {
           storageLocation: data[keys.storageLocation],
           downloadUrl: data[keys.downloadUrl],
           name: data[keys.name],
+          rejectionText: data[keys.rejectionText],
         );
       }
     }
@@ -252,6 +254,7 @@ extension StudentBackendService on BackendService {
           keys.name: fileName,
           keys.downloadUrl: downloadUrl,
           keys.storageLocation: documentLocation,
+          keys.rejectionText: FieldValue.delete(),
         },
         SetOptions(
           merge: true,

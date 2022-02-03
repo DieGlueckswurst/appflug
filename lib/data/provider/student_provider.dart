@@ -90,7 +90,7 @@ class StudentProvider extends ChangeNotifier {
           return false;
         }
       } else {
-        if (doc.downloadUrl == null) {
+        if (doc.downloadUrl == null || doc.rejectionText != null) {
           return false;
         }
       }

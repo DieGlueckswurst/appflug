@@ -121,7 +121,10 @@ class _ApplicationStatusViewState extends State<ApplicationStatusView> {
           ),
         );
       case ApplicationStatusOption.rejectedDocuments:
-        return Container();
+        return DocumentsListView(
+          student: student,
+          isInSettings: false,
+        );
     }
   }
 }
