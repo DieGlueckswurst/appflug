@@ -8,28 +8,33 @@ class UniversityHeroLogo extends StatelessWidget {
 
   final double width;
   final double height;
+  final bool isHeroEnabled;
 
   const UniversityHeroLogo({
     Key? key,
     required this.university,
     required this.width,
     required this.height,
+    this.isHeroEnabled = true,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Hero(
-      tag: HeroKeys.getKeyFromUniversity(
-        university,
-      ),
-      child: SvgPicture.network(
-        university.logoDownloadUrl,
-        placeholderBuilder: (BuildContext context) => Container(
-          padding: const EdgeInsets.all(5.0),
-          child: const CircularProgressIndicator.adaptive(),
+    return HeroMode(
+      enabled: isHeroEnabled,
+      child: Hero(
+        tag: HeroKeys.getKeyFromUniversity(
+          university,
         ),
-        fit: BoxFit.contain,
-        height: height,
-        width: width,
+        child: SvgPicture.network(
+          university.logoDownloadUrl,
+          placeholderBuilder: (BuildContext context) => Container(
+            padding: const EdgeInsets.all(5.0),
+            child: const CircularProgressIndicator.adaptive(),
+          ),
+          fit: BoxFit.contain,
+          height: height,
+          width: width,
+        ),
       ),
     );
   }

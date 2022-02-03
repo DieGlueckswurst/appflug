@@ -53,6 +53,20 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  reorderUniInPreferenceList({
+    required String oldUniversityId,
+    required String oldPosition,
+    required String newUniversityId,
+    required String newPosition,
+  }) {
+    currentStudent?.documents[DocumentType.preferenceList]!
+        .preferenceList![newPosition] = oldUniversityId;
+
+    currentStudent?.documents[DocumentType.preferenceList]!
+        .preferenceList![oldPosition] = newUniversityId;
+    notifyListeners();
+  }
+
   setDataIsRetrieved(bool isRetrieved) {
     dataIsRetrieved = isRetrieved;
     notifyListeners();

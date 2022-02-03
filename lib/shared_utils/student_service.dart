@@ -149,15 +149,52 @@ class StudentService {
 
   static bool getIsValidPreference({
     required Student student,
-    required String universityId,
-    required String position,
+    required University university,
   }) {
-    Map<String, String> preferenceList =
-        student.documents[DocumentType.preferenceList]!.preferenceList!;
-
-    return !preferenceList.values.contains(
-      universityId,
+    return university.coursesOfStudy.contains(
+      student.course,
     );
+  }
+
+  static Future<bool> reorderPreferenceList({
+    required BuildContext context,
+    required Student student,
+    required String oldUniversityId,
+    required String oldPosition,
+    required String newUniversityId,
+    required String newPosition,
+  }) async {
+    StudentProvider studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    );
+
+    studentProvider.reorderUniInPreferenceList(
+      oldUniversityId: oldUniversityId,
+      oldPosition: oldPosition,
+      newUniversityId: newUniversityId,
+      newPosition: newPosition,
+    );
+
+    bool wasSuccessfull = await BackendService().reorderPreferenceList(
+      oldUniversityId: oldUniversityId,
+      oldPosition: oldPosition,
+      newUniversityId: newUniversityId,
+      newPosition: newPosition,
+      documentId: student.documents[DocumentType.preferenceList]!.id!,
+    );
+
+    if (wasSuccessfull) {
+      AlertService.showSnackBar(
+        title: 'Erfolgreich gespeichert.',
+        description:
+            'Wenn du 3 Universitäten auf deiner Präferenzliste gespeicher hast, gilt dieses Dokument als vollständig.',
+        isSuccess: true,
+      );
+      return true;
+    } else {
+      return false;
+    }
   }
 
   static Future<bool> setUniInPreferenceList({
@@ -174,8 +211,7 @@ class StudentService {
 
     bool isValid = StudentService.getIsValidPreference(
       student: student,
-      universityId: university.id,
-      position: position,
+      university: university,
     );
 
     if (isValid || isRemoving) {
@@ -203,9 +239,9 @@ class StudentService {
       }
     } else {
       AlertService.showSnackBar(
-        title: 'Speichern fehlgeschlagen',
+        title: 'Falscher Studiengang.',
         description:
-            'Eine Universität kann nur einmal in der Preferenzliste gespeichert werden.',
+            'Du kannst nur Universitäten, die deinen Studiengang anbieten, als Präferenz speichern.',
         isSuccess: false,
       );
       return false;

@@ -89,7 +89,7 @@ class _MatriculationNumberViewState extends State<MatriculationNumberView> {
                               : AlertService.showSnackBar(
                                   title: 'Ungültige Matrikelnummer',
                                   description:
-                                      'Bitte gib eine gültige Matrikelnummer ein.',
+                                      'Deine Matrikelnummer besteht aus 7 Ziffern.',
                                   isSuccess: false,
                                 );
 

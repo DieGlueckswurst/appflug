@@ -295,6 +295,36 @@ extension StudentBackendService on BackendService {
     }
   }
 
+  Future<bool> reorderPreferenceList({
+    required String oldUniversityId,
+    required String oldPosition,
+    required String newUniversityId,
+    required String newPosition,
+    required String documentId,
+  }) async {
+    try {
+      await firestoreInstance
+          .collection(keys.studs)
+          .doc(AuthenticationService.currentUser!.uid)
+          .collection(keys.documents)
+          .doc(documentId)
+          .update(
+        {
+          '${keys.preferenceList}.$newPosition': oldUniversityId,
+          '${keys.preferenceList}.$oldPosition': newUniversityId,
+        },
+      );
+      return true;
+    } on FirebaseException catch (e) {
+      AlertService.showSnackBar(
+        title: 'Liste speichern fehlgeschlagen',
+        description: e.message ?? '',
+        isSuccess: false,
+      );
+      return false;
+    }
+  }
+
   Future<bool> deleteUser() async {
     try {
       await firestoreInstance

@@ -3,7 +3,9 @@ import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/enums/document_type.dart';
 import 'package:appflug/enums/views.dart';
+import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/shared_utils/university_service.dart';
@@ -21,6 +23,8 @@ class PreferenceListView extends StatefulWidget {
 }
 
 class _PreferenceListViewState extends State<PreferenceListView> {
+  bool _isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     Student? _student = StudentService.getStudent(
@@ -32,6 +36,7 @@ class _PreferenceListViewState extends State<PreferenceListView> {
       context: context,
       listen: true,
     );
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -53,101 +58,130 @@ class _PreferenceListViewState extends State<PreferenceListView> {
                   ? Expanded(
                       child: ConstrainedBox(
                         constraints: webMaxWidthConstraint,
-                        child: Column(
+                        child: Stack(
                           children: [
-                            Row(
+                            Column(
                               children: [
-                                Column(
+                                Row(
                                   children: [
-                                    SizedBox(
-                                      height: 100,
-                                      child: Center(
-                                        child: Text(
-                                          '1.',
-                                          style: AppTextStyles.montserratH2Bold,
+                                    Column(
+                                      children: [
+                                        SizedBox(
+                                          height: 100,
+                                          child: Center(
+                                            child: Text(
+                                              '1.',
+                                              style: AppTextStyles
+                                                  .montserratH2Bold,
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        SizedBox(
+                                          height: 100,
+                                          child: Center(
+                                            child: Text(
+                                              '2.',
+                                              style: AppTextStyles
+                                                  .montserratH2Bold,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 100,
+                                          child: Center(
+                                            child: Text(
+                                              '3.',
+                                              style: AppTextStyles
+                                                  .montserratH2Bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
-                                      height: 100,
-                                      child: Center(
-                                        child: Text(
-                                          '2.',
-                                          style: AppTextStyles.montserratH2Bold,
-                                        ),
-                                      ),
+                                      width: 20,
                                     ),
-                                    SizedBox(
-                                      height: 100,
-                                      child: Center(
-                                        child: Text(
-                                          '3.',
-                                          style: AppTextStyles.montserratH2Bold,
+                                    Expanded(
+                                      child: Theme(
+                                        data: ThemeData(
+                                          canvasColor: AppColors.transparent,
+                                        ),
+                                        child: ReorderableListView(
+                                          shrinkWrap: true,
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          onReorder: (
+                                            int oldIndex,
+                                            int newIndex,
+                                          ) async {
+                                            setState(() {
+                                              _isLoading = true;
+                                            });
+                                            await _saveReorderedList(
+                                              student: _student,
+                                              universities: _universities!,
+                                              oldIndex: oldIndex,
+                                              newIndex: newIndex,
+                                            );
+                                          },
+                                          children: [
+                                            ..._student
+                                                .documents[DocumentType
+                                                    .preferenceList]!
+                                                .preferenceList!
+                                                .keys
+                                                .map(
+                                                  (key) => PreferenceListTile(
+                                                    key: Key(key),
+                                                    student: _student,
+                                                    universities:
+                                                        _universities!,
+                                                    position: key,
+                                                    onTap: (university) {
+                                                      Navigator.pushNamed(
+                                                        context,
+                                                        Views.universityDetail,
+                                                        arguments: university,
+                                                      );
+                                                    },
+                                                  ),
+                                                )
+                                                .toList(),
+                                          ],
                                         ),
                                       ),
                                     ),
                                   ],
                                 ),
+                                Spacer(),
+                                RoundedCornersTextButton(
+                                  title: 'Universität finden',
+                                  onTap: () {
+                                    Navigator.pop(
+                                      context,
+                                    );
+                                    NavBarService.setSelectedView(
+                                      context: context,
+                                      viewToSelect: NavBarView.university,
+                                    );
+                                  },
+                                ),
                                 SizedBox(
-                                  width: 20,
-                                ),
-                                Expanded(
-                                  child: Theme(
-                                    data: ThemeData(
-                                      canvasColor: AppColors.transparent,
-                                    ),
-                                    child: ReorderableListView(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      onReorder:
-                                          (int oldIndex, int newIndex) {},
-                                      children: [
-                                        PreferenceListTile(
-                                          key: Key('1'),
-                                          student: _student,
-                                          universities: _universities!,
-                                          position: '1',
-                                        ),
-                                        PreferenceListTile(
-                                          key: Key('2'),
-                                          student: _student,
-                                          universities: _universities,
-                                          position: '2',
-                                        ),
-                                        PreferenceListTile(
-                                          key: Key('3'),
-                                          student: _student,
-                                          universities: _universities,
-                                          position: '3',
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                  height: sidePadding,
+                                )
                               ],
                             ),
-                            Spacer(),
-                            RoundedCornersTextButton(
-                              title: 'Zu den Universitäten',
-                              backgroundColor: AppColors.white,
-                              textColor: AppColors.blue,
-                              onTap: () {
-                                Navigator.pop(context);
-                                NavBarService.setSelectedView(
-                                  context: context,
-                                  viewToSelect: NavBarView.university,
-                                );
-                              },
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            RoundedCornersTextButton(
-                              title: 'Speichern',
-                              onTap: () {},
-                            ),
-                            SizedBox(
-                              height: sidePadding,
+                            AnimatedSwitcher(
+                              duration: kThemeAnimationDuration,
+                              child: _isLoading
+                                  ? Container(
+                                      height: 320,
+                                      color: AppColors.white.withOpacity(0.8),
+                                      child: Center(
+                                        child: LoadingPlane(),
+                                      ),
+                                    )
+                                  : SizedBox.shrink(),
                             )
                           ],
                         ),
@@ -171,5 +205,35 @@ class _PreferenceListViewState extends State<PreferenceListView> {
         ),
       ),
     );
+  }
+
+  Future<void> _saveReorderedList({
+    required Student student,
+    required List<University> universities,
+    required int oldIndex,
+    required int newIndex,
+  }) async {
+    String oldPosition = (oldIndex + 1).toString();
+
+    String newPoisiton =
+        oldIndex > newIndex ? (newIndex + 1).toString() : (newIndex).toString();
+
+    String oldUniversityId = student
+        .documents[DocumentType.preferenceList]!.preferenceList![oldPosition]!;
+    String newUniversityId = student
+        .documents[DocumentType.preferenceList]!.preferenceList![newPoisiton]!;
+
+    await StudentService.reorderPreferenceList(
+      context: context,
+      student: student,
+      oldUniversityId: oldUniversityId,
+      oldPosition: oldPosition,
+      newUniversityId: newUniversityId,
+      newPosition: newPoisiton,
+    );
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 }

@@ -1,10 +1,12 @@
 import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/university.dart';
+import 'package:appflug/enums/views.dart';
 import 'package:appflug/routes/views.dart';
 import 'package:appflug/shared_utils/review._service.dart';
 import 'package:appflug/ui/shared_widgets.dart/university_hero_logo.dart';
 import 'package:appflug/ui/shared_widgets.dart/university_information.dart';
+import 'package:appflug/ui/views/navigation/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -60,6 +62,8 @@ class UniversityCard extends StatelessWidget {
                         university: university,
                         width: 200,
                         height: 30,
+                        isHeroEnabled: NavBarService.getSelectedView(context) ==
+                            NavBarView.university,
                       ),
                       Spacer(),
                       FlagEmoji(

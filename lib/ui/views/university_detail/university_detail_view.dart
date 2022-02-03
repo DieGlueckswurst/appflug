@@ -79,7 +79,7 @@ class _UniversityDetailViewState extends State<UniversityDetailView> {
                           width: LayoutService.isDesktop(context)
                               ? 400
                               : MediaQuery.of(context).size.width -
-                                  4 * sidePadding,
+                                  2 * sidePadding,
                           child: RoundedCornersTextButton(
                             title: _isOnPreferenceList
                                 ? 'Von Präferenzliste entfernen'
