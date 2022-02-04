@@ -70,6 +70,8 @@ class DocumentService {
           documentType: documentType,
           fileName: fileName,
         ),
+        rejectionText: null,
+        isValid: true,
       ),
     );
 

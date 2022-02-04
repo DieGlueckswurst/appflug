@@ -17,6 +17,7 @@ class HeroHeader extends StatelessWidget {
     return HeroMode(
       enabled: isEnabled,
       child: Hero(
+        transitionOnUserGestures: true,
         tag: HeroKeys.header,
         child: Row(
           children: [

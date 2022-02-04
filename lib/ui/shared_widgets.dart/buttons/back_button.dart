@@ -17,6 +17,7 @@ class CustomBackButton extends StatelessWidget {
     return HeroMode(
       enabled: isHeroEnabled,
       child: Hero(
+        transitionOnUserGestures: true,
         tag: HeroKeys.backButton,
         child: Row(
           children: [

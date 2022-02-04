@@ -65,6 +65,7 @@ class _RoundedCornersTextButtonState extends State<RoundedCornersTextButton>
       child: HeroMode(
         enabled: widget.heroKey != null,
         child: Hero(
+          transitionOnUserGestures: true,
           tag: widget.heroKey ?? '',
           child: MouseRegion(
             cursor: SystemMouseCursors.click,

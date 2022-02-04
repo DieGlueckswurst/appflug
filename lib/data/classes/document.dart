@@ -8,6 +8,7 @@ class Document {
   String? downloadUrl;
   Map<String, String>? preferenceList;
   String? rejectionText;
+  bool? isValid;
 
   Document({
     required this.type,
@@ -17,5 +18,6 @@ class Document {
     this.name,
     this.preferenceList,
     this.rejectionText,
+    this.isValid,
   });
 }

@@ -52,6 +52,7 @@ class BackendKeys {
   String get dateDateInMillisecondsSinceEpoch =>
       'dateDateInMillisecondsSinceEpoch';
   String get rejectionText => 'rejectionText';
+  String get isValid => 'isValid';
 
   String getKeyFromStatusOption(StatusOption statusOption) {
     if (statusOption == StatusOption.stud) {

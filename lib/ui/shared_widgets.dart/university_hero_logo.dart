@@ -22,6 +22,7 @@ class UniversityHeroLogo extends StatelessWidget {
     return HeroMode(
       enabled: isHeroEnabled,
       child: Hero(
+        transitionOnUserGestures: true,
         tag: HeroKeys.getKeyFromUniversity(
           university,
         ),

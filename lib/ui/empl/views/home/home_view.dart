@@ -21,7 +21,8 @@ class _HomeViewForEmplState extends State<HomeViewForEmpl> {
   @override
   Widget build(BuildContext context) {
     List<Application>? _applications = ApplicationService.getApplications(
-      context,
+      context: context,
+      listen: true,
     );
     if (_applications != null) {
       _applications.sort(
@@ -82,6 +83,16 @@ class _HomeViewForEmplState extends State<HomeViewForEmpl> {
                             controller: ScrollController(),
                             shrinkWrap: true,
                             children: [
+                              if (_applications.isEmpty) ...[
+                                SizedBox(
+                                  height: 50,
+                                ),
+                                Text(
+                                  'Derzeit gibt es keine offenen Bewerbungen. \nDu hast dir eine Pause verdient!',
+                                  style: AppTextStyles.montserratH5SemiBold,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                               ..._applications
                                   .map(
                                     (application) => Padding(

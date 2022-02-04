@@ -7,12 +7,14 @@ class CustomListTile extends StatelessWidget {
   final String title;
   final String? description;
   final VoidCallback onTap;
+  final Color? backgroundColor;
 
   const CustomListTile({
     Key? key,
     required this.title,
     required this.onTap,
     this.description,
+    this.backgroundColor,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class CustomListTile extends StatelessWidget {
             20,
           ),
           decoration: BoxDecoration(
+            color: backgroundColor ?? AppColors.white,
             border: Border.all(
               color: AppColors.blue,
               width: 3,
