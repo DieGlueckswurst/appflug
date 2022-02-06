@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -31,10 +32,10 @@ class CustomListTile extends StatelessWidget {
             color: backgroundColor ?? AppColors.white,
             border: Border.all(
               color: AppColors.blue,
-              width: 3,
+              width: defaultBorderWith,
             ),
             borderRadius: BorderRadius.circular(
-              10,
+              defaultBorderRadius,
             ),
           ),
           child: Row(

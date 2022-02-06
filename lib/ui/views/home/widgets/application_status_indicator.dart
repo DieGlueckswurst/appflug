@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/data/classes/student.dart';
@@ -32,10 +33,12 @@ class _ApplicationStatusIndicatorState
           ),
           decoration: BoxDecoration(
             border: Border.all(
-              width: 3,
+              width: defaultBorderWith,
               color: AppColors.blue,
             ),
-            borderRadius: BorderRadius.circular(30),
+            borderRadius: BorderRadius.circular(
+              30,
+            ),
             gradient: _getGradient(
               widget.student,
             ),

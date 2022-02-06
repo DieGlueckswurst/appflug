@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/student.dart';
@@ -26,16 +27,7 @@ class ReviewCard extends StatelessWidget {
         maxWidth: 400,
       ),
       child: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(
-            10,
-          ),
-          border: Border.all(
-            width: 3,
-            color: AppColors.blue,
-          ),
-        ),
+        decoration: defaultBoxDecoration,
         child: Padding(
           padding: EdgeInsets.all(
             15,

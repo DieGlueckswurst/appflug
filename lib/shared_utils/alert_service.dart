@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/shared_utils/layout_service.dart';
@@ -42,7 +43,7 @@ class AlertService {
       padding: EdgeInsets.all(20),
       backgroundColor: AppColors.blue,
       borderColor: AppColors.white,
-      borderWidth: 3,
+      borderWidth: defaultBorderWith,
       isDismissible: true,
       maxWidth: 500,
       duration: Duration(seconds: 4),
@@ -59,16 +60,7 @@ class AlertService {
         return AlertDialog(
           backgroundColor: AppColors.transparent,
           content: Container(
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              border: Border.all(
-                color: AppColors.blue,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.circular(
-                10,
-              ),
-            ),
+            decoration: defaultBoxDecoration,
             padding: EdgeInsets.all(
               sidePadding,
             ),
@@ -106,16 +98,7 @@ class AlertService {
           content: SingleChildScrollView(
             child: Builder(builder: (context3) {
               return Container(
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  border: Border.all(
-                    color: AppColors.blue,
-                    width: 3,
-                  ),
-                  borderRadius: BorderRadius.circular(
-                    10,
-                  ),
-                ),
+                decoration: defaultBoxDecoration,
                 padding: EdgeInsets.all(
                   sidePadding,
                 ),

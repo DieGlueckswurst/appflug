@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/document.dart';
 import 'package:appflug/shared_utils/alert_service.dart';
@@ -72,15 +73,7 @@ class _FilePickerViewState extends State<FilePickerView> {
           child: Container(
             height: 200,
             width: 180,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: AppColors.blue,
-                width: 3,
-              ),
-              borderRadius: BorderRadius.circular(
-                10,
-              ),
-            ),
+            decoration: defaultBoxDecoration,
             child: Center(
               child: AnimatedSwitcher(
                 duration: kThemeAnimationDuration,

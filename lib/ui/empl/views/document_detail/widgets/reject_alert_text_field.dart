@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/measurements.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/ui/shared_widgets.dart/buttons/rounded_corner_text_button.dart';
@@ -24,16 +25,7 @@ class _RejectAlertTextFieldState extends State<RejectAlertTextField> {
       children: [
         Container(
           height: 300,
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            border: Border.all(
-              color: AppColors.blue,
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-          ),
+          decoration: defaultBoxDecoration,
           padding: EdgeInsets.all(
             sidePadding,
           ),

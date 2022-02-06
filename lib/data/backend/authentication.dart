@@ -3,9 +3,11 @@
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
+import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/data/local_storage/local_storage_keys.dart';
 import 'package:appflug/data/local_storage/local_storage_service.dart';
 import 'package:appflug/data/provider/student_provider.dart';
+import 'package:appflug/data/provider/university_provider.dart';
 import 'package:appflug/shared_utils/application_service.dart';
 import 'package:appflug/shared_utils/student_service.dart';
 import 'package:appflug/enums/status_option.dart';
@@ -127,6 +129,7 @@ class AuthenticationService {
           viewToSelect: NavBarView.home,
         );
         Provider.of<StudentProvider>(context, listen: false).reset();
+        Provider.of<UniversityProvider>(context, listen: false).reset();
 
         ApplicationService.resetApplications(
           context: context,

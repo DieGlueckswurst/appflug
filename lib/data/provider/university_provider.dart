@@ -8,4 +8,9 @@ class UniversityProvider extends ChangeNotifier {
     currentUniversities = universities;
     notifyListeners();
   }
+
+  reset() {
+    currentUniversities = null;
+    notifyListeners();
+  }
 }

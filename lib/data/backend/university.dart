@@ -124,7 +124,7 @@ class UniversityBackendService extends BackendService {
           universityId: reviewData[keys.universityId],
           addedAtInMilliSecondsSinceEpoch:
               reviewData[keys.addedAtInMilliSecondsSinceEpoch],
-          average: reviewData[keys.average],
+          average: (reviewData[keys.average] as num).toDouble(),
           professors: reviewData[keys.professors],
           lectures: reviewData[keys.lectures],
           equipment: reviewData[keys.equipment],

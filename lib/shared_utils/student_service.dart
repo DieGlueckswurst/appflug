@@ -237,20 +237,22 @@ class StudentService {
       );
 
       if (wasSuccessfull) {
-        if (StudentService.getAreDocumentsComplete(context)) {
-          studentProvider.setApplicationStatusOption(
-            ApplicationStatusOption.readyForApplication,
-          );
-          return await BackendService().setApplicationStatus(
-            studentProvider.currentStudent!.applicationStatus,
-          );
-        }
         AlertService.showSnackBar(
           title: 'Erfolgreich gespeichert.',
           description:
               'Du kannst die Reihenfolge im Nachhinein auch noch ändern.',
           isSuccess: true,
         );
+        if (StudentService.getAreDocumentsComplete(context)) {
+          studentProvider.setApplicationStatusOption(
+            ApplicationStatusOption.readyForApplication,
+          );
+
+          return await BackendService().setApplicationStatus(
+            studentProvider.currentStudent!.applicationStatus,
+          );
+        }
+
         return true;
       } else {
         return false;

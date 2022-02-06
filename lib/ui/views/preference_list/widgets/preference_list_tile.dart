@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/classes/student.dart';
 import 'package:appflug/data/classes/university.dart';
@@ -44,16 +45,7 @@ class PreferenceListTile extends StatelessWidget {
           horizontal: 5,
         ),
         child: Container(
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            border: Border.all(
-              color: AppColors.blue,
-              width: 3,
-            ),
-            borderRadius: BorderRadius.circular(
-              10,
-            ),
-          ),
+          decoration: defaultBoxDecoration,
           key: Key(position),
           padding: EdgeInsets.all(
             20,

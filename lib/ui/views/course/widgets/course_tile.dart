@@ -1,4 +1,5 @@
 import 'package:appflug/constants/app_colors.dart';
+import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/enums/courses.dart';
 import 'package:appflug/ui/views/course/utils/course_service.dart';
@@ -29,10 +30,10 @@ class CourseTile extends StatelessWidget {
           color: isSelected ? AppColors.yellow : AppColors.white,
           border: Border.all(
             color: AppColors.blue,
-            width: 3,
+            width: defaultBorderWith,
           ),
           borderRadius: BorderRadius.circular(
-            10,
+            defaultBorderRadius,
           ),
         ),
         child: Row(
@@ -44,7 +45,7 @@ class CourseTile extends StatelessWidget {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  width: 3,
+                  width: defaultBorderWith,
                   color: AppColors.blue,
                 ),
                 color: AppColors.white,
@@ -56,7 +57,7 @@ class CourseTile extends StatelessWidget {
                         color: AppColors.blue,
                         border: Border.all(
                           color: AppColors.white,
-                          width: 3,
+                          width: defaultBorderWith,
                         ),
                       ),
                     )
