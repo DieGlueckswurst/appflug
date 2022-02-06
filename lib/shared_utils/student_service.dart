@@ -25,14 +25,20 @@ class StudentService {
   }
 
   static Future<void> initStudent({required BuildContext context}) async {
-    if (AuthenticationService.currentUser != null) {
+    var studentProvider = Provider.of<StudentProvider>(
+      context,
+      listen: false,
+    );
+
+    if (AuthenticationService.currentUser != null &&
+        !studentProvider.isDeletingAccount) {
       Student student = await BackendService().getStudentData(
         uid: AuthenticationService.currentUser!.uid,
       );
-      Provider.of<StudentProvider>(context, listen: false).setStudent(
+      studentProvider.setStudent(
         student,
       );
-      Provider.of<StudentProvider>(context, listen: false).setDataIsRetrieved(
+      studentProvider.setDataIsRetrieved(
         true,
       );
     }

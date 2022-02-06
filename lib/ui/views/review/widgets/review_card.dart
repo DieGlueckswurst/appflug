@@ -1,4 +1,3 @@
-import 'package:appflug/constants/app_colors.dart';
 import 'package:appflug/constants/box_decoration.dart';
 import 'package:appflug/constants/text_styles.dart';
 import 'package:appflug/data/backend/base.dart';

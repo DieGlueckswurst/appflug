@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 class StudentProvider extends ChangeNotifier {
   Student? currentStudent;
   bool dataIsRetrieved = false;
+  bool isDeletingAccount = false;
 
   setStudent(Student? student) {
     currentStudent = student;
@@ -72,9 +73,15 @@ class StudentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  setIsDeletingAccount(bool isDeleting) {
+    isDeletingAccount = isDeleting;
+    notifyListeners();
+  }
+
   reset() {
     dataIsRetrieved = false;
     currentStudent = null;
+    isDeletingAccount = false;
     notifyListeners();
   }
 

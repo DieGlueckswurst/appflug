@@ -3,7 +3,6 @@
 import 'package:appflug/data/backend/base.dart';
 import 'package:appflug/data/backend/storage.dart';
 import 'package:appflug/data/backend/student.dart';
-import 'package:appflug/data/classes/university.dart';
 import 'package:appflug/data/local_storage/local_storage_keys.dart';
 import 'package:appflug/data/local_storage/local_storage_service.dart';
 import 'package:appflug/data/provider/student_provider.dart';
@@ -203,6 +202,9 @@ class AuthenticationService {
 
   static Future<bool> deleteUser(BuildContext context) async {
     try {
+      Provider.of<StudentProvider>(context, listen: false).setIsDeletingAccount(
+        true,
+      );
       await BackendStorageService.deleteUser(context);
       await BackendService().deleteUser();
       await currentUser!.delete();
@@ -211,6 +213,7 @@ class AuthenticationService {
         viewToSelect: NavBarView.home,
       );
       Provider.of<StudentProvider>(context, listen: false).reset();
+      Provider.of<UniversityProvider>(context, listen: false).reset();
 
       return true;
     } on FirebaseException catch (error) {
